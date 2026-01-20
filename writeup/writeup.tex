@@ -1,0 +1,52 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{amsmath, amsfonts, graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{dsfont, mathtools, amsthm, diagbox, caption, subcaption}
+\usepackage[
+    backend=bibtex,
+    style=alphabetic,
+]{biblatex}
+\addbibresource{../bibliography.bib} %Imports bibliography file
+
+\title{Introduction to Entropy}
+\author{Erik Stern}
+
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\paren}[1]{\left(#1\right)}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\CrossEntropy}{CrossEntropy}
+\newcommand{\injoint}{\in \mathcal{X} \times \mathcal{Y}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+    This seminar paper provides a foundational overview of Information Theory, focusing on Entropy, Mutual Information, and Relative Entropy. 
+    We establish key definitions and prove fundamental inequalities, using Jensen's Inequality and the Log-Sum Inequality. 
+    To build intuition, theoretical results are complemented by numerical simulations of discrete random variables. 
+    Finally, we derive the relationship between Relative Entropy and Cross-Entropy, 
+    demonstrating their practical application in optimizing neural networks for the MNIST digit classification task.
+\end{abstract}
+
+\tableofcontents
+
+\section{TODO}
+
+\newpage
+\printbibliography
+
+\end{document}

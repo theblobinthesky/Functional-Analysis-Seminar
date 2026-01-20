@@ -1,0 +1,113 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Theme configuration - cleaner academic look
+\usetheme{Madrid}
+\usecolortheme{whale}
+\useinnertheme{rectangles}
+\useoutertheme{infolines}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+% Custom colors based on University of Passau branding
+\definecolor{unipassaublue}{RGB}{0,62,107}
+\definecolor{unipassaugray}{RGB}{88,88,90}
+\setbeamercolor{structure}{fg=unipassaublue}
+\setbeamercolor{frametitle}{bg=unipassaublue,fg=white}
+\setbeamercolor{title}{fg=unipassaublue}
+\setbeamercolor{block title}{bg=unipassaublue,fg=white}
+\setbeamercolor{block body}{bg=unipassaublue!10}
+\setbeamercolor{item}{fg=unipassaublue}
+
+% Logo in footer
+\logo{\includegraphics[height=0.8cm]{uni-passau-logo.png}}
+
+% Packages
+\usepackage[english]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{caption}
+
+% Macros from writeup/writeup.tex
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\paren}[1]{\left(#1\right)}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\argmin}{argmin}
+\newcommand{\injoint}{\in \mathcal{X} \times \mathcal{Y}}
+
+% Theorem environments
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{rmk}{Remark}
+
+\title{Introduction to Entropy}
+\subtitle{Stochastic Processes Seminar}
+\author{Erik Stern}
+\institute{University of Passau}
+\date{\today}
+
+% Section title slides - no text, just visual separator
+\setbeamercolor{title}{fg=white}
+\AtBeginSection[]{
+    \begin{frame}
+        \vfill
+        \centering
+        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+            \usebeamerfont{title}\insertsectionhead\par
+        \end{beamercolorbox}
+        \vfill
+    \end{frame}
+}
+
+\begin{document}
+
+% Title frame
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Table of contents
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Summary}
+    \begin{itemize}
+        \item Defined \textbf{Entropy}, \textbf{Mutual Information}, and \textbf{Relative Entropy}
+        \item Established \textbf{Chain Rules} for entropy and mutual information
+        \item Proved \textbf{Jensen's Inequality} and non-negativity of entropy measures
+        \item Showed which distributions \textbf{extremize entropy}
+        \item Proved the \textbf{Log-Sum Inequality} and convexity of relative entropy
+        \item Connected theory to practice via \textbf{Relative Entropy} loss in neural networks
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{References}
+    \begin{thebibliography}{99}
+        \bibitem{cover-thomas} T.~Cover and J.~Thomas, \emph{Elements of Information Theory}, Wiley, 2006.
+    \end{thebibliography}
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge Thank you!
+    
+    \vspace{1em}
+    \Large Questions?
+\end{frame}
+
+\end{document}

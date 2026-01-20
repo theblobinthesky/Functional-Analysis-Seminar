@@ -1,0 +1,15 @@
+*.aux
+*.log
+*.out
+*.bcf
+*.xml
+*.toc
+*blx.bib
+*.bbl
+*.blg
+*.snm
+*.nav
+__pycache__
+venv
+data
+.ruff_cache

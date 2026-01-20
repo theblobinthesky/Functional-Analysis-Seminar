@@ -1,0 +1,20 @@
+# Agent Guide
+- Python 3.11+ with NumPy, Matplotlib, and a LaTeX distro are required.
+- Activate your venv before running any scripts to keep deps isolated.
+- Build the paper via `bash writeup/compile_latex.sh` (writes to `output/`).
+- Regenerate every plot with `python scripts/recreate_all.py`.
+- To rerun a single figure/test, call `python scripts/entropy_weighted_coin.py` (replace file).
+- There is no pytest suite; treat each script as an executable smoke test.
+- Clean outputs by deleting individual PDFs inside `plots/` rather than wiping the folder.
+- Prefer modules with a `main()` function plus `if __name__ == "__main__": main()`.
+- Follow PEP 8: snake_case for functions/variables, CapWords for classes.
+- Keep imports grouped as: stdlib, third-party (NumPy/Matplotlib), local scripts, each block alphabetized.
+- Use explicit `as` aliases (`import numpy as np`, `import matplotlib.pyplot as plt`).
+- Format Python to 88 columns, indent with 4 spaces, and avoid trailing whitespace.
+- Type hints are encouraged for public functions; prefer `np.ndarray` or `np.typing.NDArray`.
+- Favor immutable inputs; copy arrays before mutating shared references.
+- Guard Matplotlib figures with `fig, ax = plt.subplots(...)` and call `fig.savefig(...)`.
+- When reading/writing relative paths, anchor at repo root (e.g., `../plots/...`).
+- Raise specific exceptions (`ValueError`, `RuntimeError`) instead of bare `Exception`.
+- Document LaTeX macros inside `writeup/root_document.tex`; keep presentation assets inside `presentation/`.
+- No Cursor or Copilot automation rules exist; keep this file ~20 lines and refresh it when workflows change.
