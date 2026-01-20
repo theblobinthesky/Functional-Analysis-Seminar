@@ -1,1 +1,1 @@
-# Stochastic-Processes-Seminar
+# Functional Analysis Seminar
