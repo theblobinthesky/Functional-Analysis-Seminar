@@ -2,7 +2,7 @@
 
 \usepackage[english]{babel}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
-\usepackage{amsmath, amsfonts, graphicx, enumitem}
+\usepackage{amsmath, amsfonts, graphicx, enumitem, xcolor}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{dsfont, mathtools, amsthm, diagbox, caption, subcaption}
 \usepackage[
@@ -11,34 +11,51 @@
 ]{biblatex}
 \addbibresource{../bibliography.bib} %Imports bibliography file
 
-\title{Introduction to Entropy}
+\title{Dual Operators}
 \author{Erik Stern}
 
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\eqdef}{=\vcentcolon}
 \newcommand{\paren}[1]{\left(#1\right)}
 \newcommand{\normedspace}[1]{(#1, \|\cdot\|_{#1})}
-\newcommand{\highlight}[1]{\textcolor{blue}{\textit{#1}}}
+\newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 \newcommand{\norm}[2]{\|#2\|_{#1}}
-\newcommand{\topodual}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
+\newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
+\newcommand{\thefield}{\ensuremath{\mathbb{K}}}
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\complexes}{\ensuremath{\mathbb{C}}}
+\newcommand{\chain}{\circ}
+\newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
+\newcommand{\comment}[1]{\textcolor{darkgray}{\text{#1}}}
 
-\newenvironment{romanenum}
-{\begin{enumerate}[label=\roman*)]}
-{\end{enumerate}}
+
+% ===== ENUMERATIONS =====
+\newlist{romanenum}{enumerate}{1}
+\setlist[romanenum]{label=\roman*):, leftmargin=*, labelsep=0.5em, align=left}
+
+\newlist{romanprooflist}{enumerate}{1}
+\setlist[romanprooflist]{label="\roman*)":, leftmargin=*, labelsep=0.5em, align=left}
+
 
 \newenvironment{proofidea}
 {\begin{proof}[Proof Idea]}
 {\end{proof}}
 
+
+
+% ===== THEOREM STYLING =====
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
+\newtheorem{repetition}{Repetition}
 \newtheorem{corollary}{Corollary}
-
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
 \newtheorem{remark}{Remark}
 
+
+
+% ===== DOCUMENT ====
 \begin{document}
 \maketitle
 
@@ -59,21 +76,18 @@
 \end{definition}
 
 \begin{definition}
-    Let $\normedspace{X}$ and $\normedspace{Y}$ be normed vector spaces on $\mathbb{R}$ or $\mathbb{C}$. \\
+    Let $\normedspace{X}$ and $\normedspace{Y}$ be normed vector spaces on \reals or \complexes. \\
     Let $T: X \rightarrow Y$ be linear. \\
     $T$ is a \highlight{linear operator}.
     $T$ is \highlight{bounded}, if $\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}$.
 \end{definition}
 
 \begin{definition}
-    \begin{romanenum}
-        \item Algebraic dual space: $X' \defeq \mathcal{L}$.
-        \item (Topological) Dual space: $X* \defeq \mathcal{L}$.
-    \end{romanenum}
+    The (topological) dual space is defined as $X^{*} \defeq \contoperators{X}{\mathbb{R}}$.
 \end{definition}
 
 \begin{theorem}
-    The topological dual space \topodual{X}{Y} is a Banach space.
+    The topological dual space \contoperators{X}{Y} is a Banach space.
 \end{theorem}
 \begin{proofidea}
     
@@ -112,32 +126,158 @@
     See functional analysis lecture of SS/25.
 \end{proof}
 
+% TODO: Prove that linear, bounded operators from X->Y and Y->Z can be chained together to be from X->Z linear, bounded.
+
 
 % TODO: Sublinear Definition and Theorem of Hahn-Banach
 
+% TODO: Why does Cauchy-Schwarz inequality work for operator norms on bounded, linear operators?
+
 
 \newpage
-\section{The adjunct operator}
+\section{The Adjunct Operator}
+\subsection{Definitions and Basic Properties}
 
+\begin{remark}
+    The terms \highlight{adjunct} and \highlight{dual} are often used interchangeably.
+    We will standardize on \highlight{adjunct}, to avoid unnecessary confusion. \\
+    We will abstract the field as $\thefield \in \{\reals, \complexes\}$.
+\end{remark}
 
 \begin{definition}
-    Let $X, Y$ be metric spaces and $T \in \topodual{X}{Y}$.
-    Let $T': Y' -> X'$.
-    Then $T'$ is the adjunct-/dual operator, 
-    if $(T'y')(x) = y'(Tx)$.
+    Let $X, Y$ be metric spaces and $T \in \contoperators{X}{Y}$. \\
+	 Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjunct operator.
+    From now on, we will implicitly refer to the metric spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
 \end{definition}
 
+\begin{remark}
+    In comparison to the operators we have previously worked with, the adjunct operator takes and outputs linear, bounded operators.
+	 It's one more level of abstraction removed from \thefield. \\
+	 For $y' \in Y' = \contoperators{Y}{\thefield}$, the adjunct operator evaluates to $T' y' \in \contoperators{X}{\thefield}$.
+\end{remark}
+
+
+\begin{theorem}
+    We can collect some basic properties of the dual operator:
+    \begin{romanenum}
+        \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
+            \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
+        \item $T \mapsto T'$ is linear and isometric.
+        \item $T \mapsto T'$ is not always surjective.
+	 \end{romanenum}
+\end{theorem}
+\begin{proof}
+    \begin{romanprooflist}
+        \item
+            We first prove linearity: \\
+            \begin{align*}
+                T'(\alpha y'_1 + y'_2) 
+                &= (\alpha y'_1 + y'_2) \chain T                \explainstep{apply def. of dual operator} \\
+                &= \alpha y'_1 \chain T + y'_2 \chain T         \explainstep{expand expression} \\
+                &= \alpha T' y'_1 + \beta T' y'_2               \explainstep{apply def. of dual operator} \\
+                &\text{for all } y'_1, y'_2 \in Y' \text{ and } \alpha \in \thefield
+            \end{align*}
+
+            We then prove boundedness of the operator norm: \\
+            \begin{align*}
+                \norm{X'}{T' y'}
+                &= \norm{X'}{y' \chain T}                           \explainstep{apply def. of dual operator} \\
+                &\le \norm{Y'}{y'}\norm{\contoperators{X}{Y}}{T}    \explainstep{Cauchy-Schwarz inequality} \\
+                &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant} \\
+                &\text{for all } y' \in Y'
+            \end{align*}
+
+        \item
+            We first prove linearity: \\
+            \begin{align*}
+                (\alpha T_1 + T_2)'(y')
+                &= y'\left(\alpha T_1 + T_2\right)              \explainstep{apply def. of dual operator} \\
+                &= \alpha y'(T_1) + y'(T_2)                     \explainstep{y' is linear} \\
+                &\text{for all } T_1, T_2 \in \contoperators{X}{Y} 
+                \text{ and } y' \in Y' 
+                \text{ and } \alpha \in \thefield
+            \end{align*}
+
+            We then prove isometry: \\
+            \begin{align*}
+                \norm{}{T} % TODO: This must be proven using Hahn-Banach.
+            \end{align*}
+      
+
+        \item
+            We construct a counterexample: \\
+
+
+    \end{romanprooflist}
+\end{proof}
+
+\begin{example}
+    % TODO
+\end{example}
+
+\begin{repetition}[The Adjunct Operator reverses composition]
+    Let $X, Y, Z$ be normed metric spaces. \\
+    Then we have $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
+\end{repetition}
+\begin{proof}
+    Let $T \in \contoperators{X}{Y}$ and $S \in \contoperators{Y}{Z}$. \\
+    We know $ST = S \chain T$ is still a linear, bounded operator from $X$ to $Z$.
+    So $(ST)'$ is well-defined. \\
+    Let $z' \in Z' = \contoperators{Z}{\thefield}$ and set $y' = z' \chain S \in \contoperators{Y}{\thefield}$. \\
+    We can now evaluate the expression on $z'$:
+    \begin{align*}
+        (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of dual operator} \\
+        &= (z' \chain S) \chain T       \explainstep{write out chain explicitly} \\
+        &= y' \chain T                  \explainstep{subst. y'} \\
+        &= T' y'                        \explainstep{apply def. of dual operator} \\
+        &= T' (z' \chain S)             \explainstep{subst. y'} \\
+        &= T' S' z'                     \explainstep{apply def. of dual operator}
+    \end{align*}
+    So in total, $(ST)' = T' S'$.
+\end{proof}
+
+\begin{example}
+    % TODO: Add the example with i_X and i_Y. (Lemma III.4.3)
+\end{example}
+
+\newpage
+\subsection{In Hilbert Spaces}
+Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
+
+\newpage
+\subsection{Examples for Adjunct Operators on Banach Spaces}
+
+\newpage
+\subsection{Examples for Adjunct Operators on Hilbert Spaces}
+
+\newpage
+\subsection{Examples for Adjunct Operators in Finite Dimensional Hilbert Spaces}
+
 % TODO: Examples for dual operators in l_p, L_p and some identity into the dual-dual space.
+% TODO: Make sure to find out which is which.
 
 % TODO: Maybe you can add an example from optimisation?
 
 % TODO: Thereom by Arzela-Ascoli
 
-\begin{theorem}
+\newpage
+\subsection{Advanced Properties}
 
+\begin{theorem}[Schauder]
+\end{theorem}
+\begin{proof}
+\end{proof}
+
+\begin{theorem}[Schauder]
+\end{theorem}
+
+\begin{theorem}[Schauder]
 \end{theorem}
 
 \newpage
 \printbibliography
 
+% TODO: Add reminders everywhere. E.g. remind the reader of the definition of topological dual spaces when appropriate. We need to assume the reader is new to the subject.
+
 \end{document}
+
