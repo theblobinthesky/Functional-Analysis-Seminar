@@ -16,18 +16,31 @@
 
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\eqdef}{=\vcentcolon}
-\newcommand{\paren}[1]{\left(#1\right)}
+\renewcommand{\implies}{\Rightarrow}
 \newcommand{\normedspace}[1]{(#1, \|\cdot\|_{#1})}
 \newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 \newcommand{\norm}[2]{\|#2\|_{#1}}
 \newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
 \newcommand{\thefield}{\ensuremath{\mathbb{K}}}
-\newcommand{\reals}{\ensuremath{\mathbb{R}}}
-\newcommand{\complexes}{\ensuremath{\mathbb{C}}}
 \newcommand{\chain}{\circ}
 \newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
 \newcommand{\comment}[1]{\textcolor{darkgray}{\text{#1}}}
+\newcommand{\leftrightproof}{\glqq\ensuremath{\Rightarrow}\grqq:\quad}
+\newcommand{\rightleftproof}{\glqq\ensuremath{\Leftarrow}\grqq:\quad}
+\newcommand{\logicaland}{\ensuremath{\wedge}}
 
+% ===== BRACKETS =====
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\brackets}[1]{\left[#1\right]}
+\newcommand{\braces}[1]{\left\{#1\right\}}
+
+% ===== SETS ======
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\complexes}{\ensuremath{\mathbb{C}}}
+\newcommand{\naturals}{\ensuremath{\mathbb{N}}}
+
+% ===== SPECIAL OPERATORS =====
+\DeclareMathOperator{\rk}{rk}
 
 % ===== ENUMERATIONS =====
 \newlist{romanenum}{enumerate}{1}
@@ -46,7 +59,7 @@
 % ===== THEOREM STYLING =====
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}
-\newtheorem{repetition}{Repetition}
+\newtheorem{revision}{Revision}
 \newtheorem{corollary}{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
@@ -215,10 +228,10 @@
     % TODO
 \end{example}
 
-\begin{repetition}[The Adjunct Operator reverses composition]
+\begin{revision}[The Adjunct Operator reverses composition]
     Let $X, Y, Z$ be normed metric spaces. \\
     Then we have $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
-\end{repetition}
+\end{revision}
 \begin{proof}
     Let $T \in \contoperators{X}{Y}$ and $S \in \contoperators{Y}{Z}$. \\
     We know $ST = S \chain T$ is still a linear, bounded operator from $X$ to $Z$.
@@ -258,26 +271,92 @@ Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
 
 % TODO: Maybe you can add an example from optimisation?
 
-% TODO: Thereom by Arzela-Ascoli
-
 \newpage
-\subsection{Advanced Properties}
+\subsection{Relation to Compactness}
+
+\begin{definition} % NOTE: Revision.
+    The following definitions are revisions from the lecture: \\
+    Let $X, Y$ be normed metric spaces.
+    \begin{romanenum}
+        \item $X$ is relatively compact, if $\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (T x_n)_{n \in \naturals} \text{ has a converging subsequence}$.
+        \item $T \in \naturals$ is compact, if $T B(0, \le 1, X) \text{ is relatively compact}$.
+        \item The rank of T is $\rk T = \dim{T(X)}$.
+    \end{romanenum}
+\end{definition}
+
+\begin{remark}
+    % TODO: Explain the significance of these definitions.
+\end{remark}
+
+\begin{definition}
+    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}: \\
+    Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
+    \begin{romanenum}
+        \item $M$ is uniformly equicontinous, if \\
+            $\forall \epsilon > 0, \exists \delta > 0, \forall f \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty)$.
+        \item $M$ is pointwise bounded, if $\forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded}$.
+    \end{romanenum}
+\end{definition}
+
+\begin{revision}[Arzelà-Ascoli]
+    Let $D$ be a compact metric space and $\subset C(D) = \braces{f: D \rightarrow \thefield \text{ continous}}$. \\
+    Then we have 
+    \begin{align*}
+        M \text{ relatively-compact} \iff M \text{ uniformly equicontinous} \logicaland M \text{ pointwise bounded}
+    \end{align*}
+\end{revision}
+\begin{proofidea}
+    TODO
+\end{proofidea}
+
+\begin{definition}
+    Let $X$ be a normed vector space. 
+    \begin{romanenum}
+        \item $X''$ is called the bidual space.
+        \item $i: X' \rightarrow \thefield$ % TODO: Define i_X and prove it's a bounded, linear operator
+    \end{romanenum} 
+\end{definition}
 
 \begin{theorem}[Schauder]
+    Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ a linear, continous operator.
+    Then we have
+    \begin{align*}
+        T \text{ compact} \iff T' \text{ compact}
+    \end{align*}
 \end{theorem}
 \begin{proof}
+    \leftrightproof
+    TODO \\
+    \rightleftproof
+    We have $T'$ is compact. Using the first part of the proof, we know $T''$ is compact. \\
+    Since $T'' \chain i_X = i_Y \chain T$ we know $i_Y \chain T$ is compact. \\
+    Since $Y \subset Y''$ is closed, we get $T$ compact. % TODO: Why????
 \end{proof}
 
-\begin{theorem}[Schauder]
-\end{theorem}
+% IDK if this fits in at all????
+% \begin{example}
+%     % General example with compact integral operator (Script Example 3.35)
+%     % Specify to bounded fourier transform.
+%     % Somehow connect to dual topological space??? Idk if this is good. The punchline is maybe not ideal.
+% \end{example}
 
-\begin{theorem}[Schauder]
-\end{theorem}
+% \begin{theorem}[Schauder]
+% \end{theorem}
+
+% \begin{theorem}[Schauder]
+% \end{theorem}
+
+\newpage
+\subsection{Operator Equations}
+
+% TODO: Theorem about solutions to Tx=y
+% TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation
 
 \newpage
 \printbibliography
 
 % TODO: Add reminders everywhere. E.g. remind the reader of the definition of topological dual spaces when appropriate. We need to assume the reader is new to the subject.
 
-\end{document}
+% TODO: I like the analogy that compact operators are "almost finite-dimensional" because bounded sets are mapped to compact sets (modulu closedness).
 
+\end{document}
