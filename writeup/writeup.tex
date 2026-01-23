@@ -9,7 +9,7 @@
     backend=bibtex,
     style=alphabetic,
 ]{biblatex}
-\addbibresource{../bibliography.bib} %Imports bibliography file
+\addbibresource{../bibliography.bib}
 
 \title{Dual Operators}
 \author{Erik Stern}
@@ -17,11 +17,15 @@
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\eqdef}{=\vcentcolon}
 \renewcommand{\implies}{\Rightarrow}
+\newcommand{\convergesto}{\longrightarrow}
 \newcommand{\normedspace}[1]{(#1, \|\cdot\|_{#1})}
+\newcommand{\sequence}[2]{\ensuremath{(#2)_{#1 \in \naturals}}}
 \newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 \newcommand{\norm}[2]{\|#2\|_{#1}}
+\newcommand{\abs}[1]{|#1|}
 \newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
-\newcommand{\thefield}{\ensuremath{\mathbb{K}}}
+\newcommand{\closedunitball}[1]{\ensuremath{B(0, \mathord{\le} 1, #1)}}
+\newcommand{\thefield}{\ensuremath{\mathbb{F}}}
 \newcommand{\chain}{\circ}
 \newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
 \newcommand{\comment}[1]{\textcolor{darkgray}{\text{#1}}}
@@ -78,6 +82,11 @@
 
 \tableofcontents
 
+\section{Motivation}
+
+% TODO: Motivate with linear algebra.
+
+\newpage
 \section{Revision}
 
 \begin{definition}
@@ -254,17 +263,43 @@
 \end{example}
 
 \newpage
-\subsection{In Hilbert Spaces}
-Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
+\subsection{The Dual Space of the Dual Space}
 
-\newpage
-\subsection{Examples for Adjunct Operators on Banach Spaces}
+\noindent For starters, we need to recall some concepts from the lecture.
 
-\newpage
-\subsection{Examples for Adjunct Operators on Hilbert Spaces}
+\begin{definition}
+    Let $X$ be a normed vector space. 
+    \begin{romanenum}
+        \item $X''$ is called the bidual space.
+        \item Let $J_x: X' \rightarrow \thefield, x' \mapsto x'(x)$ and $J: X \rightarrow X'', x \mapsto J_x$.
+            $J$ is called the \highlight{canonical embedding} from $X$ into $X''$.
+    \end{romanenum} 
+\end{definition}
 
-\newpage
-\subsection{Examples for Adjunct Operators in Finite Dimensional Hilbert Spaces}
+\begin{revision}
+    % Properties of that thing.
+\end{revision}
+\begin{proof}
+    % TODO
+\end{proof}
+
+\begin{theorem}[The Operator, Adjunct Operator and the Canonical Embeddings]
+\end{theorem}
+\begin{proof}
+\end{proof}
+
+% \newpage
+% \subsection{In Hilbert Spaces}
+% Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
+
+% \newpage
+% \subsection{Examples for Adjunct Operators on Banach Spaces}
+
+% \newpage
+% \subsection{Examples for Adjunct Operators on Hilbert Spaces}
+
+% \newpage
+% \subsection{Examples for Adjunct Operators in Finite Dimensional Hilbert Spaces}
 
 % TODO: Examples for dual operators in l_p, L_p and some identity into the dual-dual space.
 % TODO: Make sure to find out which is which.
@@ -273,6 +308,8 @@ Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
 
 \newpage
 \subsection{Relation to Compactness}
+
+\noindent For starters, we need to recall and revise some concepts from the lecture.
 
 \begin{definition} % NOTE: Revision.
     The following definitions are revisions from the lecture: \\
@@ -284,54 +321,124 @@ Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
     \end{romanenum}
 \end{definition}
 
-\begin{remark}
-    % TODO: Explain the significance of these definitions.
-\end{remark}
+% Explanation of the significance of these definitions:
+% TODO: Add examples to this section. The motivation is still not clear enough.
+\noindent As a reminder, in metric spaces a subset is compact iff.\ all sequences contain a converging subsequence in that set.
+So relatively compact is a relaxed version of compactness: it disposes of the closed requirement.
+An important property of the closed unit ball in $\reals^n$ or $\complexes$ is that it is compact.
+Therefore, a linear operator between $\thefield^n \rightarrow \thefield^m$ always maps the closed unit ball to a compact set.
+But the domain might not be a finite-dimensional normed space and the unit ball of the domain might not be compact either.
+
+Even when we only know that a bounded operator has finite rank, we can see that it is always compact:
+In finite dimensions, all norms are equivalent. So $(X, \norm{}{\cdot})$ and $(X, \norm{1}{\cdot})$ have the same open sets.
+In finite dimensions, linear algebra tells us that $(X, \norm{1}{\cdot})$ and $(\reals^{\dim{X}}, \norm{1}{\cdot})$ have the same open sets.
+So all finite-dimensional normed spaces are topologically equivalent to some space $\reals^n$.
+In $\reals^n$, the theorem of Heine-Borel tells us that all bounded subsets are relatively-compact.
+Since relatively-compact is a topological property, the theorem transfers to $(X, \norm{}{\cdot})$.
+Finally, a finite rank causes the bounded image of the operator to be finite-dimensional, which then causes it to be relatively-compact.
+This is a very strong statement, considering that the domain unit ball might not be compact at all.
+
+This finally breaks down when the rank is infinite.
+So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general banach spaces.
 
 \begin{definition}
-    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}: \\
+    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}! \\
     Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
     \begin{romanenum}
         \item $M$ is uniformly equicontinous, if \\
-            $\forall \epsilon > 0, \exists \delta > 0, \forall f \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty)$.
+            $\forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon$.
         \item $M$ is pointwise bounded, if $\forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded}$.
     \end{romanenum}
 \end{definition}
 
+\noindent The theorem of \highlight{Arzelà-Ascoli} from the lecture gives us a characterisation of relative compactness 
+for the set of continous functions on a compact metric space using the two previous concepts.
+This is interesting, because uniform equicontinouity and pointwise boundedness are (relatively) simple properties 
+of the functions \highlight{evaluations} rather than the functions themselves. They can be easily verified to be true.
+
 \begin{revision}[Arzelà-Ascoli]
-    Let $D$ be a compact metric space and $\subset C(D) = \braces{f: D \rightarrow \thefield \text{ continous}}$. \\
-    Then we have 
-    \begin{align*}
-        M \text{ relatively-compact} \iff M \text{ uniformly equicontinous} \logicaland M \text{ pointwise bounded}
-    \end{align*}
+    Let $D$ be a compact metric space and $M \subset C(D) = \braces{f: D \rightarrow \thefield \text{ continous}}$ with the supremum norm. \\
+    Then we have $M$ is uniformly equicontinous and pointwise bounded implies $M$ is relatively compact.
 \end{revision}
 \begin{proofidea}
-    TODO
+    \begin{enumerate}
+        \item $D$ is seperable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
+        \item For all $x \in M$ we can use the pointwise boundedness to invoke Bolzano-Weierstraß to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
+        \item Specifically, we have $\forall x \in D_0 \cap M \eqdef M_0: (f_{n(x, k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
+            $\forall x \in M_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item We already have $f_{n(k)}|_{M_0} \convergesto: f|_{M_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
+            But how can you extend this to the entire set $M$?
+        \item For each $x \in M$, we can choose an arbitrarily close $x_0 \in M_0$. Using two triangle inequalities, uniform equicontinouity allows us to extend the result to $M$. \\
+            As $C(D)$ is complete, the Cauchy sequence converges.
+    \end{enumerate}
 \end{proofidea}
 
-\begin{definition}
-    Let $X$ be a normed vector space. 
-    \begin{romanenum}
-        \item $X''$ is called the bidual space.
-        \item $i: X' \rightarrow \thefield$ % TODO: Define i_X and prove it's a bounded, linear operator
-    \end{romanenum} 
-\end{definition}
+\noindent Using the revision, we can now prove the theorem of Schauder and then trace the arguments through both proofs to get a better understanding of the ideas.
 
 \begin{theorem}[Schauder]
-    Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ a linear, continous operator.
-    Then we have
-    \begin{align*}
-        T \text{ compact} \iff T' \text{ compact}
-    \end{align*}
+    Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ be a bounded, linear operator.
+    Then we have $T$ is compact iff.\ $T'$ is compact.
 \end{theorem}
 \begin{proof}
     \leftrightproof
-    TODO \\
-    \rightleftproof
-    We have $T'$ is compact. Using the first part of the proof, we know $T''$ is compact. \\
-    Since $T'' \chain i_X = i_Y \chain T$ we know $i_Y \chain T$ is compact. \\
-    Since $Y \subset Y''$ is closed, we get $T$ compact. % TODO: Why????
+    Let $(y'_n)_{n \in \naturals} \subset Y' = \contoperators{Y}{\thefield} \subset C(Y)$ be bounded. \\
+    Our goal is to show that there is a convergent subsequence in $(T' y'_n)_{n \in \naturals}$
+    with respect to $(X', \norm{}{\cdot})$ where $\norm{}{\cdot}$ is the operator norm.
+
+    \noindent Let $K = \closedunitball{X}$ and for all $n \in \naturals$ set $f_n = (y'_n \chain T)|_{B} \in \contoperators{X}{\thefield}$.
+    Then we have
+    \begin{align*}
+        \norm{\infty}{f - f_m} % TODO: This part of the proof is very questionable. I think this is wrong!
+        &= \sup_{\norm{X}{x} = 1}{((y' \chain T) - (y'_m \chain T))x}       \explainstep{apply def. of $f_n$ and $f_m$} \\
+        &= \norm{}{y' \chain T - y'_m \chain T}                             \explainstep{use supremum char. of operator norm}
+    \end{align*}
+    This tells us that convergence in the operator norm only cares about the behavior on the closed unit ball!
+    Let $D = \overline{T \closedunitball{X}}$.
+    \noindent We have
+    \begin{enumerate}
+        \item $D$ is an (inherited) metric space.
+        \item $D$ is closed by definition.
+        \item $T(\closedunitball{X})$ is a bounded set under a bounded operator, so $D$ is bounded.
+    \end{enumerate}
+    Since $D$ is in a metric space, it must be compact. \\
+
+    \noindent We can now pack our sequence into $M \defeq \braces{f_n \mid n \in \naturals}$ and examine it for
+    \begin{enumerate}
+        \item Pointwise boundedness: For $x \in \closedunitball{X}$ and $n \in \naturals$
+            \begin{align*}
+                \abs{f_n(x)}
+                &= \abs{y'_n(Tx)} \defeq \abs{y'_n(d)}      \explainstep{apply def. of $f_n$ and define $d$} \\
+                &\le C_1 \norm{Y}{d} \le C_1 C_2            \explainstep{apply op. norm ineq. and D bounded means $\norm{Y}{d} \le: C_2$}
+            \end{align*}
+
+        \item Uniform equicontinuity: For $n \in \naturals, \epsilon > 0, \delta = \frac{\epsilon}{C_1 C_2}, \forall x, y \in K, \norm{X}{x - y} < \delta$
+            \begin{align*}
+                \norm{Y}{f_n(x) - f_n(y)}
+                &\le \norm{Y}{y'_n \chain Tx - y'_n \chain Ty}                  \explainstep{apply def. of $f_n$} \\
+                &\le \norm{}{y'_n} \norm{Y}{T(x - y)}                           \explainstep{factor out and apply op. norm ineq.} \\
+                &\le \norm{}{y'_n} \norm{}{T} \norm{X}{x - y}                   \explainstep{apply op. norm ineq.} \\
+                &\le C_1 C_2 \norm{X}{x - y} < C_1 C_2 \delta = \epsilon        \explainstep{apply bounded and substitute in $\delta$}
+            \end{align*}
+    \end{enumerate}
+
+    \noindent The theorem of Arzelà-Ascoli now tells us that $M$ is relatively compact.
+    So every sequence in $M$ has a convergent subsequence.
+    In particular for the convergent subsequence \sequence{k}{f_{n(k)}} we have
+    \begin{align*}
+        \sequence{k}{f_{n(k)}}
+        &= \sequence{k}{y'_n \chain T}      \explainstep{apply def. of $f_{n(k)}$} \\
+        &= \sequence{k}{T' y'_{n(k)}}       \explainstep{apply def. of adjunct operator}
+    \end{align*}
+
+    \noindent So finally, \sequence{k}{T' y'_{n(k)}} is a convergent subsequence of \sequence{k}{T' y'_k}. \\
+
+    \noindent \rightleftproof
 \end{proof}
+
+\begin{example}
+    % Example with C[0, 1] and a compact integral operator on that space.
+\end{example}
 
 % IDK if this fits in at all????
 % \begin{example}
@@ -339,12 +446,6 @@ Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
 %     % Specify to bounded fourier transform.
 %     % Somehow connect to dual topological space??? Idk if this is good. The punchline is maybe not ideal.
 % \end{example}
-
-% \begin{theorem}[Schauder]
-% \end{theorem}
-
-% \begin{theorem}[Schauder]
-% \end{theorem}
 
 \newpage
 \subsection{Operator Equations}
@@ -356,7 +457,5 @@ Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
 \printbibliography
 
 % TODO: Add reminders everywhere. E.g. remind the reader of the definition of topological dual spaces when appropriate. We need to assume the reader is new to the subject.
-
-% TODO: I like the analogy that compact operators are "almost finite-dimensional" because bounded sets are mapped to compact sets (modulu closedness).
 
 \end{document}
