@@ -26,7 +26,7 @@
 \newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
 \newcommand{\closedunitball}[1]{\ensuremath{B(0, \mathord{\le} 1, #1)}}
 \newcommand{\thefield}{\ensuremath{\mathbb{F}}}
-\newcommand{\chain}{\circ}
+\newcommand{\chain}{\ensuremath{\circ}}
 \newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
 \newcommand{\comment}[1]{\textcolor{darkgray}{\text{#1}}}
 \newcommand{\leftrightproof}{\glqq\ensuremath{\Rightarrow}\grqq:\quad}
@@ -45,6 +45,9 @@
 
 % ===== SPECIAL OPERATORS =====
 \DeclareMathOperator{\rk}{rk}
+\let\ker\relax
+\DeclareMathOperator{\ker}{Ker}
+\DeclareMathOperator{\im}{Im}
 
 % ===== ENUMERATIONS =====
 \newlist{romanenum}{enumerate}{1}
@@ -82,30 +85,31 @@
 
 \tableofcontents
 
-\section{Motivation}
+\section{Introduction}
+\subsection{Motivation}
+The goal of dual- or adjoint operators is to generalize the notion of an adjoint matrix
+(often denoted as $A^T$ over \reals\ or $A^H$ over \complexes)
+to general operators on banach spaces.
 
-% TODO: Motivate with linear algebra.
+\noindent We will cover these well-known statements from linear algebra:
+\begin{enumerate}
+    \item TODO
+    \item The fundamental theorem of linear algebra (Gilbert Strang) or rank-nullity theorem: \\
+        $(\im A)^\perp = \ker A^H$.
+\end{enumerate}
 
-\newpage
-\section{Revision}
+
+\subsection{Revision}
 
 \begin{definition}
-    The following basic definitions:
-    \begin{romanenum}
-        \item Banach Space
-        \item Hilbert Space
-    \end{romanenum}
-\end{definition}
-
-\begin{definition}
-    Let $\normedspace{X}$ and $\normedspace{Y}$ be normed vector spaces on \reals or \complexes. \\
+    Let $\normedspace{X}$ and $\normedspace{Y}$ be normed vector spaces on \reals\ or \complexes. \\
     Let $T: X \rightarrow Y$ be linear. \\
     $T$ is a \highlight{linear operator}.
     $T$ is \highlight{bounded}, if $\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}$.
 \end{definition}
 
 \begin{definition}
-    The (topological) dual space is defined as $X^{*} \defeq \contoperators{X}{\mathbb{R}}$.
+    The (topological) dual space is defined as $X' \defeq \contoperators{X}{\mathbb{R}}$.
 \end{definition}
 
 \begin{theorem}
@@ -150,19 +154,16 @@
 
 % TODO: Prove that linear, bounded operators from X->Y and Y->Z can be chained together to be from X->Z linear, bounded.
 
-
 % TODO: Sublinear Definition and Theorem of Hahn-Banach
+% *) Script 
 
-% TODO: Why does Cauchy-Schwarz inequality work for operator norms on bounded, linear operators?
 
-
-\newpage
 \section{The Adjunct Operator}
 \subsection{Definitions and Basic Properties}
 
 \begin{remark}
     The terms \highlight{adjunct} and \highlight{dual} are often used interchangeably.
-    We will standardize on \highlight{adjunct}, to avoid unnecessary confusion. \\
+    We will standardize on \highlight{adjunct}, to avoid unnecessary confusion. \\ % TODO: maybe this should be adjoint rather than adjunct
     We will abstract the field as $\thefield \in \{\reals, \complexes\}$.
 \end{remark}
 
@@ -180,7 +181,7 @@
 
 
 \begin{theorem}
-    We can collect some basic properties of the dual operator:
+    We can collect some basic properties of the adjunct operator:
     \begin{romanenum}
         \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
             \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
@@ -222,12 +223,17 @@
 
             We then prove isometry: \\
             \begin{align*}
-                \norm{}{T} % TODO: This must be proven using Hahn-Banach.
+                \norm{}{T}
+                &= \sup_{\norm{X}{x} \le 1}\norm{Y}{Tx}                                 \explainstep{use supremum char. of op. norm} \\
+                &= \sup_{\norm{X}{x} \le 1}\sup_{\norm{}{y'} \le 1}{\abs{y'(Tx)}}       \explainstep{todo consult script} \\
+                &= \sup_{\norm{}{y'} \le 1}\sup_{\norm{X}{x} \le 1}{\abs{y'(Tx)}}       \explainstep{supremum order can be switched} \\
+                &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjunct operator and op. norm} \\
+                &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
             \end{align*}
-      
 
         \item
             We construct a counterexample: \\
+            % TODO
 
 
     \end{romanprooflist}
@@ -237,16 +243,17 @@
     % TODO
 \end{example}
 
-\begin{revision}[The Adjunct Operator reverses composition]
+\begin{revision}[]
     Let $X, Y, Z$ be normed metric spaces. \\
-    Then we have $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
+    Then the Adjunct Operator reverses composition: \\
+    $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
 \end{revision}
 \begin{proof}
     Let $T \in \contoperators{X}{Y}$ and $S \in \contoperators{Y}{Z}$. \\
     We know $ST = S \chain T$ is still a linear, bounded operator from $X$ to $Z$.
     So $(ST)'$ is well-defined. \\
     Let $z' \in Z' = \contoperators{Z}{\thefield}$ and set $y' = z' \chain S \in \contoperators{Y}{\thefield}$. \\
-    We can now evaluate the expression on $z'$:
+    We can now evaluate the expression on $z' \in Z'$:
     \begin{align*}
         (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of dual operator} \\
         &= (z' \chain S) \chain T       \explainstep{write out chain explicitly} \\
@@ -263,7 +270,7 @@
 \end{example}
 
 \newpage
-\subsection{The Dual Space of the Dual Space}
+\subsection{The dual space of the dual space}
 
 \noindent For starters, we need to recall some concepts from the lecture.
 
@@ -271,22 +278,46 @@
     Let $X$ be a normed vector space. 
     \begin{romanenum}
         \item $X''$ is called the bidual space.
-        \item Let $J_x: X' \rightarrow \thefield, x' \mapsto x'(x)$ and $J: X \rightarrow X'', x \mapsto J_x$.
-            $J$ is called the \highlight{canonical embedding} from $X$ into $X''$.
+        \item Let $J_X: X \rightarrow X'', p \mapsto (x' \mapsto x'(p))$.
+            $J_X$ is called the \highlight{canonical embedding} from $X$ into $X''$.
     \end{romanenum} 
+    So $J_X$ returns a function that evaluates dual space elements at $p \in X$.
 \end{definition}
 
-\begin{revision}
-    % Properties of that thing.
-\end{revision}
-\begin{proof}
-    % TODO
-\end{proof}
-
-\begin{theorem}[The Operator, Adjunct Operator and the Canonical Embeddings]
+\begin{theorem}
+    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
+    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator and $T' \in \contoperators{Y'}{X'}$ the adjunct operator. \\
+    Then we have: $J_Y \chain T = T'' \chain J_X$.
 \end{theorem}
 \begin{proof}
+    Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
+    \begin{itemize}
+        \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjunct operator.
+        \item $T'': X'' \rightarrow Y'', x'' \mapsto x'' \chain T'$ is the biadjunct operator.
+    \end{itemize}
+
+    \noindent Now first of all, we need to check that the signatures of both sides of the equation match:
+    \begin{itemize}
+        \item $J_Y: Y \rightarrow Y''$   and $T: X \rightarrow Y$     means $(J_Y \chain T): X \rightarrow Y''$.
+        \item $T'': X'' \rightarrow Y''$ and $J_X: X \rightarrow X''$ means $(T'' \chain J_X): X \rightarrow Y''$.
+    \end{itemize}
+
+    \noindent Finally, for $p \in X$ and $y' \in Y'$ we have
+    \begin{align*}
+        \brackets{(J_Y \chain T)(p)}(y')
+        &= J_Y(Tp)(y') = y'(Tp)                 \explainstep{subst. $p$ in and apply def. of $J_Y$} \\
+        &= (y'T)(p)                             \explainstep{use associativity} \\
+        &= (T'y')(p)                            \explainstep{apply def. of $T'$} \\
+        &= (x' \mapsto x'(p))(T'y')             \explainstep{pull out subst. function} \\
+        &= J_X(p)(T'y')                         \explainstep{recognize this is just $J_X$} \\
+        &= T''(J_X(p))(y')                      \explainstep{apply def. use $T''$} \\
+        &= \brackets{(T'' \chain J_X)(p)}(y')   \explainstep{use \chain\ notation}
+    \end{align*}
 \end{proof}
+
+\begin{example}
+    % TODO
+\end{example}
 
 % \newpage
 % \subsection{In Hilbert Spaces}
@@ -307,7 +338,7 @@
 % TODO: Maybe you can add an example from optimisation?
 
 \newpage
-\subsection{Relation to Compactness}
+\subsection{Compact (adjunct) operators}
 
 \noindent For starters, we need to recall and revise some concepts from the lecture.
 
