@@ -87,7 +87,7 @@
 
 
 % ===== MISC =====
-\newcommand{\refertolecture}{\text{Please refer to the functional analysis lecture notes from the summer of 2025.}}
+\newcommand{\refertolecture}{\text{Please refer to the functional analysis lecture notes from SS/2025.}}
 
 
 % ===== DOCUMENT ====
@@ -170,119 +170,6 @@ to general operators on banach spaces.
     % TODO: Add simple integral operator example.
 \end{example}
 
-\subsection{The dual space of the dual space}
-
-\noindent For starters, we need to recall some concepts from the lecture.
-
-\begin{definition}
-    Let $X$ be a normed vector space. 
-    \begin{romanenum}
-        \item $X''$ is called the bidual space.
-        \item Let $J_X: X \rightarrow X'', p \mapsto (x' \mapsto x'(p))$.
-            $J_X$ is called the \highlight{canonical embedding} from $X$ into $X''$.
-    \end{romanenum} 
-    So $J_X$ returns a function that evaluates dual space elements at $p \in X$.
-\end{definition}
-
-\noindent Figure [todo] illustrates why the bidual space in conjunction with the adjoint operator is interesting.
-TODO
-
-\begin{theorem}\label{theorem:bidual-adjunct-embedding}
-    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
-    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator.
-    Then we have: $J_Y \chain T = T'' \chain J_X$. \\
-    \comment{Or equivalently: $T|_{J_X(X)} = J_Y \chain T'' \chain \inv{J_X|_{J_X(X)}}$.} \\
-    \comment{Or equivalently: $T'' = \inv{J_Y} \chain T \chain J_X$.}
-\end{theorem}
-\begin{proof}
-    Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
-    \begin{itemize}
-        \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjoint operator.
-        \item $T'': X'' \rightarrow Y'', x'' \mapsto x'' \chain T'$ is the biadjoint operator.
-    \end{itemize}
-
-    \noindent Now first of all, we need to check that the signatures of both sides of the equation match:
-    \begin{itemize}
-        \item $J_Y: Y \rightarrow Y''$   and $T: X \rightarrow Y$     means $(J_Y \chain T): X \rightarrow Y''$.
-        \item $T'': X'' \rightarrow Y''$ and $J_X: X \rightarrow X''$ means $(T'' \chain J_X): X \rightarrow Y''$.
-    \end{itemize}
-
-    \noindent Finally, for $p \in X$ and $y' \in Y'$ we have
-    \begin{align*}
-        \brackets{(J_Y \chain T)(p)}(y')
-        &= J_Y(Tp)(y') = y'(Tp)                 \explainstep{subst. $p$ in and apply def. of $J_Y$} \\
-        &= (y'T)(p)                             \explainstep{use associativity} \\
-        &= (T'y')(p)                            \explainstep{apply def. of $T'$} \\
-        &= (x' \mapsto x'(p))(T'y')             \explainstep{pull out subst. function} \\
-        &= J_X(p)(T'y')                         \explainstep{recognize this is just $J_X$} \\
-        &= T''(J_X(p))(y')                      \explainstep{apply def. use $T''$} \\
-        &= \brackets{(T'' \chain J_X)(p)}(y')   \explainstep{use \chain\ notation}
-    \end{align*}
-\end{proof}
-
-\noindent Secondly, we can answer when a continuous operator between $Y'$ and $X'$ is an adjoint operator.
-We need to revise an important corollary from the lecture first.
-
-\begin{revision}\label{theorem:embedding-isomorphism}
-    Let $(X, \norm{}{\cdot})$ be a normed vector space. Then we have
-    \begin{romanenum}
-        \item The canonical embedding $J_X$ is an isometric injective function.
-        \item $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism.
-        \item TODO JXinv is basically a bounded, linear operator. I just hope that's true m'fucka!
-    \end{romanenum}
-\end{revision}
-\begin{proofidea}
-    \begin{romanprooflist}
-        \item \refertolecture
-        \item Follows by definition of $J$ and from ''i)''.
-        \item TODO
-    \end{romanprooflist}
-\end{proofidea}
-
-\begin{theorem}
-    Let $S \in \contoperators{Y'}{X'}$ be a continuous, linear operator. \\
-    Then we have $\exists T \in \contoperators{X}{Y}: T' = S \iff S'(J_X(X)) \subset J_Y(Y)$.
-\end{theorem}
-\begin{proof}
-    \leftrightproof We have 
-    \begin{align*}
-        S'(J_X(X))
-        &= T''(J_X(X))      \explainstep{substitute in $S = T'$} \\
-        &= J_Y(T(X))        \explainstep{use theorem\ \ref{theorem:bidual-adjunct-embedding}} \\
-        &\subset J_Y(Y)     \explainstep{use $T(X) \subset Y$}
-    \end{align*}
-
-    \noindent \rightleftproof 
-    We have $S'(J_X(X)) \subset J_Y(Y)$ and revision\ \ref{theorem:embedding-isomorphism} gives us $J_Y(Y) \isomorphto Y$. \\
-    So for $x \in X$ and $y''_x = S'(J_X(x))$ there is a (unique) $y_x \in Y$ with $y''_x = J_Y(y_x)$. \\
-    Define $T: X \rightarrow Y, x \mapsto y_x$. We know $T$ exists (and is unique) due to the previous argument.
-
-    \noindent We know $T$ is linear and continuous, as $T = y_\cdot = J_Y^{-1} \chain S' \chain J_X$ 
-    and all elements in the chain are bounded, linear operators.
-
-    \noindent Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
-    \begin{align*}
-        (Sy')(x)
-        &= J_X(x)(S y')                                     \explainstep{express using $J_X$} \\
-        &= (S' J_X(x))(y') = (S' \chain J_X)(x)(y')         \explainstep{apply def. of ajoint op.} \\
-        &= J_Y((\inv{J_Y} \chain S' \chain J_X)(x))(y')     \explainstep{use $J_Y \chain \inv{J_Y} = \id$} \\
-        &= y'((\inv{J_Y} \chain S' \chain J_X)(x))          \explainstep{evaluate $J_Y$ at the vector} \\
-        &= y'(Tx) = (y' \chain T)(x)                        \explainstep{subst. in $T = J_Y^{-1} \chain S' \chain J_X$} \\
-        &= (T' y')(x)                                       \explainstep{apply def. of adjoint op.}
-    \end{align*}
-
-\end{proof}
-
-\begin{example}\label{example:operator-is-not-adjoint}
-    We have already seen an adjunct operator.
-    Using the last theorem, we can find an example for an operator 
-    $S \in \contoperators{Y'}{X'}$ that is not an adjoint operator \\
-    (i.e.\ with $\nexists T \in \contoperators{X}{Y}: T' = S$).
-
-    \noindent TODO.
-    % TODO: A not-adjunct operator :) we can use later!
-\end{example}
-
 
 \subsection{The basic properties}
 
@@ -298,6 +185,7 @@ So first, we need to recall Hahn-Banach related theorems:
 \end{proof}
 
 \begin{revision}
+    TODO (Explain): \\
     Let $(X, \norm{}{\cdot})$ be a normed vector space and $x \in X$. \\
     Then we have $\norm{X}{x} = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}$.
 \end{revision}
@@ -321,8 +209,6 @@ So first, we need to recall Hahn-Banach related theorems:
         \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
             \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
         \item $T \mapsto T'$ is linear and isometric.
-        \item $T \mapsto T'$ is not always surjective. \\
-            \note{This is not the case with $\cdot^H$ e.g.\ between $\reals^n \rightarrow \reals^n$.}
 	 \end{romanenum}
 \end{theorem}
 \begin{proof}
@@ -370,15 +256,6 @@ So first, we need to recall Hahn-Banach related theorems:
                 &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjoint operator and op. norm} \\
                 &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
             \end{align*}
-
-        \item
-            The operator and the adjoint operator have the following signatures:
-            \begin{itemize}
-                \item $T: X \rightarrow Y$
-                \item $T': Y' = \dualspace{Y} \rightarrow X' = \dualspace{X}$
-            \end{itemize}
-            So the ``not always'' refers to a particular choice of $X$ and $Y$ we need to find.
-            Fortunately in example \ref{example:operator-is-not-adjoint} we already found a counterexample!
 
     \end{romanprooflist}
 \end{proof}
@@ -454,6 +331,145 @@ So first, we need to recall Hahn-Banach related theorems:
     % TODO: Add the example with i_X and i_Y. (Lemma III.4.3)
     % TODO: Or revisit the lp example again?
 \end{example}
+
+
+\subsection{The dual space of the dual space}
+
+\noindent For starters, we need to recall some concepts from the lecture.
+
+\begin{definition}
+    Let $X$ be a normed vector space. 
+    \begin{romanenum}
+        \item $X''$ is called the bidual space.
+        \item Let $J_X: X \rightarrow X'', p \mapsto (x' \mapsto x'(p))$.
+            $J_X$ is called the \highlight{canonical embedding} from $X$ into $X''$.
+    \end{romanenum} 
+    So $J_X$ returns a function that evaluates dual space elements at $p \in X$.
+\end{definition}
+
+\noindent Figure [todo] illustrates why the bidual space in conjunction with the adjoint operator is interesting.
+TODO
+
+\newcommand{\canonicalembinv}[1]{\ensuremath{\inv{J_#1|_{J_#1(#1)}}}}
+\begin{theorem}\label{theorem:bidual-adjunct-embedding}
+    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
+    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator.
+    Then we have: $J_Y \chain T = T'' \chain J_X$. \\
+    \comment{Or equivalently: $T|_{J_X(X)} = J_Y \chain T'' \chain \canonicalembinv{X}$.} \\
+    \comment{Or equivalently: $T'' = \canonicalembinv{Y} \chain T \chain J_X$.}
+\end{theorem}
+\begin{proof}
+    Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
+    \begin{itemize}
+        \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjoint operator.
+        \item $T'': X'' \rightarrow Y'', x'' \mapsto x'' \chain T'$ is the biadjoint operator.
+    \end{itemize}
+
+    \noindent Now first of all, we need to check that the signatures of both sides of the equation match:
+    \begin{itemize}
+        \item $J_Y: Y \rightarrow Y''$   and $T: X \rightarrow Y$     means $(J_Y \chain T): X \rightarrow Y''$.
+        \item $T'': X'' \rightarrow Y''$ and $J_X: X \rightarrow X''$ means $(T'' \chain J_X): X \rightarrow Y''$.
+    \end{itemize}
+
+    \noindent Finally, for $p \in X$ and $y' \in Y'$ we have
+    \begin{align*}
+        \brackets{(J_Y \chain T)(p)}(y')
+        &= J_Y(Tp)(y') = y'(Tp)                 \explainstep{subst. $p$ in and apply def. of $J_Y$} \\
+        &= (y'T)(p)                             \explainstep{use associativity} \\
+        &= (T'y')(p)                            \explainstep{apply def. of $T'$} \\
+        &= (x' \mapsto x'(p))(T'y')             \explainstep{pull out subst. function} \\
+        &= J_X(p)(T'y')                         \explainstep{recognize this is just $J_X$} \\
+        &= T''(J_X(p))(y')                      \explainstep{apply def. use $T''$} \\
+        &= \brackets{(T'' \chain J_X)(p)}(y')   \explainstep{use \chain\ notation}
+    \end{align*}
+\end{proof}
+
+\noindent Secondly, we can answer when a continuous operator between $Y'$ and $X'$ is an adjoint operator.
+We need to revise an important corollary from the lecture first.
+
+\begin{revision}\label{theorem:embedding-isomorphism}
+    Let $(X, \norm{}{\cdot})$ be a normed vector space. Then we have
+    \begin{romanenum}
+        \item The canonical embedding $J_X$ is an isometric injective function.
+        \item $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism.
+        \item \canonicalembinv{Y} is a bounded, linear operator.
+    \end{romanenum}
+\end{revision}
+\begin{proofidea}
+    \begin{romanprooflist}
+        \item \refertolecture
+        \item Follows by definition of $J$ and from ''i)''.
+        \item
+            Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
+            \begin{itemize}
+                \item \canonicalembinv{Y} inherits linearity from $J$.
+                \item $\norm{}{J} = 1$ and therefore $\norm{}{\canonicalembinv{Y}} = 1$.
+                    This means \canonicalembinv{Y} is bounded.
+                    % TODO: Explain this better!
+            \end{itemize}
+
+    \end{romanprooflist}
+\end{proofidea}
+
+\begin{theorem}
+    Let $S \in \contoperators{Y'}{X'}$ be a continuous, linear operator. \\
+    Then we have $\exists T \in \contoperators{X}{Y}: T' = S \iff S'(J_X(X)) \subset J_Y(Y)$.
+\end{theorem}
+\begin{proof}
+    \leftrightproof We have 
+    \begin{align*}
+        S'(J_X(X))
+        &= T''(J_X(X))      \explainstep{substitute in $S = T'$} \\
+        &= J_Y(T(X))        \explainstep{use theorem\ \ref{theorem:bidual-adjunct-embedding}} \\
+        &\subset J_Y(Y)     \explainstep{use $T(X) \subset Y$}
+    \end{align*}
+
+    \noindent \rightleftproof 
+    We have $S'(J_X(X)) \subset J_Y(Y)$ and revision\ \ref{theorem:embedding-isomorphism} gives us $J_Y(Y) \isomorphto Y$. \\
+    So for $x \in X$ and $y''_x = S'(J_X(x))$ there is a (unique) $y_x \in Y$ with $y''_x = J_Y(y_x)$. \\
+    Define $T: X \rightarrow Y, x \mapsto y_x$. We know $T$ exists (and is unique) due to the previous argument.
+
+    \noindent We know $T$ is linear and continuous, as $T = y_\cdot = J_Y^{-1} \chain S' \chain J_X$ 
+    and all elements in the chain are bounded, linear operators.
+
+    \noindent Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
+    \begin{align*}
+        (Sy')(x)
+        &= J_X(x)(S y')                                     \explainstep{express using $J_X$} \\
+        &= (S' J_X(x))(y') = (S' \chain J_X)(x)(y')         \explainstep{apply def. of ajoint op.} \\
+        &= J_Y((\inv{J_Y} \chain S' \chain J_X)(x))(y')     \explainstep{use $J_Y \chain \inv{J_Y} = \id$} \\
+        &= y'((\inv{J_Y} \chain S' \chain J_X)(x))          \explainstep{evaluate $J_Y$ at the vector} \\
+        &= y'(Tx) = (y' \chain T)(x)                        \explainstep{subst. in $T = J_Y^{-1} \chain S' \chain J_X$} \\
+        &= (T' y')(x)                                       \explainstep{apply def. of adjoint op.}
+    \end{align*}
+
+\end{proof}
+
+\begin{example}\label{example:operator-is-not-adjoint}
+    We have already seen an adjunct operator.
+    Using the last theorem, we can find an example for an operator 
+    $S \in \contoperators{Y'}{X'}$ that is not an adjoint operator \\
+    (i.e.\ with $\nexists T \in \contoperators{X}{Y}: T' = S$).
+
+    \noindent TODO.
+    % TODO: A not-adjunct operator :) we can use later!
+\end{example}
+
+\begin{theorem}
+    Lastly, we get one more property of the adjoint operator:
+    $T \mapsto T'$ is not always surjective. \\
+    \note{This is not the case with $\cdot^H$ e.g.\ between $\reals^n \rightarrow \reals^n$.}
+\end{theorem}
+\begin{proof}
+    The operator and the adjoint operator have the following signatures:
+    \begin{itemize}
+        \item $T: X \rightarrow Y$
+        \item $T': Y' = \dualspace{Y} \rightarrow X' = \dualspace{X}$
+    \end{itemize}
+    So the ``not always'' refers to a particular choice of $X$ and $Y$ we need to find.
+    Fortunately in example \ref{example:operator-is-not-adjoint} we already found a counterexample!
+\end{proof}
+
 
 % \subsection{In Hilbert Spaces}
 % Risz-Frechet for Comparison between Hilbetraum-Adjoint and Banachraum-Adjoint.
@@ -732,7 +748,5 @@ of the theorem of Hahn-Banach.
 % TODO: Flag any occurences of behaviour that is different from the finite dimensional easy cases.
 
 % TODO: Make sure all theorems, corollaries and revisions are linked properly!
-
-% TODO: Explain the invertible embedding functions J_X and J_Y (e.g. J_X^{-1} and J_Y^{-1}).
 
 \end{document}
