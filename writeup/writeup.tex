@@ -16,6 +16,7 @@
 
 \newcommand{\defeq}{\vcentcolon=}
 \newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\isomorphto}{\cong}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand{\convergesto}{\longrightarrow}
 \newcommand{\normedspace}[1]{(#1, \|\cdot\|_{#1})}
@@ -29,9 +30,14 @@
 \newcommand{\chain}{\ensuremath{\circ}}
 \newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
 \newcommand{\comment}[1]{\textcolor{darkgray}{\text{#1}}}
+\newcommand{\logicaland}{\ensuremath{\wedge}}
+
+
+% ===== PROOF DIRECTIONS =====
 \newcommand{\leftrightproof}{\glqq\ensuremath{\Rightarrow}\grqq:\quad}
 \newcommand{\rightleftproof}{\glqq\ensuremath{\Leftarrow}\grqq:\quad}
-\newcommand{\logicaland}{\ensuremath{\wedge}}
+\newcommand{\leftrightinclusion}{\glqq\ensuremath{\subset}\grqq:\quad}
+\newcommand{\rightleftinclusion}{\glqq\ensuremath{\supset}\grqq:\quad}
 
 % ===== BRACKETS =====
 \newcommand{\parens}[1]{\left(#1\right)}
@@ -80,7 +86,7 @@
 \maketitle
 
 \begin{abstract}
-    This seminar paper provides a foundational overview of Dual-/Adjunct-Operators in functional analysis.
+    This proseminar paper provides a foundational overview of dual-/adjoint operators in functional analysis.
 \end{abstract}
 
 \tableofcontents
@@ -91,11 +97,13 @@ The goal of dual- or adjoint operators is to generalize the notion of an adjoint
 (often denoted as $A^T$ over \reals\ or $A^H$ over \complexes)
 to general operators on banach spaces.
 
-\noindent We will cover these well-known statements from linear algebra:
+\noindent We will cover and generalize the following topics:
 \begin{enumerate}
-    \item TODO
+    \item The operator $\cdot^H$ is linear and isometric wrt. the spectral norm.
     \item The fundamental theorem of linear algebra (Gilbert Strang) or rank-nullity theorem: \\
         $(\im A)^\perp = \ker A^H$.
+    \item The lagrange duality from nonlinear optimisation theory.
+    \item TODO Add more
 \end{enumerate}
 
 
@@ -158,30 +166,47 @@ to general operators on banach spaces.
 % *) Script 
 
 
-\section{The Adjunct Operator}
-\subsection{Definitions and Basic Properties}
+\section{The adjoint operator}
+\subsection{Definitions and basic properties}
 
 \begin{remark}
-    The terms \highlight{adjunct} and \highlight{dual} are often used interchangeably.
-    We will standardize on \highlight{adjunct}, to avoid unnecessary confusion. \\ % TODO: maybe this should be adjoint rather than adjunct
+    The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
+    We will standardize on \highlight{adjoint}, to avoid unnecessary confusion.
     We will abstract the field as $\thefield \in \{\reals, \complexes\}$.
 \end{remark}
 
 \begin{definition}
     Let $X, Y$ be metric spaces and $T \in \contoperators{X}{Y}$. \\
-	 Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjunct operator.
+	 Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjoint operator.
     From now on, we will implicitly refer to the metric spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
 \end{definition}
 
 \begin{remark}
-    In comparison to the operators we have previously worked with, the adjunct operator takes and outputs linear, bounded operators.
+    In comparison to the operators we have previously worked with, the adjoint operator takes and outputs linear, bounded operators.
 	 It's one more level of abstraction removed from \thefield. \\
-	 For $y' \in Y' = \contoperators{Y}{\thefield}$, the adjunct operator evaluates to $T' y' \in \contoperators{X}{\thefield}$.
+	 For $y' \in Y' = \contoperators{Y}{\thefield}$, the adjoint operator evaluates to $T' y' \in \contoperators{X}{\thefield}$.
 \end{remark}
 
+\noindent First, we need to recall a corollary of the Hahn-Banach theorems:
+\begin{revision}
+    Let $(X, \norm{}{\cdot})$ be a normed vector space and $x \in X$. \\
+    Then we have $\norm{X}{x} = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}$.
+\end{revision}
+\begin{proof}
+    Case 1 $x = 0$: Since $X'$ contains linear operators,
+    $\norm{X}{x} = 0 = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(0)}$. \\
+    Case 2 $x \neq 0$: We have 
+    \begin{align*} 
+        \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}
+        \le \sup_{f \in X', \norm{}{f} \le 1}{\norm{}{f}\norm{X}{x}}
+        \le 1 \norm{X}{x} = \norm{X}{x}
+    \end{align*}
+    By Hahn-Banach, we have $\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{X}{x}$. \\
+    So we get $\sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)} = \norm{X}{x}$.
+\end{proof}
 
 \begin{theorem}
-    We can collect some basic properties of the adjunct operator:
+    We can collect some basic properties of the adjoint operator:
     \begin{romanenum}
         \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
             \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
@@ -227,7 +252,7 @@ to general operators on banach spaces.
                 &= \sup_{\norm{X}{x} \le 1}\norm{Y}{Tx}                                 \explainstep{use supremum char. of op. norm} \\
                 &= \sup_{\norm{X}{x} \le 1}\sup_{\norm{}{y'} \le 1}{\abs{y'(Tx)}}       \explainstep{todo consult script} \\
                 &= \sup_{\norm{}{y'} \le 1}\sup_{\norm{X}{x} \le 1}{\abs{y'(Tx)}}       \explainstep{supremum order can be switched} \\
-                &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjunct operator and op. norm} \\
+                &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjoint operator and op. norm} \\
                 &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
             \end{align*}
 
@@ -245,7 +270,7 @@ to general operators on banach spaces.
 
 \begin{revision}[]
     Let $X, Y, Z$ be normed metric spaces. \\
-    Then the Adjunct Operator reverses composition: \\
+    Then the adjoint operator reverses composition: \\
     $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
 \end{revision}
 \begin{proof}
@@ -286,14 +311,14 @@ to general operators on banach spaces.
 
 \begin{theorem}
     Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
-    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator and $T' \in \contoperators{Y'}{X'}$ the adjunct operator. \\
+    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator and $T' \in \contoperators{Y'}{X'}$ the adjoint operator. \\
     Then we have: $J_Y \chain T = T'' \chain J_X$.
 \end{theorem}
 \begin{proof}
     Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
     \begin{itemize}
-        \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjunct operator.
-        \item $T'': X'' \rightarrow Y'', x'' \mapsto x'' \chain T'$ is the biadjunct operator.
+        \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjoint operator.
+        \item $T'': X'' \rightarrow Y'', x'' \mapsto x'' \chain T'$ is the biadjoint operator.
     \end{itemize}
 
     \noindent Now first of all, we need to check that the signatures of both sides of the equation match:
@@ -321,16 +346,16 @@ to general operators on banach spaces.
 
 % \newpage
 % \subsection{In Hilbert Spaces}
-% Risz-Frechet for Comparison between Hilbetraum-Adjunct and Banachraum-Adjunct.
+% Risz-Frechet for Comparison between Hilbetraum-Adjoint and Banachraum-Adjoint.
 
 % \newpage
-% \subsection{Examples for Adjunct Operators on Banach Spaces}
+% \subsection{Examples for Adjoint Operators on Banach Spaces}
 
 % \newpage
-% \subsection{Examples for Adjunct Operators on Hilbert Spaces}
+% \subsection{Examples for Adjoint Operators on Hilbert Spaces}
 
 % \newpage
-% \subsection{Examples for Adjunct Operators in Finite Dimensional Hilbert Spaces}
+% \subsection{Examples for Adjoint Operators in Finite Dimensional Hilbert Spaces}
 
 % TODO: Examples for dual operators in l_p, L_p and some identity into the dual-dual space.
 % TODO: Make sure to find out which is which.
@@ -338,7 +363,7 @@ to general operators on banach spaces.
 % TODO: Maybe you can add an example from optimisation?
 
 \newpage
-\subsection{Compact (adjunct) operators}
+\subsection{Compact (adjoint) operators}
 
 \noindent For starters, we need to recall and revise some concepts from the lecture.
 
@@ -459,7 +484,7 @@ of the functions \highlight{evaluations} rather than the functions themselves. T
     \begin{align*}
         \sequence{k}{f_{n(k)}}
         &= \sequence{k}{y'_n \chain T}      \explainstep{apply def. of $f_{n(k)}$} \\
-        &= \sequence{k}{T' y'_{n(k)}}       \explainstep{apply def. of adjunct operator}
+        &= \sequence{k}{T' y'_{n(k)}}       \explainstep{apply def. of adjoint operator}
     \end{align*}
 
     \noindent So finally, \sequence{k}{T' y'_{n(k)}} is a convergent subsequence of \sequence{k}{T' y'_k}. \\
@@ -479,14 +504,117 @@ of the functions \highlight{evaluations} rather than the functions themselves. T
 % \end{example}
 
 \newpage
-\subsection{Operator Equations}
+\subsection{The rank-nullity theorem for operators}
+\newcommand{\anihu}{\ensuremath{U^\perp}}
+\newcommand{\anihv}{\ensuremath{V_\perp}}
+
+\begin{definition}
+    Let $(X, \norm{}{\cdot})$ be a normed vector space, $U \subset X$ and $V \subset X'$.
+    Then define
+    \begin{romanenum}
+        \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
+        \item $\anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0}$ as the annihilator of $V$ in $X$.
+    \end{romanenum}
+\end{definition}
+
+\noindent To prove properties about these sets, we need a corollary
+of the theorem of Hahn-Banach.
+
+\begin{revision}
+    TODO: Hahn-Banach corollary.
+\end{revision}
+\begin{proofidea}
+    TODO
+\end{proofidea}
+
+\begin{theorem}
+    Let $(X, \norm{}{\cdot})$ be a normed vector space, $U \subset X$ and $V \subset X'$.
+    Then we have
+    \begin{romanenum}
+        \item $\anihu$ and $\anihv$ are not empty.
+        \item $\anihu \subset X'$ and $\anihv \subset X$ are both respectively closed linear subspaces.
+        \item Let $U$ be closed. Then we have $(X / U)' \isomorphto \anihu$ (they are isomorphic).
+        \item Let $U$ be closed. Then we have $U' \isomorphto X' / \anihu$ (they are isomorphic).
+    \end{romanenum}
+\end{theorem}
+\begin{proof}
+    \begin{romanprooflist}
+        \item
+            
+
+        \item 
+            We will focus on $\anihu \subset X'$. The other statement works analogously. \\
+            Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
+            We first prove $\emptyset \neq \anihu \subset X'$ is a linear subspace:
+            \begin{align*}
+                (x'_1 + \lambda x'_2)(x)
+                &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
+                &= 0 + \lambda 0 = 0            \explainstep{use $x'_1, x'_2 \in X'$}
+            \end{align*}
+
+            \noindent Let $\sequence{k}{x'_k} \subset \anihu$ be a converging sequence. \\
+            We now prove that $x'$ converges in $\anihu$:
+            \begin{align*}
+                todo
+            \end{align*}
+
+        \item 
+
+        \item 
+
+    \end{romanprooflist}
+\end{proof}
+
+\noindent In summary, TODO.
+
+\newcommand{\kerdualperp}{\ensuremath{(\ker T')_\perp}}
+\begin{theorem}
+    Let $T \in \contoperators{X}{Y}$ be a bounded, linear operator.
+    Then we have $\overline{\im T} = \kerdualperp$.
+\end{theorem}
+\begin{proof}
+    \leftrightinclusion
+    Let $Tx \in \im T$ with $x \in X$ and $y' \in \ker T'$. \\
+    We first prove $Tx \in \kerdualperp$:
+    \begin{align*}
+        y'Tx &= (y' \chain T)(x)     \explainstep{use \chain\ notation} \\
+        &= (T' y')(x)               \explainstep{apply dual op. definition} \\
+        &= 0(x) = 0                 \explainstep{apply $y' \in \ker T'$}
+    \end{align*}
+    Since this holds for all choices of $Tx$ we get $\im T \subset \kerdualperp$. \\
+    Since \kerdualperp is closed, we also get $\overline{\im T} \subset \kerdualperp$.
+
+    \noindent \rightleftinclusion
+    TODO
+\end{proof}
+
+\begin{theorem}
+    TODO: The stuff with the Id - T operator.
+\end{theorem}
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{corollary}
+    Let $T \in \contoperators{X}{Y}$ be a linear, continous operator with $\im T$ closed.
+    Then we have $Tx = y$ has a solution iff.\ $T'y' = 0 \implies y'(y) = 0$.
+\end{corollary}
+\begin{proof}
+\end{proof}
+
+\begin{example}
+\end{example}
 
 % TODO: Theorem about solutions to Tx=y
 % TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation
 
-\newpage
+\nocite{*}
 \printbibliography
 
 % TODO: Add reminders everywhere. E.g. remind the reader of the definition of topological dual spaces when appropriate. We need to assume the reader is new to the subject.
+
+% TODO: Linear subspace proofs require showing the set is not empty!
+
+% TODO: Add script from ss25 in references list.
 
 \end{document}
