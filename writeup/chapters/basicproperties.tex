@@ -39,14 +39,14 @@ So first, we need to recall Hahn-Banach related theorems:
 
 \begin{theorem}
     The adjoint operator has the following properties:
-    \begin{romanenum}
+    \begin{enumeratetheorem}
         \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
             \note{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$.}
         \item $T \mapsto T'$ is linear and isometric.
-	 \end{romanenum}
+	 \end{enumeratetheorem}
 \end{theorem}
 \begin{proof}
-    \begin{romanprooflist}
+    \begin{enumerateproof}
         \item
             Let $y' \in Y'$.  Plugging it into the adjoint operator, we get
             $T' y' = y' \chain T$ with signature $X \rightarrow Y \rightarrow \thefield$.
@@ -87,7 +87,7 @@ So first, we need to recall Hahn-Banach related theorems:
                 &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
             \end{align*}
 
-    \end{romanprooflist}
+    \end{enumerateproof}
 \end{proof}
 
 \begin{example}

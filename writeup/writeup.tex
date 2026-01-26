@@ -3,7 +3,7 @@
 \usepackage[english]{babel}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{amsmath, amsfonts, amssymb, graphicx, enumitem, xcolor}
-\usepackage{hyperref}
+\usepackage{hyperref, placeins}
 \usepackage{dsfont, mathtools, amsthm, diagbox, caption, subcaption, xspace}
 \usepackage[
     backend=bibtex,
@@ -63,17 +63,11 @@
 \DeclareMathOperator{\id}{Id}
 
 % ===== ENUMERATIONS =====
-\newlist{romanenum}{enumerate}{1}
-\setlist[romanenum]{label=\roman*), leftmargin=*, labelsep=0.2em, align=left}
+\newlist{enumeratetheorem}{enumerate}{1}
+\setlist[enumeratetheorem]{label=\roman*), leftmargin=*, labelsep=0.2em, align=left}
 
-\newlist{romanprooflist}{enumerate}{1}
-\setlist[romanprooflist]{label="\roman*)":\space, leftmargin=0em, labelwidth=*, align=left}
-
-
-\newenvironment{proofidea}
-{\begin{proof}[Proof Idea]}
-{\end{proof}}
-
+\newlist{enumerateproof}{enumerate}{1}
+\setlist[enumerateproof]{label="\roman*)":\space, leftmargin=0em, labelwidth=*, align=left}
 
 
 % ===== THEOREM STYLING =====
@@ -85,6 +79,9 @@
 \newtheorem{definition}{Definition}
 \newtheorem{example}{Example}
 \newtheorem{remark}{Remark}
+\newenvironment{proofidea}
+{\begin{proof}[Proof Idea]\leavevmode}
+{\end{proof}}
 
 
 % ===== MISC =====
@@ -94,14 +91,21 @@
 % ===== DOCUMENT ====
 \begin{document}
 \input{chapters/titlepage.tex}
+\FloatBarrier
 \input{chapters/motivation.tex}
+\FloatBarrier
 
 \section{The adjoint operator}
 \input{chapters/definitionsandconventions.tex}
+\FloatBarrier
 \input{chapters/basicproperties.tex}
+\FloatBarrier
 \input{chapters/dualofdual.tex}
+\FloatBarrier
 \input{chapters/compact.tex}
+\FloatBarrier
 \input{chapters/rank-nullity.tex}
+\FloatBarrier
 
 \nocite{*}
 \printbibliography

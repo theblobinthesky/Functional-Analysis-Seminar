@@ -5,10 +5,10 @@
 \begin{definition}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then define
-    \begin{romanenum}
+    \begin{enumeratetheorem}
         \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
         \item $\anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0}$ as the annihilator of $V$ in $X$.
-    \end{romanenum}
+    \end{enumeratetheorem}
     In linear algebra, the annihilator is isomorphic to the orthogonal complement of a set.
     Similarly we generalize the idea of a dual structure isomorphic to the image or kernel to idk... todo
 \end{definition}
@@ -28,14 +28,14 @@ of the theorem of Hahn-Banach:
 \begin{theorem}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then we have
-    \begin{romanenum}
+    \begin{enumeratetheorem}
         \item $\anihu \subset X'$ and $\anihv \subset X$ are both closed linear subspaces of their respective supsets.
         \item Let $U$ be closed. Then we have $(X / U)' \isomorphto \anihu$ (they are isomorphic).
         \item Let $U$ be closed. Then we have $U' \isomorphto X' / \anihu$ (they are isomorphic).
-    \end{romanenum}
+    \end{enumeratetheorem}
 \end{theorem}
 \begin{proof}
-    \begin{romanprooflist}
+    \begin{enumerateproof}
         \item 
             We will focus on $\anihu \subset X'$. The other statement works analogously. \\
             We first prove $\anihu$ is not empty:
@@ -59,7 +59,7 @@ of the theorem of Hahn-Banach:
 
         \item 
 
-    \end{romanprooflist}
+    \end{enumerateproof}
 \end{proof}
 
 \noindent In summary, TODO.

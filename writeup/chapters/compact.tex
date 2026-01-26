@@ -5,11 +5,11 @@
 \begin{definition} % NOTE: Revision.
     The following definitions are revisions from the lecture: \\
     Let $X, Y$ be normed \thefield\ vector spaces.
-    \begin{romanenum}
+    \begin{enumeratetheorem}
         \item $X$ is relatively compact, if \[\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } Y\]
         \item $T \in \contoperators{X}{Y}$ is compact, if $T\parens{\closedunitball{X}}$ is relatively compact.
         \item The rank of T is $\rk T = \dim{T(X)}$.
-    \end{romanenum}
+    \end{enumeratetheorem}
 \end{definition}
 
 % Explanation of the significance of these definitions:
@@ -35,12 +35,12 @@ So a compact operator simply ensures that we still can enjoy this finite-dimensi
 \begin{definition}
     The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}: \\
     Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
-    \begin{romanenum}
+    \begin{enumeratetheorem}
         \item $M$ is uniformly equicontinuous, if
             \[ \forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon \]
         \item $M$ is pointwise bounded, if 
             \[ \forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded} \]
-    \end{romanenum}
+    \end{enumeratetheorem}
 \end{definition}
 
 \noindent The theorem of \highlight{Arzelà-Ascoli} from the lecture gives us a characterisation of relative compactness 
