@@ -1,0 +1,107 @@
+\subsection{The rank-nullity theorem for operators}
+\newcommand{\anihu}{\ensuremath{U^\perp}}
+\newcommand{\anihv}{\ensuremath{V_\perp}}
+
+\begin{definition}
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
+    Then define
+    \begin{romanenum}
+        \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
+        \item $\anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0}$ as the annihilator of $V$ in $X$.
+    \end{romanenum}
+    In linear algebra, the annihilator is isomorphic to the orthogonal complement of a set.
+    Similarly we generalize the idea of a dual structure isomorphic to the image or kernel to idk... todo
+\end{definition}
+
+\noindent To prove properties about these sets, we need another corollary
+of the theorem of Hahn-Banach:
+
+\begin{revision}
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space,
+    $U \subset X$ a closed subspace and $x \in X \setminus U$.
+    Then we have $\exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0$.
+\end{revision}
+\begin{proof}
+    TODO
+\end{proof}
+
+\begin{theorem}
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
+    Then we have
+    \begin{romanenum}
+        \item $\anihu \subset X'$ and $\anihv \subset X$ are both closed linear subspaces of their respective supsets.
+        \item Let $U$ be closed. Then we have $(X / U)' \isomorphto \anihu$ (they are isomorphic).
+        \item Let $U$ be closed. Then we have $U' \isomorphto X' / \anihu$ (they are isomorphic).
+    \end{romanenum}
+\end{theorem}
+\begin{proof}
+    \begin{romanprooflist}
+        \item 
+            We will focus on $\anihu \subset X'$. The other statement works analogously. \\
+            We first prove $\anihu$ is not empty:
+            TODO.
+
+            \noindent Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
+            We first prove $\anihu \subset X'$ is a linear subspace:
+            \begin{align*}
+                (x'_1 + \lambda x'_2)(x)
+                &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
+                &= 0 + \lambda 0 = 0            \explainstep{use $x'_1, x'_2 \in X'$}
+            \end{align*}
+
+            \noindent Let $\sequence{k}{x'_k} \subset \anihu$ be a converging sequence. \\
+            We now prove that $x'$ converges in $\anihu$:
+            \begin{align*}
+                todo
+            \end{align*}
+
+        \item 
+
+        \item 
+
+    \end{romanprooflist}
+\end{proof}
+
+\noindent In summary, TODO.
+
+\newcommand{\kerdualperp}{\ensuremath{(\ker T')_\perp}}
+\begin{theorem}
+    Let $T \in \contoperators{X}{Y}$ be a bounded, linear operator.
+    Then we have $\overline{\im T} = \kerdualperp$.
+\end{theorem}
+\begin{proof}
+    \leftrightinclusion
+    Let $Tx \in \im T$ with $x \in X$ and $y' \in \ker T'$. \\
+    We first prove $Tx \in \kerdualperp$:
+    \begin{align*}
+        y'(Tx) &= (y' \chain T)(x)  \explainstep{associativity and use \chain\ notation} \\
+        &= (T' y')(x)               \explainstep{apply adjoint op. definition} \\
+        &= 0(x) = 0                 \explainstep{apply $y' \in \ker T'$}
+    \end{align*}
+    Since this holds for all choices of $Tx$ we get $\im T \subset \kerdualperp$. \\
+    Since \kerdualperp is closed, we also get $\overline{\im T} \subset \kerdualperp$.
+
+    \noindent \rightleftinclusion
+    TODO
+\end{proof}
+
+% \begin{theorem}
+%     TODO: The stuff with the Id - T operator.
+% \end{theorem}
+% \begin{proof}
+%     TODO
+% \end{proof}
+% TODO: Idk how useful this will be!
+
+\begin{corollary}
+    Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed.
+    Then we have $Tx = y$ has a solution if and only if $T'y' = 0 \implies y'(y) = 0$.
+\end{corollary}
+\begin{proof}
+\end{proof}
+
+\begin{example}
+\end{example}
+
+% TODO: Theorem about solutions to Tx=y
+% TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation

@@ -1,0 +1,165 @@
+\subsection{The basic properties}
+
+\noindent The proofs will use the Hahn-Banach corollaries a couple of times.
+So first, we need to recall Hahn-Banach related theorems:
+
+\begin{revision}[Hahn-Banach]\label{theorem:hahn-banach-op-norm}
+    Let $(X, \norm{}{\cdot})$ be a normed space and $0 \neq x \in X$. \\
+    Then we have \[\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{}{x}\]
+\end{revision}
+\begin{proof}
+    \refertolecture
+\end{proof}
+
+\begin{revision}
+    TODO (Explain): \\
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space and $x \in X$. \\
+    Then we have \[\norm{X}{x} = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}\]
+\end{revision}
+\begin{proof}
+    We will distinguist two cases:
+    \begin{itemize}
+        \item Case 1 ($x = 0$):
+            Since $X'$ contains linear operators,
+            \[\norm{X}{x} = 0 = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(0)}\]
+
+        \item Case 2 $x \neq 0$:
+            We have
+            \[
+                \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}
+                \le \sup_{f \in X', \norm{}{f} \le 1}{\norm{}{f}\norm{X}{x}}
+                \le 1 \norm{X}{x} = \norm{X}{x}
+            \]
+            Using Hahn-Banach from revision \ref{theorem:hahn-banach-op-norm} we get
+            \[\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{X}{x}\]
+            So we get \[\sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)} = \norm{X}{x}\]
+
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}
+    The adjoint operator has the following properties:
+    \begin{romanenum}
+        \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
+            \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
+        \item $T \mapsto T'$ is linear and isometric.
+	 \end{romanenum}
+\end{theorem}
+\begin{proof}
+    \begin{romanprooflist}
+        \item
+            Let $y' \in Y'$.  Plugging it into the adjoint operator, we get
+            $T' y' = y' \chain T$ with signature $X \rightarrow Y \rightarrow \thefield$.
+            We can now see that $\im T' \subset X'$.
+
+            \noindent Let $y'_1, y'_2 \in Y', \alpha \in \thefield$. We then prove linearity:
+            \begin{align*}
+                T'(\alpha y'_1 + y'_2) 
+                &= (\alpha y'_1 + y'_2) \chain T                \explainstep{apply def. of adjoint operator} \\
+                &= \alpha y'_1 \chain T + y'_2 \chain T         \explainstep{expand expression} \\
+                &= \alpha T' y'_1 + T' y'_2                     \explainstep{apply def. of adjoint operator}
+            \end{align*}
+
+            \noindent Let $y' \in Y'$. We then prove boundedness of the operator norm:
+            \begin{align*}
+                \norm{X'}{T' y'}
+                &= \norm{X'}{y' \chain T}                           \explainstep{apply def. of adjoint operator} \\
+                &\le \norm{Y'}{y'}\norm{\contoperators{X}{Y}}{T}    \explainstep{apply def. of op. norm} \\
+                &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant}
+            \end{align*}
+
+        \item
+            Let $T_1, T_2 \in \contoperators{X}{Y}, y' \in Y', x \in X, \alpha \in \thefield$. We first prove linearity:
+            \begin{align*}
+                (\alpha T_1 + T_2)'(y')(x)
+                &= y'(\alpha T_1x + T_2x)                           \explainstep{apply def. of adjoint operator} \\
+                &= y'\parens{\alpha T_1x + T_2x}                    \explainstep{pull $x$ into the eq.} \\
+                &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear}
+            \end{align*}
+
+            \noindent We then prove isometry:
+            \begin{align*}
+                \norm{}{T}
+                &= \sup_{\norm{X}{x} \le 1}\norm{Y}{Tx}                                 \explainstep{use supremum char. of op. norm} \\
+                &= \sup_{\norm{X}{x} \le 1}\sup_{\norm{}{y'} \le 1}{\abs{y'(Tx)}}       \explainstep{apply theorem of Hahn-Banach\ \ref{theorem:hahn-banach-op-norm}} \\
+                &= \sup_{\norm{}{y'} \le 1}\sup_{\norm{X}{x} \le 1}{\abs{y'(Tx)}}       \explainstep{supremum order can be switched} \\
+                &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjoint operator and op. norm} \\
+                &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
+            \end{align*}
+
+    \end{romanprooflist}
+\end{proof}
+
+\begin{example}
+    % TODO
+\end{example}
+
+\newcommand{\lp}{\ensuremath{l_p}\xspace}
+\newcommand{\pconj}{\ensuremath{p^*}\xspace}
+\newcommand{\lpconj}{\ensuremath{l_\pconj}\xspace}
+\begin{example}
+    Let $p \in (1, \infty)$ with $p \neq 2$. This makes \lp a Banach space according to the lecture,
+    but not a Hilbert space as the parallelogram rule is not satisfied.
+    We know that the dual space of \lp is isometrically isomorph to \lpconj
+    where \pconj is the \highlight{Hölder conjugate} with $1/p + 1/p^* = 1$. \\
+    As a reminder, the general idea of the proof of $\lp' \isomorphto \lpconj$ goes as follows:
+    \begin{itemize}
+        \item Define the isometric isomorphism as \[T: \lpconj \rightarrow \lp', s \mapsto (x \mapsto \sum_{k \in \naturals}{x_k s_k})\]
+        \item Verify $(Ts)x$ converges as \[\abs{(Ts)x} \le \norm{p}{x}\norm{\pconj}{s} < \infty\] and absolute convergence implies convergence.
+        \item Verify $T$ is injective using the linearity.
+        \item Verify $T$ is surjective and isometric through todo (the annoying part).
+    \end{itemize}
+
+    \noindent To illustrate the adjoint operator, we now work through an example.
+    Consider the \highlight{left shift} operator \[T: \lp \rightarrow \lp, \sequence{k}{x_k} \mapsto \sequence{k}{x_{k+1}}\]
+    It is well-defined since \[\sum_{k \in \naturals}\abs{x_{k+1}}^p \le \sum_{k \in \naturals}\abs{x_{k}}^p < \infty\]
+
+    \noindent We can now compute the adjoint operator $T'$:
+    \begin{itemize}
+        \item 
+            The adjoint $T'$ must have the signature $\lp' \isomorphto \lpconj \rightarrow \lp' \isomorphto \lpconj$.
+
+        \item 
+            Let $y' \in \lp' \isomorphto \lpconj$.
+            Then we can write $y': \lp \rightarrow \thefield, x \mapsto \sum_{k \in \naturals}{x_k s_k}$ with $s \in \lpconj$. \\
+            Now for $x \in \lp$ we have
+            \begin{align*}
+                (T' y')(x)
+                &= (y' \chain T)(x) = y'(Tx)                \explainstep{apply def. of $T'$} \\
+                &= y'(\sequence{k}{x_{k+1}})                \explainstep{apply def. of $T$} \\
+                &= \sum_{k \in \naturals}{x_{k+1} s_k}      \explainstep{apply def. of $y'$} \\
+                &= \sum_{k \in \naturals}{x_{k} s'_k}       \explainstep{with $s'_1 = 0$ and $s'_k = s_{k-1}$ for $k > 1$}
+            \end{align*}
+
+            \noindent This tells us that the adjoint operator $T'$ acts as a \highlight{right shift} (up to isomorphism):
+            \[T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto (0, s_1, s_2, \dots)\]
+
+    \end{itemize}
+\end{example}
+
+\begin{theorem}
+    Let $X, Y, Z$ be normed \thefield\ vector spaces. \\
+    Then the adjoint operator reverses composition:
+    \[\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'\]
+\end{theorem}
+\begin{proof}
+    Let $T \in \contoperators{X}{Y}$ and $S \in \contoperators{Y}{Z}$. \\
+    We know $ST = S \chain T$ is still a linear, bounded operator from $X$ to $Z$.
+    So $(ST)'$ is well-defined. \\
+    Let $z' \in Z' = \contoperators{Z}{\thefield}$ and 
+    set $y' = z' \chain S \in \dualspace{Y}$. We have
+    \begin{align*}
+        (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of adjoint operator} \\
+        &= (z' \chain S) \chain T       \explainstep{write out chain explicitly} \\
+        &= y' \chain T                  \explainstep{subst. y'} \\
+        &= T' y'                        \explainstep{apply def. of adjoint operator} \\
+        &= T' (z' \chain S)             \explainstep{subst. y'} \\
+        &= T' S' z'                     \explainstep{apply def. of adjoint operator}
+    \end{align*}
+    So in total $(ST)' = T' S'$.
+\end{proof}
+
+\begin{example}
+    % TODO: Add the example with i_X and i_Y. (Lemma III.4.3)
+    % TODO: Or revisit the lp example again?
+\end{example}

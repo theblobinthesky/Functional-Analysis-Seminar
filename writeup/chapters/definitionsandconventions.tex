@@ -1,0 +1,62 @@
+\subsection{The basic definitions and conventions}
+
+\noindent The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
+We will standardize on \highlight{adjoint}, to avoid unnecessary confusion.
+Following\ \cite{werner_funktionalanalysis_2018}, we write $\thefield \in \{\reals, \complexes\}$ when the field is unspecified.
+
+\newcommand{\twonormedvectorspaces}{$\normedspace{X}$ and $\normedspace{Y}$ be normed \thefield-vector spaces}
+\begin{definition}
+    We remind outselves of the following concepts from the lecture \cite{krieg_functional_2025}:
+    \begin{romanenum}
+        \item
+            Let \twonormedvectorspaces\ and let \[ T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot}) \] be a linear mapping.
+            Then we call $T$ a \highlight{linear operator}.
+            We call $T$ \highlight{bounded}, if \[\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}\]
+
+            \noindent For brevity, we will use the notation \[ T: X \rightarrow Y \] 
+            for linear operators rather than \[ T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot}) \]
+
+        \item
+            Let $\normedspace{X}$ be a normed \thefield-vector.
+            The (topological) dual space is defined as \[ X' \defeq \dualspace{X} \]
+
+    \end{romanenum}
+\end{definition}
+
+\begin{revision} \label{revision:general-revision}
+    The following statements are foundational for this topic: \\
+    Let \twonormedvectorspaces.
+    \begin{romanenum}
+        \item The set of continuous, linear operators \contoperators{X}{Y} is a Banach space if and only if $Y$ is a Banach space.
+            In particular, the topological dual space \dualspace{X} is a Banach space.
+        \item Let $T: X \to Y$ be a linear operator.
+            Then $T$ is bounded if and only if $T$ is continous.
+        \item Let $(Z, \norm{Z}{\cdot})$ be a normed \thefield-vector space,
+            let $T: X \to Y$ be a linear, bounded operator and 
+            let $S: Y \to Z$ be a linear, bounded operator.
+            Then $S \chain T$ is a linear, bounded operator.
+        \item Let $(Z, \norm{Z}{\cdot})$ be a normed \thefield-vector space,
+            let $T: X \to Y$ be a linear operator and 
+            let $S: Y \to Z$ be a linear operator.
+            If $T$ or $S$ is compact, $S \chain T$ is compact.
+    \end{romanenum}
+\end{revision}
+\begin{proof}
+    \refertolecture
+\end{proof}
+
+\begin{definition}
+    Let \twonormedvectorspaces\ and $T \in \contoperators{X}{Y}$. \\
+	Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjoint operator.
+    From now on, we will implicitly refer to the normed \thefield\ vector spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
+\end{definition}
+
+\begin{remark}
+    In comparison to the operators we have previously worked with, the adjoint operator takes and outputs linear, bounded operators.
+	It's one more level of abstraction removed from \thefield. \\
+	For $y' \in Y' = \dualspace{Y}$, the adjoint operator evaluates to $T' y' \in \dualspace{X} = X'$.
+\end{remark}
+
+\begin{example}
+    % TODO: Add simple integral operator example.
+\end{example}

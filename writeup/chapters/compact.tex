@@ -1,0 +1,151 @@
+\subsection{Compact (adjoint) operators}
+
+\noindent For starters, we need to recall and revise some concepts from the lecture.
+
+\begin{definition} % NOTE: Revision.
+    The following definitions are revisions from the lecture: \\
+    Let $X, Y$ be normed \thefield\ vector spaces.
+    \begin{romanenum}
+        \item $X$ is relatively compact, if \[\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } Y\]
+        \item $T \in \contoperators{X}{Y}$ is compact, if \[T\parens{\closedunitball{X}} \text{ is relatively compact}\]
+        \item The rank of T is $\rk T = \dim{T(X)}$.
+    \end{romanenum}
+\end{definition}
+
+% Explanation of the significance of these definitions:
+% TODO: Add examples to this section. The motivation is still not clear enough.
+\noindent As a reminder, in metric spaces a subset is compact if and only if all sequences contain a converging subsequence in that set.
+So relatively compact is a relaxed version of compactness: it disposes of the closed requirement.
+An important property of the closed unit ball in $\reals^n$ or $\complexes$ is that it is compact.
+Therefore, a linear operator between $\thefield^n \rightarrow \thefield^m$ always maps the closed unit ball to a compact set.
+But the domain might not be a finite-dimensional normed space and the unit ball of the domain might not be compact either.
+
+Even when we only know that a bounded operator has finite rank, we can see that it is always compact:
+In finite dimensions, all norms are equivalent. So $(X, \norm{}{\cdot})$ and $(X, \norm{1}{\cdot})$ have the same open sets.
+In finite dimensions, linear algebra tells us that $(X, \norm{1}{\cdot})$ and $(\reals^{\dim{X}}, \norm{1}{\cdot})$ have the same open sets.
+So all finite-dimensional normed spaces are topologically equivalent to some space $\reals^n$.
+In $\reals^n$, the theorem of Heine-Borel tells us that all bounded subsets are relatively compact.
+Since relatively compact is a topological property, the theorem transfers to $(X, \norm{}{\cdot})$.
+Finally, a finite rank causes the bounded image of the operator to be finite-dimensional, which then causes it to be relatively compact.
+This is a very strong statement, considering that the domain unit ball might not be compact at all.
+
+This finally breaks down when the rank is infinite.
+So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general Banach spaces.
+
+\begin{definition}
+    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}: \\
+    Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
+    \begin{romanenum}
+        \item $M$ is uniformly equicontinuous, if
+            \[ \forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon \]
+        \item $M$ is pointwise bounded, if 
+            \[ \forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded} \]
+    \end{romanenum}
+\end{definition}
+
+\noindent The theorem of \highlight{Arzelà-Ascoli} from the lecture gives us a characterisation of relative compactness 
+for the set of continuous functions on a compact metric space using the two previous concepts.
+This is interesting, because uniform equicontinouity and pointwise boundedness are (relatively) simple properties 
+of the functions \highlight{evaluations} rather than the functions themselves. They can be easily verified to be true.
+Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
+
+\begin{revision}[Arzelà-Ascoli]
+    Let $D$ be a compact metric space and $M \subset C(D)$ with the supremum norm.
+    Then we have $M$ is uniformly equicontinuous and pointwise bounded implies $M$ is relatively compact.
+\end{revision}
+\begin{proofidea}
+    \begin{itemize}
+        \item $D$ is separable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
+        \item For all $x \in D$ we can use the pointwise boundedness to invoke Bolzano-Weierstraß to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
+        \item Specifically, we have $\forall x \in D_0: (f_{n(x, k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
+            $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item We already have $f_{n(k)}|_{D_0} \convergesto: f|_{D_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
+            % TODO: \convergesto: is bad notation
+            But how can you extend this to the entire set $D$?
+        \item For each $x \in D$, we can choose an arbitrarily close $x_0 \in D_0$. Using two triangle inequalities, uniform equicontinouity allows us to extend the result to $D$. \\
+            As $C(D)$ is complete, the Cauchy sequence converges.
+    \end{itemize}
+\end{proofidea}
+
+\noindent Using the revision, we can now prove the theorem of Schauder and then trace the arguments through both proofs to get a better understanding of the ideas.
+
+\begin{theorem}[Schauder]
+    Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ be a bounded, linear operator.
+    Then we have $T$ is compact if and only if $T'$ is compact.
+\end{theorem}
+\begin{proof}
+    TODO the proof here is (slightly) still wrong bc of the way the f's are defined!
+    But conceptually, should be good!
+    \leftrightproof
+    Let $(y'_n)_{n \in \naturals} \subset Y' = \dualspace{Y} \subset C(Y)$ be bounded. \\
+    Our goal is to show that there is a convergent subsequence in $(T' y'_n)_{n \in \naturals}$
+    with respect to $(X', \norm{}{\cdot})$ where $\norm{}{\cdot}$ is the operator norm.
+
+    \noindent Let $K = \closedunitball{X}$ and for all $n \in \naturals$ set $f_n = (y'_n \chain T)|_{B} \in \dualspace{X}$.
+    Then we have
+    \begin{align*}
+        \norm{\infty}{f - f_m} % TODO: This part of the proof is very questionable. I think this is wrong!
+        &= \sup_{\norm{X}{x} = 1}{((y' \chain T) - (y'_m \chain T))x}       \explainstep{apply def. of $f_n$ and $f_m$} \\
+        &= \norm{}{y' \chain T - y'_m \chain T}                             \explainstep{use supremum char. of operator norm}
+    \end{align*}
+    This tells us that convergence in the operator norm only cares about the behavior on the closed unit ball!
+    Let $D = \overline{T\parens{\closedunitball{X}}}$.
+    \noindent We know
+    \begin{itemize}
+        \item \closedunitball{X} is bounded.
+        \item $T$ is a compact operator.
+    \end{itemize}
+    So $T \closedunitball{X}$ is relatively compact and $D$ is compact.
+
+    \noindent We can now pack our sequence into $M \defeq \braces{f_n \mid n \in \naturals}$ and examine it for
+    \begin{itemize}
+        \item Pointwise boundedness: For $x \in \closedunitball{X}$ and $n \in \naturals$
+            \begin{align*}
+                \abs{f_n(x)}
+                &= \abs{y'_n(Tx)} \defeq \abs{y'_n(d)}      \explainstep{apply def. of $f_n$ and define $d$} \\
+                &\le C_1 \norm{Y}{d} \le C_1 C_2            \explainstep{apply op. norm ineq. and D bounded means $\norm{Y}{d} \le: C_2$}
+            \end{align*}
+
+        \item Uniform equicontinuity: For $n \in \naturals, \epsilon > 0, \delta = \frac{\epsilon}{C_1 C_2}, \forall x, y \in K, \norm{X}{x - y} < \delta$
+            \begin{align*}
+                \norm{Y}{f_n(x) - f_n(y)}
+                &\le \norm{Y}{y'_n \chain Tx - y'_n \chain Ty}                  \explainstep{apply def. of $f_n$} \\
+                &\le \norm{}{y'_n} \cdot \norm{Y}{T(x - y)}                     \explainstep{factor out and apply op. norm ineq.} \\
+                &\le \norm{}{y'_n} \cdot \norm{}{T} \cdot \norm{X}{x - y}       \explainstep{apply op. norm ineq.} \\
+                &\le C_1 C_2 \norm{X}{x - y} < C_1 C_2 \delta = \epsilon        \explainstep{apply bounded and substitute in $\delta$}
+            \end{align*}
+    \end{itemize}
+
+    \noindent The theorem of Arzelà-Ascoli now tells us that $M$ is relatively compact.
+    So every sequence in $M$ has a convergent subsequence.
+    In particular for the convergent subsequence \sequence{k}{f_{n(k)}} we have
+    \begin{align*}
+        \sequence{k}{f_{n(k)}}
+        &= \sequence{k}{y'_n \chain T}      \explainstep{apply def. of $f_{n(k)}$} \\
+        &= \sequence{k}{T' y'_{n(k)}}       \explainstep{apply def. of adjoint operator}
+    \end{align*}
+
+    \noindent So finally, \sequence{k}{T' y'_{n(k)}} is a convergent subsequence of \sequence{k}{T' y'_k}. \\
+
+    \noindent \rightleftproof
+    The other proof direction tells us that $T \text{ compact } \implies T' \text{ compact}$. \\
+    So in extension this also yields $T' \text{ compact } \implies T'' \text{ compact}$.
+
+    \noindent Theorem \ref{theorem:bidual-adjunct-embedding} tells us that $T = \inv{J_Y} \chain T'' \chain J_X$.
+
+    \noindent And revision\ \ref{revision:general-revision} tells us that $T$ is also compact,
+    as it is a composition of at least one compact operator - in this case $T''$.
+
+\end{proof}
+
+\begin{example}
+    % Example with C[0, 1] and a compact integral operator on that space.
+\end{example}
+
+% IDK if this fits in at all????
+% \begin{example}
+%     % General example with compact integral operator (Script Example 3.35)
+%     % Specify to bounded fourier transform.
+%     % Somehow connect to dual topological space??? Idk if this is good. The punchline is maybe not ideal.
+% \end{example}
