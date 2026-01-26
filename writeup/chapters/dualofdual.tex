@@ -56,6 +56,7 @@ We need to revise an important corollary from the lecture first.
     \begin{romanenum}
         \item The canonical embedding $J_X$ is an isometric injective function.
         \item $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism.
+        \item $J_X$ is a bounded, linear operator.
         \item \canonicalembinv{X} is a bounded, linear operator.
     \end{romanenum}
 \end{revision}
@@ -66,8 +67,16 @@ We need to revise an important corollary from the lecture first.
         \item
             Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
             \begin{itemize}
+                \item $J_X$ is linear.
+                \item $\norm{}{J_X} = 1$.  This means $J_X$ is bounded.
+                    % TODO: Explain this better!
+            \end{itemize}
+
+        \item
+            Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
+            \begin{itemize}
                 \item \canonicalembinv{X} inherits linearity from $J$.
-                \item $\norm{}{J} = 1$ and therefore $\norm{}{\canonicalembinv{X}} = 1$.
+                \item $\norm{}{J_X} = 1$ and therefore $\norm{}{\canonicalembinv{X}} = 1$.
                     This means \canonicalembinv{X} is bounded.
                     % TODO: Explain this better!
             \end{itemize}
@@ -75,7 +84,7 @@ We need to revise an important corollary from the lecture first.
     \end{romanprooflist}
 \end{proofidea}
 
-\begin{corollary}
+\begin{corollary} \label{corollary:bidual-adjunct-embedding-ext}
     We can strengthen\ theorem \ref{theorem:bidual-adjunct-embedding} using the isomorphism from revision\ \ref{revision:embedding-isomorphism}: \\
     Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed \thefield\ vector spaces.
     Let $T \in \contoperators{X}{Y}$ be a bounded linear operator. 

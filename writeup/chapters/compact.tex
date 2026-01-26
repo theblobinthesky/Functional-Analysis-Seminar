@@ -75,46 +75,48 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
     Then we have $T$ is compact if and only if $T'$ is compact.
 \end{theorem}
 \begin{proof}
-    TODO the proof here is (slightly) still wrong bc of the way the f's are defined!
-    But conceptually, should be good!
     \leftrightproof
     Let $(y'_n)_{n \in \naturals} \subset Y' = \dualspace{Y} \subset C(Y)$ be bounded. \\
     Our goal is to show that there is a convergent subsequence in $(T' y'_n)_{n \in \naturals}$
     with respect to $(X', \norm{}{\cdot})$ where $\norm{}{\cdot}$ is the operator norm.
+    For all $n \in \naturals$ set $f_n = y'_n|_{T\parens{\closedunitball{X}}}$.
 
-    \noindent Let $K = \closedunitball{X}$ and for all $n \in \naturals$ set $f_n = (y'_n \chain T)|_{B} \in \dualspace{X}$.
-    Then we have
-    \begin{align*}
-        \norm{\infty}{f - f_m} % TODO: This part of the proof is very questionable. I think this is wrong!
-        &= \sup_{\norm{X}{x} = 1}{((y' \chain T) - (y'_m \chain T))x}       \explainstep{apply def. of $f_n$ and $f_m$} \\
-        &= \norm{}{y' \chain T - y'_m \chain T}                             \explainstep{use supremum char. of operator norm}
-    \end{align*}
-    This tells us that convergence in the operator norm only cares about the behavior on the closed unit ball!
-    Let $D = \overline{T\parens{\closedunitball{X}}}$.
-    \noindent We know
-    \begin{itemize}
-        \item \closedunitball{X} is bounded.
-        \item $T$ is a compact operator.
-    \end{itemize}
-    So $T \closedunitball{X}$ is relatively compact and $D$ is compact.
+    \noindent Using the definitions of $f_n$ and $f_m$ we get
+    \[ \norm{\infty}{f_n - f_m} = \sup_{\norm{X}{x} = 1}{((y'_n \chain T) - (y'_m \chain T))x} \]
+    The convergence of $f$ happens if and only if is a Cauchy sequence in the Banach space $(\dualspace{Y}, \norm{}{\cdot})$.
+    Therefore the convergence of $f$ in the operator norm is only dependent on the behaviour on the closed unit ball.
 
-    \noindent We can now pack our sequence into $M \defeq \braces{f_n \mid n \in \naturals}$ and examine it for
+    \noindent We now set \[ D = \overline{T\parens{\closedunitball{X}}} \]
+    and pack the sequence into \[ M \defeq \braces{f_n \mid n \in \naturals} \]
+    and examine them for
     \begin{itemize}
-        \item Pointwise boundedness: For $x \in \closedunitball{X}$ and $n \in \naturals$
+        \item $D$ is compact:
+            We have
+            \begin{itemize}
+                \item \closedunitball{X} is bounded.
+                \item $T$ is a compact operator.
+            \end{itemize}
+            So $T\parens{\closedunitball{X}}$ is relatively compact and $D$ is compact.
+
+        \item $M$ is pointwise bounded: For $x \in \closedunitball{X}$ and $n \in \naturals$ we have
             \begin{align*}
-                \abs{f_n(x)}
+                \abs{f_n(Tx)}
                 &= \abs{y'_n(Tx)} \defeq \abs{y'_n(d)}      \explainstep{apply def. of $f_n$ and define $d$} \\
                 &\le C_1 \norm{Y}{d} \le C_1 C_2            \explainstep{apply op. norm ineq. and D bounded means $\norm{Y}{d} \le: C_2$}
             \end{align*}
+            For $d \in D$ we can choose $\sequence{k}{x_k} \subset \closedunitball{X}$ with
+            $T x_k \convergesto d$ and $f_n(T x_k) \le C_1 C_2$. \\
+            Using continuity we get $\abs{f_n(d)} \le C_1 C_2$.
 
-        \item Uniform equicontinuity: For $n \in \naturals, \epsilon > 0, \delta = \frac{\epsilon}{C_1 C_2}, \forall x, y \in K, \norm{X}{x - y} < \delta$
+        \item $M$ is uniformly equicontinuous: 
+            For $n \in \naturals, \epsilon > 0, \delta = \epsilon / C_1, \forall d_1, d_2 \in D, \norm{X}{x - y} < \delta$ we have
             \begin{align*}
-                \norm{Y}{f_n(x) - f_n(y)}
-                &\le \norm{Y}{y'_n \chain Tx - y'_n \chain Ty}                  \explainstep{apply def. of $f_n$} \\
-                &\le \norm{}{y'_n} \cdot \norm{Y}{T(x - y)}                     \explainstep{factor out and apply op. norm ineq.} \\
-                &\le \norm{}{y'_n} \cdot \norm{}{T} \cdot \norm{X}{x - y}       \explainstep{apply op. norm ineq.} \\
-                &\le C_1 C_2 \norm{X}{x - y} < C_1 C_2 \delta = \epsilon        \explainstep{apply bounded and substitute in $\delta$}
+                \abs{f_n(d_1) - f_n(d_2)}
+                &\le \norm{}{y'_n} \cdot \norm{Y}{d_1 - d_2}        \explainstep{factor out and apply op. norm ineq.} \\
+                &\le C_1 \cdot \norm{}{T} \cdot \norm{X}{d_1 - d_2} \explainstep{use the upper bound $\norm{}{y'_n} \le C_1$} \\
+                &< C_1 \delta = \epsilon                            \explainstep{substitute in $\delta$}
             \end{align*}
+
     \end{itemize}
 
     \noindent The theorem of Arzelà-Ascoli now tells us that $M$ is relatively compact.
@@ -129,13 +131,13 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
     \noindent So finally, \sequence{k}{T' y'_{n(k)}} is a convergent subsequence of \sequence{k}{T' y'_k}. \\
 
     \noindent \rightleftproof
-    The other proof direction tells us that $T \text{ compact } \implies T' \text{ compact}$. \\
-    So in extension this also yields $T' \text{ compact } \implies T'' \text{ compact}$.
-
-    \noindent Theorem \ref{theorem:bidual-adjunct-embedding} tells us that $T = \inv{J_Y} \chain T'' \chain J_X$.
-
-    \noindent And revision\ \ref{revision:general-revision} tells us that $T$ is also compact,
-    as it is a composition of at least one compact operator - in this case $T''$.
+    The other proof direction tells us that \[ T \text{ compact } \implies T' \text{ compact} \]
+    So in extension this also yields \[ T' \text{ compact } \implies T'' \text{ compact} \]
+    Corollary\ \ref{corollary:bidual-adjunct-embedding-ext} tells us that \[ T = \canonicalembinv{Y} \chain T'' \chain J_X \]
+    Lastly, the operator $T''$ is compact, 
+    theorem\ \ref{revision:embedding-isomorphism} tells us $J_X$ and \canonicalembinv{Y} are bounded, linear operators
+    and therefore $T$ is a composition of bounded, linear operators. \\
+    Using the revision theorem\ \ref{revision:general-revision} we can conclude that $T$ is compact.
 
 \end{proof}
 
