@@ -16,7 +16,7 @@
 \noindent To prove properties about these sets, we need another corollary
 of the theorem of Hahn-Banach:
 
-\begin{revision}
+\begin{revision}\label{revision:hahn-banach-closed-subspace}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space,
     $U \subset X$ a closed subspace and $x \in X \setminus U$.
     Then we have $\exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0$.
@@ -28,46 +28,39 @@ of the theorem of Hahn-Banach:
 \begin{theorem}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then we have
-    \begin{enumeratetheorem}
-        \item $\anihu \subset X'$ and $\anihv \subset X$ are both closed linear subspaces of their respective supsets.
-        \item Let $U$ be closed. Then we have $(X / U)' \isomorphto \anihu$ (they are isomorphic).
-        \item Let $U$ be closed. Then we have $U' \isomorphto X' / \anihu$ (they are isomorphic).
-    \end{enumeratetheorem}
+    \[ \anihu \subset X' \text{ is a closed linear subspace } \logicaland \anihv \subset X \text{ is a closed linear subspace} \]
 \end{theorem}
 \begin{proof}
-    \begin{enumerateproof}
-        \item 
-            We will focus on $\anihu \subset X'$. The other statement works analogously. \\
-            We first prove $\anihu$ is not empty:
-            TODO.
+    We will focus on $\anihu \subset X'$. The other statement works analogously. \\
+    We first prove $\anihu$ is not empty:
+    TODO.
 
-            \noindent Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
-            We first prove $\anihu \subset X'$ is a linear subspace:
-            \begin{align*}
-                (x'_1 + \lambda x'_2)(x)
-                &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
-                &= 0 + \lambda 0 = 0            \explainstep{use $x'_1, x'_2 \in X'$}
-            \end{align*}
+    \noindent Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
+    We first prove $\anihu \subset X'$ is a linear subspace:
+    \begin{align*}
+        (x'_1 + \lambda x'_2)(x)
+        &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
+        &= 0 + \lambda 0 = 0            \explainstep{use $x'_1, x'_2 \in X'$}
+    \end{align*}
 
-            \noindent Let $\sequence{k}{x'_k} \subset \anihu$ be a converging sequence. \\
-            We now prove that $x'$ converges in $\anihu$:
-            \begin{align*}
-                todo
-            \end{align*}
-
-        \item 
-
-        \item 
-
-    \end{enumerateproof}
+    \noindent Let $\sequence{k}{x'_k} \subset \anihu$ be a converging sequence. \\
+    We now prove that $x'$ converges in $\anihu$:
+    \begin{align*}
+        todo
+    \end{align*}
 \end{proof}
 
 \noindent In summary, TODO.
 
-\newcommand{\kerdualperp}{\ensuremath{(\ker T')_\perp}}
-\begin{theorem}
+\newcommand{\kerdualperp}{\ensuremath{(\ker T')_\perp}\xspace}
+
+\begin{theorem}\label{theorem:rank-nullity-generalized}
     Let $T \in \contoperators{X}{Y}$ be a bounded, linear operator.
-    Then we have $\overline{\im T} = \kerdualperp$.
+    Then we have \[ \overline{\im T} = \kerdualperp \]
+    \note{
+        In linear algebra this is usually presented for finite-dimensional vector spaces
+        (see Satz 6.1.5\ \cite{Wer18})
+    }
 \end{theorem}
 \begin{proof}
     \leftrightinclusion
@@ -78,30 +71,36 @@ of the theorem of Hahn-Banach:
         &= (T' y')(x)               \explainstep{apply adjoint op. definition} \\
         &= 0(x) = 0                 \explainstep{apply $y' \in \ker T'$}
     \end{align*}
-    Since this holds for all choices of $Tx$ we get $\im T \subset \kerdualperp$. \\
-    Since \kerdualperp is closed, we also get $\overline{\im T} \subset \kerdualperp$.
+    Since this holds for all choices of $Tx$ we get \[ \im T \subset \kerdualperp \]
+    Since \kerdualperp is closed, we also get \[ \overline{\im T} \subset \kerdualperp \]
 
     \noindent \rightleftinclusion
-    TODO
+    We can prove the contraposition
+    \[ \parens{Y \setminus \overline{\im T}} \subset \parens{Y \setminus \kerdualperp} \]
+    Set $U = \overline{\im T}$ and let $y \in Y \setminus U$.
+    We know $U$ that a closed linear subspace.
+    The corollary of the theorem of Hahn-Banach\ \ref{revision:hahn-banach-closed-subspace} tells us that
+    \[ \exists y' \in Y' : y'|_U = 0 \logicaland y'(y) \neq 0 \]
+    Since $\ker T' \subset Y'$ 
+    and \[\forall y' \in \ker T' : y'(y) \neq 0 \]
+    we get \[ y \in Y \setminus \kerdualperp \]
 \end{proof}
 
-% \begin{theorem}
-%     TODO: The stuff with the Id - T operator.
-% \end{theorem}
-% \begin{proof}
-%     TODO
-% \end{proof}
-% TODO: Idk how useful this will be!
-
 \begin{corollary}
-    Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed.
-    Then we have $Tx = y$ has a solution if and only if $T'y' = 0 \implies y'(y) = 0$.
+    Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed. Then we have 
+    \[ y \in \im T \text{ if and only if } T'y' = 0 \implies y'(y) = 0 \]
 \end{corollary}
 \begin{proof}
+    We have
+    \begin{align*}
+        y \in \im T 
+        &= \overline{\im T}                                     \explainstep{$\im T$ is closed} \\
+        &= \kerdualperp                                         \explainstep{apply theorem \ref{theorem:rank-nullity-generalized}} \\
+        \iff &\forall y' \in \ker T' : y'(y) = 0                \explainstep{apply def. of annihilator} \\
+        \iff &\forall y' \in Y': T'y' = 0 \implies y'(y) = 0    \explainstep{write in equivalent way}
+    \end{align*}
 \end{proof}
 
 \begin{example}
+    % TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation
 \end{example}
-
-% TODO: Theorem about solutions to Tx=y
-% TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation
