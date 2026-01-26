@@ -3,7 +3,7 @@
 \usepackage[english]{babel}
 \usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
 \usepackage{amsmath, amsfonts, amssymb, graphicx, enumitem, xcolor}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{hyperref}
 \usepackage{dsfont, mathtools, amsthm, diagbox, caption, subcaption, xspace}
 \usepackage[
     backend=bibtex,
@@ -26,7 +26,7 @@
 \newcommand{\abs}[1]{|#1|}
 \newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
 \newcommand{\dualspace}[1]{\contoperators{#1}{\thefield}}
-\newcommand{\closedunitball}[1]{\ensuremath{B(0, \mathord{\le} 1, #1)}}
+\newcommand{\closedunitball}[1]{\ensuremath{B_#1}}
 \newcommand{\thefield}{\ensuremath{\mathbb{F}}}
 \newcommand{\chain}{\ensuremath{\circ}}
 \newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
@@ -46,13 +46,12 @@
 
 % ===== BRACKETS =====
 \newcommand{\parens}[1]{\left(#1\right)}
-\newcommand{\brackets}[1]{\left[#1\right]}
 \newcommand{\braces}[1]{\left\{#1\right\}}
 
 % ===== SETS ======
-\newcommand{\reals}{\ensuremath{\mathbb{R}}}
-\newcommand{\complexes}{\ensuremath{\mathbb{C}}}
-\newcommand{\naturals}{\ensuremath{\mathbb{N}}}
+\newcommand{\reals}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\complexes}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\naturals}{\ensuremath{\mathbb{N}}\xspace}
 
 % ===== SPECIAL OPERATORS =====
 \DeclareMathOperator{\rk}{rk}
@@ -63,10 +62,10 @@
 
 % ===== ENUMERATIONS =====
 \newlist{romanenum}{enumerate}{1}
-\setlist[romanenum]{label=\roman*):, leftmargin=*, labelsep=0.5em, align=left}
+\setlist[romanenum]{label=\roman*), leftmargin=*, labelsep=0.2em, align=left}
 
 \newlist{romanprooflist}{enumerate}{1}
-\setlist[romanprooflist]{label="\roman*)":, leftmargin=*, labelsep=0.5em, align=left}
+\setlist[romanprooflist]{label="\roman*)":\space, leftmargin=0em, labelwidth=*, align=left}
 
 
 \newenvironment{proofidea}
@@ -87,59 +86,57 @@
 
 
 % ===== MISC =====
-\newcommand{\refertolecture}{\text{Please refer to the functional analysis lecture notes from SS/2025.}}
+\newcommand{\refertolecture}{\text{Please refer to the functional analysis lecture notes\ \cite{krieg_functional_2025} from SS/2025.}}
 
 
 % ===== DOCUMENT ====
 \begin{document}
-\maketitle
-
-\begin{abstract}
-    This proseminar paper provides a foundational overview of dual-/adjoint operators in a general Banach space setting.
-\end{abstract}
-
-\tableofcontents
+\input{chapters/titlepage.tex}
 
 \section{Introduction}
-\subsection{Motivation}
-The goal of dual- or adjoint operators is to generalize the notion of an adjoint matrix
-(often denoted as $A^T$ over \reals\ or $A^H$ over \complexes)
-to general operators on normed vector spaces:
-
-\noindent We will cover and generalize the following topics:
-\begin{enumerate}
-    \item The operator $\cdot^H$ is linear and isometric wrt. the spectral norm.
-    \item The fundamental theorem of linear algebra (Gilbert Strang) or rank-nullity theorem: \\
-        $(\im A)^\perp = \ker A^H$.
-    \item The Lagrange duality from nonlinear optimisation theory.
-    \item TODO Add more
-\end{enumerate}
-
+\input{chapters/motivation.tex}
 
 \subsection{General revision}
 
+\noindent The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
+We will standardize on \highlight{adjoint}, to avoid unnecessary confusion.
+Following\ \cite{werner_funktionalanalysis_2018}, we write $\thefield \in \{\reals, \complexes\}$ when the field is unspecified.
+
+\newcommand{\twonormedvectorspaces}{$\normedspace{X}$ and $\normedspace{Y}$ be normed \thefield-vector spaces}
 \begin{definition}
-    Remember the following concepts:
+    We remind outselves of the following concepts from the lecture \cite{krieg_functional_2025}:
     \begin{romanenum}
         \item
-            Let $\normedspace{X}$ and $\normedspace{Y}$ be normed vector spaces on \reals\ or \complexes. \\
-            Let $T: X \rightarrow Y$ be linear. \\
-            $T$ is a \highlight{linear operator}.
-            $T$ is \highlight{bounded}, if $\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}$.
-        
+            Let \twonormedvectorspaces\ and let \[ T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot}) \] be a linear mapping.
+            Then we call $T$ a \highlight{linear operator}.
+            We call $T$ \highlight{bounded}, if \[\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}\]
+
+            \noindent For brevity, we will use the notation \[ T: X \rightarrow Y \] 
+            for linear operators rather than \[ T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot}) \]
+
         \item
-            The (topological) dual space is defined as $X' \defeq \dualspace{X}$.
+            Let $\normedspace{X}$ be a normed \thefield-vector.
+            The (topological) dual space is defined as \[ X' \defeq \dualspace{X} \]
+
     \end{romanenum}
 \end{definition}
 
 \begin{revision} \label{revision:general-revision}
-    The following statements are foundational for this topic:
+    The following statements are foundational for this topic: \\
+    Let \twonormedvectorspaces.
     \begin{romanenum}
-        \item The set of continous, linear operators \contoperators{X}{Y} is a Banach space iff.\ $Y$ is a Banach space. \\
+        \item The set of continuous, linear operators \contoperators{X}{Y} is a Banach space if and only if $Y$ is a Banach space.
             In particular, the topological dual space \dualspace{X} is a Banach space.
-        \item For linear operators, continuous and bounded are equivalent.
-        \item A linear, bounded operator between $X$ and $Y$ and one between $Y$ and $Z$ can be chained to produce a linear, bounded operator between $X$ and $Z$.
-        \item In a chain of linear, bounded operators with at least one compact operator the resulting operator is compact.
+        \item Let $T: X \to Y$ be a linear operator.
+            Then $T$ is bounded if and only if $T$ is continous.
+        \item Let $(Z, \norm{Z}{\cdot})$ be a normed \thefield-vector space,
+            let $T: X \to Y$ be a linear, bounded operator and 
+            let $S: Y \to Z$ be a linear, bounded operator.
+            Then $S \chain T$ is a linear, bounded operator.
+        \item Let $(Z, \norm{Z}{\cdot})$ be a normed \thefield-vector space,
+            let $T: X \to Y$ be a linear operator and 
+            let $S: Y \to Z$ be a linear operator.
+            If $T$ or $S$ is compact, $S \chain T$ is compact.
     \end{romanenum}
 \end{revision}
 \begin{proof}
@@ -149,16 +146,10 @@ to general operators on normed vector spaces:
 \section{The adjoint operator}
 \subsection{The basic definitions and conventions}
 
-\begin{remark}
-    The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
-    We will standardize on \highlight{adjoint}, to avoid unnecessary confusion.
-    We will abstract the field as $\thefield \in \{\reals, \complexes\}$.
-\end{remark}
-
 \begin{definition}
-    Let $X, Y$ be normed vector spaces and $T \in \contoperators{X}{Y}$. \\
+    Let \twonormedvectorspaces and $T \in \contoperators{X}{Y}$. \\
 	Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjoint operator.
-    From now on, we will implicitly refer to the normed vector spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
+    From now on, we will implicitly refer to the normed \thefield\ vector spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
 \end{definition}
 
 \begin{remark}
@@ -179,7 +170,7 @@ So first, we need to recall Hahn-Banach related theorems:
 
 \begin{revision}[Hahn-Banach]\label{theorem:hahn-banach-op-norm}
     Let $(X, \norm{}{\cdot})$ be a normed space and $0 \neq x \in X$. \\
-    Then we have $\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{}{x}$.
+    Then we have \[\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{}{x}\]
 \end{revision}
 \begin{proof}
     \refertolecture
@@ -187,25 +178,32 @@ So first, we need to recall Hahn-Banach related theorems:
 
 \begin{revision}
     TODO (Explain): \\
-    Let $(X, \norm{}{\cdot})$ be a normed vector space and $x \in X$. \\
-    Then we have $\norm{X}{x} = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}$.
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space and $x \in X$. \\
+    Then we have \[\norm{X}{x} = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}\]
 \end{revision}
 \begin{proof}
-    Case 1 $x = 0$: Since $X'$ contains linear operators,
-    $\norm{X}{x} = 0 = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(0)}$. \\
-    Case 2 $x \neq 0$: We have 
-    \begin{align*} 
-        \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}
-        \le \sup_{f \in X', \norm{}{f} \le 1}{\norm{}{f}\norm{X}{x}}
-        \le 1 \norm{X}{x} = \norm{X}{x}
-    \end{align*}
-    Using Hahn-Banach from revision \ref{theorem:hahn-banach-op-norm} we get
-    $\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{X}{x}$. \\
-    So we get $\sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)} = \norm{X}{x}$.
+    We will distinguist two cases:
+    \begin{itemize}
+        \item Case 1 ($x = 0$):
+            Since $X'$ contains linear operators,
+            \[\norm{X}{x} = 0 = \sup_{f \in X', \norm{}{f} \le 1}\abs{f(0)}\]
+
+        \item Case 2 $x \neq 0$:
+            We have
+            \[
+                \sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)}
+                \le \sup_{f \in X', \norm{}{f} \le 1}{\norm{}{f}\norm{X}{x}}
+                \le 1 \norm{X}{x} = \norm{X}{x}
+            \]
+            Using Hahn-Banach from revision \ref{theorem:hahn-banach-op-norm} we get
+            \[\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{X}{x}\]
+            So we get \[\sup_{f \in X', \norm{}{f} \le 1}\abs{f(x)} = \norm{X}{x}\]
+
+    \end{itemize}
 \end{proof}
 
 \begin{theorem}
-    We can collect some basic properties of the adjoint operator:
+    The adjoint operator has the following properties:
     \begin{romanenum}
         \item $T' \in \contoperators{Y'}{X'}$, so $T'$ is linear and bounded. \\
             \comment{This implies $\forall y' \in \contoperators{Y'}{X'}: T'y' \in X'$}.
@@ -219,38 +217,32 @@ So first, we need to recall Hahn-Banach related theorems:
             $T' y' = y' \chain T$ with signature $X \rightarrow Y \rightarrow \thefield$.
             We can now see that $\im T' \subset X'$.
 
-            \noindent We then prove linearity:
+            \noindent Let $y'_1, y'_2 \in Y', \alpha \in \thefield$. We then prove linearity:
             \begin{align*}
                 T'(\alpha y'_1 + y'_2) 
                 &= (\alpha y'_1 + y'_2) \chain T                \explainstep{apply def. of adjoint operator} \\
                 &= \alpha y'_1 \chain T + y'_2 \chain T         \explainstep{expand expression} \\
-                &= \alpha T' y'_1 + T' y'_2                     \explainstep{apply def. of adjoint operator} \\
-                &\text{for all } y'_1, y'_2 \in Y' \text{ and } \alpha \in \thefield
+                &= \alpha T' y'_1 + T' y'_2                     \explainstep{apply def. of adjoint operator}
             \end{align*}
 
-            We then prove boundedness of the operator norm:
+            \noindent Let $y' \in Y'$. We then prove boundedness of the operator norm:
             \begin{align*}
                 \norm{X'}{T' y'}
                 &= \norm{X'}{y' \chain T}                           \explainstep{apply def. of adjoint operator} \\
                 &\le \norm{Y'}{y'}\norm{\contoperators{X}{Y}}{T}    \explainstep{apply def. of op. norm} \\
-                &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant} \\
-                &\text{for all } y' \in Y'
+                &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant}
             \end{align*}
 
         \item
-            We first prove linearity:
+            Let $T_1, T_2 \in \contoperators{X}{Y}, y' \in Y', x \in X, \alpha \in \thefield$. We first prove linearity:
             \begin{align*}
                 (\alpha T_1 + T_2)'(y')(x)
                 &= y'(\alpha T_1x + T_2x)                           \explainstep{apply def. of adjoint operator} \\
                 &= y'\parens{\alpha T_1x + T_2x}                    \explainstep{pull $x$ into the eq.} \\
-                &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear} \\
-                &\text{for all } T_1, T_2 \in \contoperators{X}{Y}
-                \text{ and } y' \in Y' 
-                \text{ and } x \in X
-                \text{ and } \alpha \in \thefield
+                &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear}
             \end{align*}
 
-            We then prove isometry:
+            \noindent We then prove isometry:
             \begin{align*}
                 \norm{}{T}
                 &= \sup_{\norm{X}{x} \le 1}\norm{Y}{Tx}                                 \explainstep{use supremum char. of op. norm} \\
@@ -274,51 +266,53 @@ So first, we need to recall Hahn-Banach related theorems:
     Let $p \in (1, \infty)$ with $p \neq 2$. This makes \lp a Banach space according to the lecture,
     but not a Hilbert space as the parallelogram rule is not satisfied.
     We know that the dual space of \lp is isometrically isomorph to \lpconj
-    where \pconj is the \highlight{Hölder conjugate} with $\frac{1}{p} + \frac{1}{p^*} = 1$. \\
+    where \pconj is the \highlight{Hölder conjugate} with $1/p + 1/p^* = 1$. \\
     As a reminder, the general idea of the proof of $\lp' \isomorphto \lpconj$ goes as follows:
     \begin{enumerate}
-        \item Define the isometric isomorphism as $T: \lpconj \rightarrow \lp', s \mapsto (x \mapsto \sum_{k \in \naturals}{x_k s_k})$.
-        \item Verify $(Ts)x$ converges as $\abs{(Ts)x} \le \norm{p}{x}\norm{\pconj}{s} < \infty$ and absolute convergence implies convergence.
+        \item Define the isometric isomorphism as \[T: \lpconj \rightarrow \lp', s \mapsto (x \mapsto \sum_{k \in \naturals}{x_k s_k})\]
+        \item Verify $(Ts)x$ converges as \[\abs{(Ts)x} \le \norm{p}{x}\norm{\pconj}{s} < \infty\] and absolute convergence implies convergence.
         \item Verify $T$ is injective using the linearity.
         \item Verify $T$ is surjective and isometric through todo (the annoying part).
     \end{enumerate}
 
-    \noindent Now, let's work through an example! \\
-    Consider the \highlight{left shift} operator $T: \lp \rightarrow \lp, \sequence{k}{x_k} \mapsto \sequence{k}{x_{k+1}}$. \\
-    It is well-defined since $\sum_{k \in \naturals}\abs{x_{k+1}}^p \le \sum_{k \in \naturals}\abs{x_{k}}^p < \infty$. \\
+    \noindent To illustrate the adjoint operator, we now work through an example.
+    Consider the \highlight{left shift} operator \[T: \lp \rightarrow \lp, \sequence{k}{x_k} \mapsto \sequence{k}{x_{k+1}}\]
+    It is well-defined since \[\sum_{k \in \naturals}\abs{x_{k+1}}^p \le \sum_{k \in \naturals}\abs{x_{k}}^p < \infty\]
 
-    \noindent What should the adjoint operator $T'$ intuitively be?
+    \noindent We can now compute the adjoint operator $T'$:
+    \begin{itemize}
+        \item 
+            The adjoint $T'$ must have the signature $\lp' \isomorphto \lpconj \rightarrow \lp' \isomorphto \lpconj$.
 
-    \noindent The adjoint $T'$ must have the signature $\lp' \isomorphto \lpconj \rightarrow \lp' \isomorphto \lpconj$.
+        \item 
+            Let $y' \in \lp' \isomorphto \lpconj$.
+            Then we can write $y': \lp \rightarrow \thefield, x \mapsto \sum_{k \in \naturals}{x_k s_k}$ with $s \in \lpconj$. \\
+            Now for $x \in \lp$ we have
+            \begin{align*}
+                (T' y')(x)
+                &= (y' \chain T)(x) = y'(Tx)                \explainstep{apply def. of $T'$} \\
+                &= y'(\sequence{k}{x_{k+1}})                \explainstep{apply def. of $T$} \\
+                &= \sum_{k \in \naturals}{x_{k+1} s_k}      \explainstep{apply def. of $y'$} \\
+                &= \sum_{k \in \naturals}{x_{k} s'_k}       \explainstep{with $s'_1 = 0$ and $s'_k = s_{k-1}$ for $k > 1$}
+            \end{align*}
 
-    \noindent Let $y' \in \lp' \isomorphto \lpconj$.
-    Then we can write $y': \lp \rightarrow \thefield, x \mapsto \sum_{k \in \naturals}{x_k s_k}$ with $s \in \lpconj$. \\
-    Now for $x \in \lp$ we have
-    \begin{align*}
-        (T' y')(x)
-        &= (y' \chain T)(x) = y'(Tx)                \explainstep{apply def. of $T'$} \\
-        &= y'(\sequence{k}{x_{k+1}})                \explainstep{apply def. of $T$} \\
-        &= \sum_{k \in \naturals}{x_{k+1} s_k}      \explainstep{apply def. of $y'$} \\
-        &= \sum_{k \in \naturals}{x_{k} s'_k}       \explainstep{with $s'_1 = 0$ and $s'_k = s_{k-1}$ for $k > 1$}
-    \end{align*}
+            \noindent This tells us that the adjoint operator $T'$ acts as a \highlight{right shift} (up to isomorphism):
+            \[T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto (0, s_1, s_2, \dots)\]
 
-    \noindent This tells us that the adjoint operator $T'$ acts as a \highlight{right shift} (up to isomorphism):
-    \begin{align*}
-        T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto \sequence{}{0, s_1, s_2, \cdots}
-    \end{align*}
+    \end{itemize}
 \end{example}
 
-\begin{revision}
-    Let $X, Y, Z$ be normed vector spaces. \\
-    Then the adjoint operator reverses composition: \\
-    $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
-\end{revision}
+\begin{theorem}
+    Let $X, Y, Z$ be normed \thefield\ vector spaces. \\
+    Then the adjoint operator reverses composition:
+    \[\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'\]
+\end{theorem}
 \begin{proof}
     Let $T \in \contoperators{X}{Y}$ and $S \in \contoperators{Y}{Z}$. \\
     We know $ST = S \chain T$ is still a linear, bounded operator from $X$ to $Z$.
     So $(ST)'$ is well-defined. \\
-    Let $z' \in Z' = \contoperators{Z}{\thefield}$ and set $y' = z' \chain S \in \dualspace{Y}$. \\
-    We can now evaluate the expression on $z' \in Z'$:
+    Let $z' \in Z' = \contoperators{Z}{\thefield}$ and 
+    set $y' = z' \chain S \in \dualspace{Y}$. We have
     \begin{align*}
         (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of adjoint operator} \\
         &= (z' \chain S) \chain T       \explainstep{write out chain explicitly} \\
@@ -327,7 +321,7 @@ So first, we need to recall Hahn-Banach related theorems:
         &= T' (z' \chain S)             \explainstep{subst. y'} \\
         &= T' S' z'                     \explainstep{apply def. of adjoint operator}
     \end{align*}
-    So in total, $(ST)' = T' S'$.
+    So in total $(ST)' = T' S'$.
 \end{proof}
 
 \begin{example}
@@ -341,7 +335,7 @@ So first, we need to recall Hahn-Banach related theorems:
 \noindent For starters, we need to recall some concepts from the lecture.
 
 \begin{definition}
-    Let $X$ be a normed vector space. 
+    Let $X$ be a normed \thefield\ vector space. 
     \begin{romanenum}
         \item $X''$ is called the bidual space.
         \item Let $J_X: X \rightarrow X'', p \mapsto (x' \mapsto x'(p))$.
@@ -355,7 +349,7 @@ TODO
 
 \newcommand{\canonicalembinv}[1]{\ensuremath{\inv{J_#1|_{J_#1(#1)}}}}
 \begin{theorem}\label{theorem:bidual-adjunct-embedding}
-    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
+    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed \thefield\ vector spaces.
     Let $T \in \contoperators{X}{Y}$ be a bounded linear operator.
     Then we have: $J_Y \chain T = T'' \chain J_X$. \\
     \comment{Or equivalently: $T''|_{J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$.} \\
@@ -376,14 +370,14 @@ TODO
 
     \noindent Finally, for $p \in X$ and $y' \in Y'$ we have
     \begin{align*}
-        \brackets{(J_Y \chain T)(p)}(y')
+        \parens{(J_Y \chain T)(p)}(y')
         &= J_Y(Tp)(y') = y'(Tp)                 \explainstep{subst. $p$ in and apply def. of $J_Y$} \\
         &= (y'T)(p)                             \explainstep{use associativity} \\
         &= (T'y')(p)                            \explainstep{apply def. of $T'$} \\
         &= (x' \mapsto x'(p))(T'y')             \explainstep{pull out subst. function} \\
         &= J_X(p)(T'y')                         \explainstep{recognize this is just $J_X$} \\
         &= T''(J_X(p))(y')                      \explainstep{apply def. use $T''$} \\
-        &= \brackets{(T'' \chain J_X)(p)}(y')   \explainstep{use \chain\ notation}
+        &= \parens{(T'' \chain J_X)(p)}(y')   \explainstep{use \chain\ notation}
     \end{align*}
 \end{proof}
 
@@ -391,7 +385,7 @@ TODO
 We need to revise an important corollary from the lecture first.
 
 \begin{revision}\label{theorem:embedding-isomorphism}
-    Let $(X, \norm{}{\cdot})$ be a normed vector space. Then we have
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space. Then we have
     \begin{romanenum}
         \item The canonical embedding $J_X$ is an isometric injective function.
         \item $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism.
@@ -487,17 +481,17 @@ We need to revise an important corollary from the lecture first.
 
 \begin{definition} % NOTE: Revision.
     The following definitions are revisions from the lecture: \\
-    Let $X, Y$ be normed vector spaces.
+    Let $X, Y$ be normed \thefield\ vector spaces.
     \begin{romanenum}
-        \item $X$ is relatively compact, if $\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } Y$.
-        \item $T \in \contoperators{X}{Y}$ is compact, if $T B(0, \le 1, X) \text{ is relatively compact}$.
+        \item $X$ is relatively compact, if \[\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } Y\]
+        \item $T \in \contoperators{X}{Y}$ is compact, if \[T\parens{\closedunitball{X}} \text{ is relatively compact}\]
         \item The rank of T is $\rk T = \dim{T(X)}$.
     \end{romanenum}
 \end{definition}
 
 % Explanation of the significance of these definitions:
 % TODO: Add examples to this section. The motivation is still not clear enough.
-\noindent As a reminder, in metric spaces a subset is compact iff.\ all sequences contain a converging subsequence in that set.
+\noindent As a reminder, in metric spaces a subset is compact if and only if all sequences contain a converging subsequence in that set.
 So relatively compact is a relaxed version of compactness: it disposes of the closed requirement.
 An important property of the closed unit ball in $\reals^n$ or $\complexes$ is that it is compact.
 Therefore, a linear operator between $\thefield^n \rightarrow \thefield^m$ always maps the closed unit ball to a compact set.
@@ -516,12 +510,13 @@ This finally breaks down when the rank is infinite.
 So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general Banach spaces.
 
 \begin{definition}
-    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}! \\
+    The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}: \\
     Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
     \begin{romanenum}
-        \item $M$ is uniformly equicontinuous, if \\
-            $\forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon$.
-        \item $M$ is pointwise bounded, if $\forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded}$.
+        \item $M$ is uniformly equicontinuous, if
+            \[ \forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon \]
+        \item $M$ is pointwise bounded, if 
+            \[ \forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded} \]
     \end{romanenum}
 \end{definition}
 
@@ -543,6 +538,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
         \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
             $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
         \item We already have $f_{n(k)}|_{D_0} \convergesto: f|_{D_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
+            % TODO: \convergesto: is bad notation
             But how can you extend this to the entire set $D$?
         \item For each $x \in D$, we can choose an arbitrarily close $x_0 \in D_0$. Using two triangle inequalities, uniform equicontinouity allows us to extend the result to $D$. \\
             As $C(D)$ is complete, the Cauchy sequence converges.
@@ -553,7 +549,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
 
 \begin{theorem}[Schauder]
     Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ be a bounded, linear operator.
-    Then we have $T$ is compact iff.\ $T'$ is compact.
+    Then we have $T$ is compact if and only if $T'$ is compact.
 \end{theorem}
 \begin{proof}
     TODO the proof here is (slightly) still wrong bc of the way the f's are defined!
@@ -571,7 +567,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
         &= \norm{}{y' \chain T - y'_m \chain T}                             \explainstep{use supremum char. of operator norm}
     \end{align*}
     This tells us that convergence in the operator norm only cares about the behavior on the closed unit ball!
-    Let $D = \overline{T \closedunitball{X}}$.
+    Let $D = \overline{T\parens{\closedunitball{X}}}$.
     \noindent We know
     \begin{enumerate}
         \item \closedunitball{X} is bounded.
@@ -592,8 +588,8 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
             \begin{align*}
                 \norm{Y}{f_n(x) - f_n(y)}
                 &\le \norm{Y}{y'_n \chain Tx - y'_n \chain Ty}                  \explainstep{apply def. of $f_n$} \\
-                &\le \norm{}{y'_n} \norm{Y}{T(x - y)}                           \explainstep{factor out and apply op. norm ineq.} \\
-                &\le \norm{}{y'_n} \norm{}{T} \norm{X}{x - y}                   \explainstep{apply op. norm ineq.} \\
+                &\le \norm{}{y'_n} \cdot \norm{Y}{T(x - y)}                     \explainstep{factor out and apply op. norm ineq.} \\
+                &\le \norm{}{y'_n} \cdot \norm{}{T} \cdot \norm{X}{x - y}       \explainstep{apply op. norm ineq.} \\
                 &\le C_1 C_2 \norm{X}{x - y} < C_1 C_2 \delta = \epsilon        \explainstep{apply bounded and substitute in $\delta$}
             \end{align*}
     \end{enumerate}
@@ -616,7 +612,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
     \noindent Theorem \ref{theorem:bidual-adjunct-embedding} tells us that $T = \inv{J_Y} \chain T'' \chain J_X$.
 
     \noindent And revision\ \ref{revision:general-revision} tells us that $T$ is also compact,
-    as it is a composition of at least one compact operator- in this case $T''$.
+    as it is a composition of at least one compact operator - in this case $T''$.
 
 \end{proof}
 
@@ -636,7 +632,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
 \newcommand{\anihv}{\ensuremath{V_\perp}}
 
 \begin{definition}
-    Let $(X, \norm{}{\cdot})$ be a normed vector space, $U \subset X$ and $V \subset X'$.
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then define
     \begin{romanenum}
         \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
@@ -650,7 +646,7 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
 of the theorem of Hahn-Banach:
 
 \begin{revision}
-    Let $(X, \norm{}{\cdot})$ be a normed vector space,
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space,
     $U \subset X$ a closed subspace and $x \in X \setminus U$.
     Then we have $\exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0$.
 \end{revision}
@@ -659,7 +655,7 @@ of the theorem of Hahn-Banach:
 \end{proof}
 
 \begin{theorem}
-    Let $(X, \norm{}{\cdot})$ be a normed vector space, $U \subset X$ and $V \subset X'$.
+    Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then we have
     \begin{romanenum}
         \item $\anihu \subset X'$ and $\anihv \subset X$ are both closed linear subspaces of their respective supsets.
@@ -728,7 +724,7 @@ of the theorem of Hahn-Banach:
 
 \begin{corollary}
     Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed.
-    Then we have $Tx = y$ has a solution iff.\ $T'y' = 0 \implies y'(y) = 0$.
+    Then we have $Tx = y$ has a solution if and only if $T'y' = 0 \implies y'(y) = 0$.
 \end{corollary}
 \begin{proof}
 \end{proof}
@@ -752,5 +748,24 @@ of the theorem of Hahn-Banach:
 
 % TODO: Make sure to look at every instance of y'T etc. closely and ensure i use \chain 
 % or in case of evaluation bla(x) not the weird frankenstein y'Tx but (y' \chain T)(x).
+
+% TODO: Make sure no \\ at the end of enumerate, itemize or align* blocks.
+
+
+% Ideen von Jakob:
+% Theorem/Revision texte sollten nicht kursiv sein! 
+% Case distinctions in proofs müssen auf dem selben inline niveau sein! Evtl gar kein proof environment!
+% Zwischen zwei multiplizierten Normen immer einen \cdot
+% supremum nie im fließtext. insgesamt sollte man statt $...$ $$..$$ verwenden und statt align $$...$$
+% Konsistent immer Let ... . We then prove ... statt "We can now evaluate the expression on ..."
+% Einheitlich eine Art von aufzählung benutzen. Eher itemize statt enumerate.
+% Das mit der invertierung des embeddings ist inkorrekt.
+% Notes müssen besser formatiert sein.
+% Insgesamt Definition 4 z.B., Revisions entweder ganz an den Anfang 
+% Beim langen Fließtext das \left(\\newline \\ konstrukt verwenden.
+% Keine ! im Fließtext.
+% Closed ball braucht leerzeichen nach den ","
+% Konsistent entweder Tx oder T(x) schreiben!
+% Überall korrekt citations hinzufügen.
 
 \end{document}
