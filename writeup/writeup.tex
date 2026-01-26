@@ -104,14 +104,14 @@
 \subsection{Motivation}
 The goal of dual- or adjoint operators is to generalize the notion of an adjoint matrix
 (often denoted as $A^T$ over \reals\ or $A^H$ over \complexes)
-to general operators on banach spaces.
+to general operators on normed vector spaces:
 
 \noindent We will cover and generalize the following topics:
 \begin{enumerate}
     \item The operator $\cdot^H$ is linear and isometric wrt. the spectral norm.
     \item The fundamental theorem of linear algebra (Gilbert Strang) or rank-nullity theorem: \\
         $(\im A)^\perp = \ker A^H$.
-    \item The lagrange duality from nonlinear optimisation theory.
+    \item The Lagrange duality from nonlinear optimisation theory.
     \item TODO Add more
 \end{enumerate}
 
@@ -128,14 +128,15 @@ to general operators on banach spaces.
             $T$ is \highlight{bounded}, if $\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}$.
         
         \item
-            The (topological) dual space is defined as $X' \defeq \contoperators{X}{\mathbb{R}}$.
+            The (topological) dual space is defined as $X' \defeq \dualspace{X}$.
     \end{romanenum}
 \end{definition}
 
 \begin{revision} \label{revision:general-revision}
     The following statements are foundational for this topic:
     \begin{romanenum}
-        \item The topological dual space \contoperators{X}{Y} is a Banach space.
+        \item The set of continous, linear operators \contoperators{X}{Y} is a Banach space iff.\ $Y$ is a Banach space. \\
+            In particular, the topological dual space \dualspace{X} is a Banach space.
         \item For linear operators, continuous and bounded are equivalent.
         \item A linear, bounded operator between $X$ and $Y$ and one between $Y$ and $Z$ can be chained to produce a linear, bounded operator between $X$ and $Z$.
         \item In a chain of linear, bounded operators with at least one compact operator the resulting operator is compact.
@@ -155,9 +156,9 @@ to general operators on banach spaces.
 \end{remark}
 
 \begin{definition}
-    Let $X, Y$ be metric spaces and $T \in \contoperators{X}{Y}$. \\
+    Let $X, Y$ be normed vector spaces and $T \in \contoperators{X}{Y}$. \\
 	Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjoint operator.
-    From now on, we will implicitly refer to the metric spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
+    From now on, we will implicitly refer to the normed vector spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
 \end{definition}
 
 \begin{remark}
@@ -178,7 +179,7 @@ So first, we need to recall Hahn-Banach related theorems:
 
 \begin{revision}[Hahn-Banach]\label{theorem:hahn-banach-op-norm}
     Let $(X, \norm{}{\cdot})$ be a normed space and $0 \neq x \in X$. \\
-    Then we have $\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = 1$.
+    Then we have $\exists f \in X': \norm{}{f} = 1 \logicaland \abs{f(x)} = \norm{}{x}$.
 \end{revision}
 \begin{proof}
     \refertolecture
@@ -221,16 +222,16 @@ So first, we need to recall Hahn-Banach related theorems:
             \noindent We then prove linearity:
             \begin{align*}
                 T'(\alpha y'_1 + y'_2) 
-                &= (\alpha y'_1 + y'_2) \chain T                \explainstep{apply def. of dual operator} \\
+                &= (\alpha y'_1 + y'_2) \chain T                \explainstep{apply def. of adjoint operator} \\
                 &= \alpha y'_1 \chain T + y'_2 \chain T         \explainstep{expand expression} \\
-                &= \alpha T' y'_1 + \beta T' y'_2               \explainstep{apply def. of dual operator} \\
+                &= \alpha T' y'_1 + T' y'_2                     \explainstep{apply def. of adjoint operator} \\
                 &\text{for all } y'_1, y'_2 \in Y' \text{ and } \alpha \in \thefield
             \end{align*}
 
             We then prove boundedness of the operator norm:
             \begin{align*}
                 \norm{X'}{T' y'}
-                &= \norm{X'}{y' \chain T}                           \explainstep{apply def. of dual operator} \\
+                &= \norm{X'}{y' \chain T}                           \explainstep{apply def. of adjoint operator} \\
                 &\le \norm{Y'}{y'}\norm{\contoperators{X}{Y}}{T}    \explainstep{apply def. of op. norm} \\
                 &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant} \\
                 &\text{for all } y' \in Y'
@@ -239,11 +240,13 @@ So first, we need to recall Hahn-Banach related theorems:
         \item
             We first prove linearity:
             \begin{align*}
-                (\alpha T_1 + T_2)'(y')
-                &= y'\left(\alpha T_1 + T_2\right)              \explainstep{apply def. of dual operator} \\
-                &= \alpha y'(T_1) + y'(T_2)                     \explainstep{y' is linear} \\
-                &\text{for all } T_1, T_2 \in \contoperators{X}{Y} 
+                (\alpha T_1 + T_2)'(y')(x)
+                &= y'(\alpha T_1x + T_2x)                           \explainstep{apply def. of adjoint operator} \\
+                &= y'\parens{\alpha T_1x + T_2x}                    \explainstep{pull $x$ into the eq.} \\
+                &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear} \\
+                &\text{for all } T_1, T_2 \in \contoperators{X}{Y}
                 \text{ and } y' \in Y' 
+                \text{ and } x \in X
                 \text{ and } \alpha \in \thefield
             \end{align*}
 
@@ -275,7 +278,7 @@ So first, we need to recall Hahn-Banach related theorems:
     As a reminder, the general idea of the proof of $\lp' \isomorphto \lpconj$ goes as follows:
     \begin{enumerate}
         \item Define the isometric isomorphism as $T: \lpconj \rightarrow \lp', s \mapsto (x \mapsto \sum_{k \in \naturals}{x_k s_k})$.
-        \item Verify $(Ts)x$ converges as $\norm{}{(Ts)x} \le \norm{p}{x}\norm{\pconj}{s} < \infty$ and absolute convergence implies convergence.
+        \item Verify $(Ts)x$ converges as $\abs{(Ts)x} \le \norm{p}{x}\norm{\pconj}{s} < \infty$ and absolute convergence implies convergence.
         \item Verify $T$ is injective using the linearity.
         \item Verify $T$ is surjective and isometric through todo (the annoying part).
     \end{enumerate}
@@ -301,12 +304,12 @@ So first, we need to recall Hahn-Banach related theorems:
 
     \noindent This tells us that the adjoint operator $T'$ acts as a \highlight{right shift} (up to isomorphism):
     \begin{align*}
-        T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto \sequence{k}{0, s_1, s_2, \cdots}
+        T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto \sequence{}{0, s_1, s_2, \cdots}
     \end{align*}
 \end{example}
 
 \begin{revision}
-    Let $X, Y, Z$ be normed metric spaces. \\
+    Let $X, Y, Z$ be normed vector spaces. \\
     Then the adjoint operator reverses composition: \\
     $\forall T \in \contoperators{X}{Y}, \forall S \in \contoperators{Y}{Z}: (S \chain T)' = T' \chain S'$.
 \end{revision}
@@ -317,12 +320,12 @@ So first, we need to recall Hahn-Banach related theorems:
     Let $z' \in Z' = \contoperators{Z}{\thefield}$ and set $y' = z' \chain S \in \dualspace{Y}$. \\
     We can now evaluate the expression on $z' \in Z'$:
     \begin{align*}
-        (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of dual operator} \\
+        (ST)'(z') &= z' \chain (ST)     \explainstep{apply def. of adjoint operator} \\
         &= (z' \chain S) \chain T       \explainstep{write out chain explicitly} \\
         &= y' \chain T                  \explainstep{subst. y'} \\
-        &= T' y'                        \explainstep{apply def. of dual operator} \\
+        &= T' y'                        \explainstep{apply def. of adjoint operator} \\
         &= T' (z' \chain S)             \explainstep{subst. y'} \\
-        &= T' S' z'                     \explainstep{apply def. of dual operator}
+        &= T' S' z'                     \explainstep{apply def. of adjoint operator}
     \end{align*}
     So in total, $(ST)' = T' S'$.
 \end{proof}
@@ -355,8 +358,8 @@ TODO
     Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed vector spaces.
     Let $T \in \contoperators{X}{Y}$ be a bounded linear operator.
     Then we have: $J_Y \chain T = T'' \chain J_X$. \\
-    \comment{Or equivalently: $T|_{J_X(X)} = J_Y \chain T'' \chain \canonicalembinv{X}$.} \\
-    \comment{Or equivalently: $T'' = \canonicalembinv{Y} \chain T \chain J_X$.}
+    \comment{Or equivalently: $T''|_{J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$.} \\
+    \comment{Or equivalently: $T = \canonicalembinv{Y} \chain T'' \chain J_X$.}
 \end{theorem}
 \begin{proof}
     Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
@@ -392,7 +395,7 @@ We need to revise an important corollary from the lecture first.
     \begin{romanenum}
         \item The canonical embedding $J_X$ is an isometric injective function.
         \item $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism.
-        \item \canonicalembinv{Y} is a bounded, linear operator.
+        \item \canonicalembinv{X} is a bounded, linear operator.
     \end{romanenum}
 \end{revision}
 \begin{proofidea}
@@ -402,9 +405,9 @@ We need to revise an important corollary from the lecture first.
         \item
             Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
             \begin{itemize}
-                \item \canonicalembinv{Y} inherits linearity from $J$.
-                \item $\norm{}{J} = 1$ and therefore $\norm{}{\canonicalembinv{Y}} = 1$.
-                    This means \canonicalembinv{Y} is bounded.
+                \item \canonicalembinv{X} inherits linearity from $J$.
+                \item $\norm{}{J} = 1$ and therefore $\norm{}{\canonicalembinv{X}} = 1$.
+                    This means \canonicalembinv{X} is bounded.
                     % TODO: Explain this better!
             \end{itemize}
 
@@ -431,16 +434,15 @@ We need to revise an important corollary from the lecture first.
 
     \noindent We know $T$ is linear and continuous, as $T = y_\cdot = J_Y^{-1} \chain S' \chain J_X$ 
     and all elements in the chain are bounded, linear operators.
-
-    \noindent Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
+    Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
     \begin{align*}
         (Sy')(x)
-        &= J_X(x)(S y')                                     \explainstep{express using $J_X$} \\
-        &= (S' J_X(x))(y') = (S' \chain J_X)(x)(y')         \explainstep{apply def. of ajoint op.} \\
-        &= J_Y((\inv{J_Y} \chain S' \chain J_X)(x))(y')     \explainstep{use $J_Y \chain \inv{J_Y} = \id$} \\
-        &= y'((\inv{J_Y} \chain S' \chain J_X)(x))          \explainstep{evaluate $J_Y$ at the vector} \\
-        &= y'(Tx) = (y' \chain T)(x)                        \explainstep{subst. in $T = J_Y^{-1} \chain S' \chain J_X$} \\
-        &= (T' y')(x)                                       \explainstep{apply def. of adjoint op.}
+        &= J_X(x)(S y')                                             \explainstep{express using $J_X$} \\
+        &= (S' J_X(x))(y') = (S' \chain J_X)(x)(y')                 \explainstep{apply def. of ajoint op.} \\
+        &= J_Y((\canonicalembinv{Y} \chain S' \chain J_X)(x))(y')   \explainstep{use $J_Y \chain \canonicalembinv{Y} = \id$} \\
+        &= y'((\canonicalembinv{Y} \chain S' \chain J_X)(x))        \explainstep{evaluate $J_Y$ at the vector} \\
+        &= y'(Tx) = (y' \chain T)(x)                                \explainstep{subst. in $T = J_Y^{-1} \chain S' \chain J_X$} \\
+        &= (T' y')(x)                                               \explainstep{apply def. of adjoint op.}
     \end{align*}
 
 \end{proof}
@@ -455,8 +457,9 @@ We need to revise an important corollary from the lecture first.
     % TODO: A not-adjunct operator :) we can use later!
 \end{example}
 
+% TODO: We should probably merge the example with the theorem.
 \begin{theorem}
-    Lastly, we get one more property of the adjoint operator:
+    Lastly, we get one more property of the adjoint:
     $T \mapsto T'$ is not always surjective. \\
     \note{This is not the case with $\cdot^H$ e.g.\ between $\reals^n \rightarrow \reals^n$.}
 \end{theorem}
@@ -471,9 +474,6 @@ We need to revise an important corollary from the lecture first.
 \end{proof}
 
 
-% \subsection{In Hilbert Spaces}
-% Risz-Frechet for Comparison between Hilbetraum-Adjoint and Banachraum-Adjoint.
-
 % \subsection{Examples for Adjoint Operators on Banach Spaces}
 
 % TODO: Examples for dual operators in l_p, L_p and some identity into the dual-dual space.
@@ -487,10 +487,10 @@ We need to revise an important corollary from the lecture first.
 
 \begin{definition} % NOTE: Revision.
     The following definitions are revisions from the lecture: \\
-    Let $X, Y$ be normed metric spaces.
+    Let $X, Y$ be normed vector spaces.
     \begin{romanenum}
-        \item $X$ is relatively compact, if $\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (T x_n)_{n \in \naturals} \text{ has a converging subsequence}$.
-        \item $T \in \naturals$ is compact, if $T B(0, \le 1, X) \text{ is relatively compact}$.
+        \item $X$ is relatively compact, if $\forall (x_n)_{n \in \naturals} \subset X \text{ bounded}: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } Y$.
+        \item $T \in \contoperators{X}{Y}$ is compact, if $T B(0, \le 1, X) \text{ is relatively compact}$.
         \item The rank of T is $\rk T = \dim{T(X)}$.
     \end{romanenum}
 \end{definition}
@@ -507,13 +507,13 @@ Even when we only know that a bounded operator has finite rank, we can see that 
 In finite dimensions, all norms are equivalent. So $(X, \norm{}{\cdot})$ and $(X, \norm{1}{\cdot})$ have the same open sets.
 In finite dimensions, linear algebra tells us that $(X, \norm{1}{\cdot})$ and $(\reals^{\dim{X}}, \norm{1}{\cdot})$ have the same open sets.
 So all finite-dimensional normed spaces are topologically equivalent to some space $\reals^n$.
-In $\reals^n$, the theorem of Heine-Borel tells us that all bounded subsets are relatively-compact.
-Since relatively-compact is a topological property, the theorem transfers to $(X, \norm{}{\cdot})$.
-Finally, a finite rank causes the bounded image of the operator to be finite-dimensional, which then causes it to be relatively-compact.
+In $\reals^n$, the theorem of Heine-Borel tells us that all bounded subsets are relatively compact.
+Since relatively compact is a topological property, the theorem transfers to $(X, \norm{}{\cdot})$.
+Finally, a finite rank causes the bounded image of the operator to be finite-dimensional, which then causes it to be relatively compact.
 This is a very strong statement, considering that the domain unit ball might not be compact at all.
 
 This finally breaks down when the rank is infinite.
-So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general banach spaces.
+So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general Banach spaces.
 
 \begin{definition}
     The following definitions are critical for the theorem of \highlight{Arzelà-Ascoli}! \\
@@ -537,14 +537,14 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
 \end{revision}
 \begin{proofidea}
     \begin{enumerate}
-        \item $D$ is seperable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
-        \item For all $x \in M$ we can use the pointwise boundedness to invoke Bolzano-Weierstraß to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
-        \item Specifically, we have $\forall x \in D_0 \cap M \eqdef M_0: (f_{n(x, k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item $D$ is separable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
+        \item For all $x \in D$ we can use the pointwise boundedness to invoke Bolzano-Weierstraß to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
+        \item Specifically, we have $\forall x \in D_0: (f_{n(x, k)}(x))_{k \in \naturals} \text{ converges}$.
         \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
-            $\forall x \in M_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
-        \item We already have $f_{n(k)}|_{M_0} \convergesto: f|_{M_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
-            But how can you extend this to the entire set $M$?
-        \item For each $x \in M$, we can choose an arbitrarily close $x_0 \in M_0$. Using two triangle inequalities, uniform equicontinouity allows us to extend the result to $M$. \\
+            $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
+        \item We already have $f_{n(k)}|_{D_0} \convergesto: f|_{D_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
+            But how can you extend this to the entire set $D$?
+        \item For each $x \in D$, we can choose an arbitrarily close $x_0 \in D_0$. Using two triangle inequalities, uniform equicontinouity allows us to extend the result to $D$. \\
             As $C(D)$ is complete, the Cauchy sequence converges.
     \end{enumerate}
 \end{proofidea}
@@ -556,6 +556,8 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
     Then we have $T$ is compact iff.\ $T'$ is compact.
 \end{theorem}
 \begin{proof}
+    TODO the proof here is (slightly) still wrong bc of the way the f's are defined!
+    But conceptually, should be good!
     \leftrightproof
     Let $(y'_n)_{n \in \naturals} \subset Y' = \dualspace{Y} \subset C(Y)$ be bounded. \\
     Our goal is to show that there is a convergent subsequence in $(T' y'_n)_{n \in \naturals}$
@@ -570,13 +572,12 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
     \end{align*}
     This tells us that convergence in the operator norm only cares about the behavior on the closed unit ball!
     Let $D = \overline{T \closedunitball{X}}$.
-    \noindent We have
+    \noindent We know
     \begin{enumerate}
-        \item $D$ is an (inherited) metric space.
-        \item $D$ is closed by definition.
-        \item $T(\closedunitball{X})$ is a bounded set under a bounded operator, so $D$ is bounded.
+        \item \closedunitball{X} is bounded.
+        \item $T$ is a compact operator.
     \end{enumerate}
-    Since $D$ is in a metric space, it must be compact. \\
+    So $T \closedunitball{X}$ is relatively compact and $D$ is compact.
 
     \noindent We can now pack our sequence into $M \defeq \braces{f_n \mid n \in \naturals}$ and examine it for
     \begin{enumerate}
@@ -641,37 +642,40 @@ Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
         \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
         \item $\anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0}$ as the annihilator of $V$ in $X$.
     \end{romanenum}
+    In linear algebra, the annihilator is isomorphic to the orthogonal complement of a set.
+    Similarly we generalize the idea of a dual structure isomorphic to the image or kernel to idk... todo
 \end{definition}
 
-\noindent To prove properties about these sets, we need a corollary
-of the theorem of Hahn-Banach.
+\noindent To prove properties about these sets, we need another corollary
+of the theorem of Hahn-Banach:
 
 \begin{revision}
-    TODO: Hahn-Banach corollary.
+    Let $(X, \norm{}{\cdot})$ be a normed vector space,
+    $U \subset X$ a closed subspace and $x \in X \setminus U$.
+    Then we have $\exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0$.
 \end{revision}
-\begin{proofidea}
+\begin{proof}
     TODO
-\end{proofidea}
+\end{proof}
 
 \begin{theorem}
     Let $(X, \norm{}{\cdot})$ be a normed vector space, $U \subset X$ and $V \subset X'$.
     Then we have
     \begin{romanenum}
-        \item $\anihu$ and $\anihv$ are not empty.
-        \item $\anihu \subset X'$ and $\anihv \subset X$ are both respectively closed linear subspaces.
+        \item $\anihu \subset X'$ and $\anihv \subset X$ are both closed linear subspaces of their respective supsets.
         \item Let $U$ be closed. Then we have $(X / U)' \isomorphto \anihu$ (they are isomorphic).
         \item Let $U$ be closed. Then we have $U' \isomorphto X' / \anihu$ (they are isomorphic).
     \end{romanenum}
 \end{theorem}
 \begin{proof}
     \begin{romanprooflist}
-        \item
-            
-
         \item 
             We will focus on $\anihu \subset X'$. The other statement works analogously. \\
-            Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
-            We first prove $\emptyset \neq \anihu \subset X'$ is a linear subspace:
+            We first prove $\anihu$ is not empty:
+            TODO.
+
+            \noindent Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
+            We first prove $\anihu \subset X'$ is a linear subspace:
             \begin{align*}
                 (x'_1 + \lambda x'_2)(x)
                 &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
@@ -703,8 +707,8 @@ of the theorem of Hahn-Banach.
     Let $Tx \in \im T$ with $x \in X$ and $y' \in \ker T'$. \\
     We first prove $Tx \in \kerdualperp$:
     \begin{align*}
-        y'Tx &= (y' \chain T)(x)     \explainstep{use \chain\ notation} \\
-        &= (T' y')(x)               \explainstep{apply dual op. definition} \\
+        y'(Tx) &= (y' \chain T)(x)  \explainstep{associativity and use \chain\ notation} \\
+        &= (T' y')(x)               \explainstep{apply adjoint op. definition} \\
         &= 0(x) = 0                 \explainstep{apply $y' \in \ker T'$}
     \end{align*}
     Since this holds for all choices of $Tx$ we get $\im T \subset \kerdualperp$. \\
@@ -714,12 +718,13 @@ of the theorem of Hahn-Banach.
     TODO
 \end{proof}
 
-\begin{theorem}
-    TODO: The stuff with the Id - T operator.
-\end{theorem}
-\begin{proof}
-    TODO
-\end{proof}
+% \begin{theorem}
+%     TODO: The stuff with the Id - T operator.
+% \end{theorem}
+% \begin{proof}
+%     TODO
+% \end{proof}
+% TODO: Idk how useful this will be!
 
 \begin{corollary}
     Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed.
@@ -737,16 +742,15 @@ of the theorem of Hahn-Banach.
 \nocite{*}
 \printbibliography
 
-% TODO: Add reminders everywhere. E.g. remind the reader of the definition of topological dual spaces when appropriate. We need to assume the reader is new to the subject.
-
 % TODO: Linear subspace proofs require showing the set is not empty!
 
 % TODO: Download final bibliography from zotero.
 
-% TODO: Type names large.
-
 % TODO: Flag any occurences of behaviour that is different from the finite dimensional easy cases.
 
 % TODO: Make sure all theorems, corollaries and revisions are linked properly!
+
+% TODO: Make sure to look at every instance of y'T etc. closely and ensure i use \chain 
+% or in case of evaluation bla(x) not the weird frankenstein y'Tx but (y' \chain T)(x).
 
 \end{document}
