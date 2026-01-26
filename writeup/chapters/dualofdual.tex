@@ -15,13 +15,12 @@
 \noindent Figure [todo] illustrates why the bidual space in conjunction with the adjoint operator is interesting.
 TODO
 
-\newcommand{\canonicalembinv}[1]{\ensuremath{\inv{J_#1|_{J_#1(#1)}}}}
+\newcommand{\canonicalembinv}[1]{\ensuremath{\inv{(J_#1|_{#1 \to J_#1(#1)})}}}
+
 \begin{theorem}\label{theorem:bidual-adjunct-embedding}
     Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed \thefield\ vector spaces.
-    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator.
-    Then we have: $J_Y \chain T = T'' \chain J_X$. \\
-    \comment{Or equivalently: $T''|_{J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$.} \\
-    \comment{Or equivalently: $T = \canonicalembinv{Y} \chain T'' \chain J_X$.}
+    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator. 
+    Then we have: $J_Y \chain T = T'' \chain J_X$.
 \end{theorem}
 \begin{proof}
     Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
@@ -49,10 +48,10 @@ TODO
     \end{align*}
 \end{proof}
 
-\noindent Secondly, we can answer when a continuous operator between $Y'$ and $X'$ is an adjoint operator.
+\noindent We will now characterize when a continuous operator between $Y'$ and $X'$ is an adjoint operator.
 We need to revise an important corollary from the lecture first.
 
-\begin{revision}\label{theorem:embedding-isomorphism}
+\begin{revision}\label{revision:embedding-isomorphism}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space. Then we have
     \begin{romanenum}
         \item The canonical embedding $J_X$ is an isometric injective function.
@@ -76,9 +75,28 @@ We need to revise an important corollary from the lecture first.
     \end{romanprooflist}
 \end{proofidea}
 
+\begin{corollary}
+    We can strengthen\ theorem \ref{theorem:bidual-adjunct-embedding} using the isomorphism from revision\ \ref{revision:embedding-isomorphism}: \\
+    Let $(X, \norm{X}{\cdot})$ and $(Y, \norm{Y}{\cdot})$ be normed \thefield\ vector spaces.
+    Let $T \in \contoperators{X}{Y}$ be a bounded linear operator. 
+    Then we have
+    \begin{romanenum}
+        \item $J_Y \chain T = T'' \chain J_X$.
+        \item $T''|_{X \to J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$
+        \item $T = \canonicalembinv{Y} \chain T'' \chain J_X$.
+    \end{romanenum}
+\end{corollary}
+\begin{proof}
+    \begin{romanprooflist}
+        \item This is the statement of theorem\ \ref{theorem:bidual-adjunct-embedding}.
+        \item The isomorphism from revision\ \ref{revision:embedding-isomorphism} gives us the result.
+        \item The isomorphism from revision\ \ref{revision:embedding-isomorphism} gives us the result.
+    \end{romanprooflist}
+\end{proof}
+
 \begin{theorem}
-    Let $S \in \contoperators{Y'}{X'}$ be a continuous, linear operator. \\
-    Then we have $\exists T \in \contoperators{X}{Y}: T' = S \iff S'(J_X(X)) \subset J_Y(Y)$.
+    Let $S \in \contoperators{Y'}{X'}$ be a continuous, linear operator. Then we have 
+    \[ \exists T \in \contoperators{X}{Y}: T' = S \text{ if and only if } S'(J_X(X)) \subset J_Y(Y) \]
 \end{theorem}
 \begin{proof}
     \leftrightproof We have 
@@ -90,13 +108,16 @@ We need to revise an important corollary from the lecture first.
     \end{align*}
 
     \noindent \rightleftproof 
-    We have $S'(J_X(X)) \subset J_Y(Y)$ and revision\ \ref{theorem:embedding-isomorphism} gives us $J_Y(Y) \isomorphto Y$. \\
+    We have $S'(J_X(X)) \subset J_Y(Y)$ and revision\ \ref{revision:embedding-isomorphism} gives us $J_Y(Y) \isomorphto Y$. \\
     So for $x \in X$ and $y''_x = S'(J_X(x))$ there is a (unique) $y_x \in Y$ with $y''_x = J_Y(y_x)$. \\
-    Define $T: X \rightarrow Y, x \mapsto y_x$. We know $T$ exists (and is unique) due to the previous argument.
+    Choose \[ T: X \rightarrow Y, x \mapsto y_x \]
+    We know $T$ exists (and is unique) due to the previous argument.
 
-    \noindent We know $T$ is linear and continuous, as $T = y_\cdot = J_Y^{-1} \chain S' \chain J_X$ 
+    \noindent We know $T$ is linear and continuous, as 
+    \[ T = y_\cdot = \canonicalembinv{Y} \chain S' \chain J_X \]
     and all elements in the chain are bounded, linear operators.
-    Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
+
+    \noindent Let $y' \in Y'$ and $x \in X$. Lastly, we need to prove that $S = T'$:
     \begin{align*}
         (Sy')(x)
         &= J_X(x)(S y')                                             \explainstep{express using $J_X$} \\
@@ -131,8 +152,8 @@ We need to revise an important corollary from the lecture first.
         \item $T: X \rightarrow Y$
         \item $T': Y' = \dualspace{Y} \rightarrow X' = \dualspace{X}$
     \end{itemize}
-    So the ``not always'' refers to a particular choice of $X$ and $Y$ we need to find.
-    Fortunately in example \ref{example:operator-is-not-adjoint} we already found a counterexample!
+    So the "not always" refers to a particular choice of $X$ and $Y$ we need to find.
+    Fortunately in example\ \ref{example:operator-is-not-adjoint} we already found a counterexample!
 \end{proof}
 
 

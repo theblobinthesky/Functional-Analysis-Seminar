@@ -19,7 +19,10 @@
 \newcommand{\isomorphto}{\cong}
 \renewcommand{\implies}{\Rightarrow}
 \newcommand{\convergesto}{\longrightarrow}
-\newcommand{\normedspace}[1]{(#1, \|\cdot\|_{#1})}
+
+\newcommand{\normedspace}[1]{\ensuremath{(#1, \|\cdot\|_{#1})}}
+\newcommand{\twonormedspaces}{\normedspace{X} and \normedspace{Y} be normed \thefield-vector spaces}
+
 \newcommand{\sequence}[2]{\ensuremath{(#2)_{#1 \in \naturals}}}
 \newcommand{\highlight}[1]{\textcolor{blue}{#1}}
 \newcommand{\norm}[2]{\|#2\|_{#1}}
@@ -35,14 +38,13 @@
 
 
 % ===== COMMUNICATION ======
-\newcommand{\note}[1]{\textup{\textcolor{darkgray}{$\triangleright$ #1}}}
-\newcommand{\comment}[1]{\textup{textcolor{darkgray}{\text{#1}}}}
+\newcommand{\note}[1]{\textup{\textcolor{blue}{$\triangleright$ #1}}}
 
 % ===== PROOF DIRECTIONS =====
-\newcommand{\leftrightproof}{\glqq\ensuremath{\Rightarrow}\grqq:\quad}
-\newcommand{\rightleftproof}{\glqq\ensuremath{\Leftarrow}\grqq:\quad}
-\newcommand{\leftrightinclusion}{\glqq\ensuremath{\subset}\grqq:\quad}
-\newcommand{\rightleftinclusion}{\glqq\ensuremath{\supset}\grqq:\quad}
+\newcommand{\leftrightproof}{"\ensuremath{\Rightarrow}":\space}
+\newcommand{\rightleftproof}{"\ensuremath{\Leftarrow}":\space}
+\newcommand{\leftrightinclusion}{"\ensuremath{\subset}":\space}
+\newcommand{\rightleftinclusion}{"\ensuremath{\supset}":\space}
 
 % ===== BRACKETS =====
 \newcommand{\parens}[1]{\left(#1\right)}
@@ -118,15 +120,8 @@
 % TODO: Make sure no \\ at the end of enumerate, itemize or align* blocks.
 
 % Ideen von Jakob:
-% Theorem/Revision texte sollten nicht kursiv sein! 
-% Case distinctions in proofs müssen auf dem selben inline niveau sein! Evtl gar kein proof environment!
 % Das mit der invertierung des embeddings ist inkorrekt.
-% Notes müssen besser formatiert sein.
-% Insgesamt Definition 4 z.B., Revisions entweder ganz an den Anfang 
 % Beim langen Fließtext das \left(\\newline \\ konstrukt verwenden.
-% Keine ! im Fließtext.
-% Closed ball braucht leerzeichen nach den ","
-% Konsistent entweder Tx oder T(x) schreiben!
 % Überall korrekt citations hinzufügen.
 
 \end{document}
