@@ -1,50 +1,52 @@
 \subsection{The rank-nullity theorem for operators}
-\newcommand{\anihu}{\ensuremath{U^\perp}}
 \newcommand{\anihv}{\ensuremath{V_\perp}}
 
 \begin{definition}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
-    Then define
-    \begin{enumeratetheorem}
-        \item $\anihu = \braces{x' \in X' \mid \forall x \in U: x'(x) = 0}$ as the annihilator of $U$ in $X'$.
-        \item $\anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0}$ as the annihilator of $V$ in $X$.
-    \end{enumeratetheorem}
-    In linear algebra, the annihilator is isomorphic to the orthogonal complement of a set.
-    Similarly we generalize the idea of a dual structure isomorphic to the image or kernel to idk... todo
+    Then we define the annihilator of $V$ in $X$ as
+    \[ \anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0} \]
+    \note{
+        In linear algebra, the annihilator is isomorphic to the orthogonal complement of a set.
+        Similarly we generalize the idea of a dual structure isomorphic to the image or kernel to idk... todo
+    }
 \end{definition}
 
-\noindent To prove properties about these sets, we need another corollary
-of the theorem of Hahn-Banach:
+\noindent To prove properties about this set, we need another corollary of the theorem of Hahn-Banach:
 
 \begin{revision}\label{revision:hahn-banach-closed-subspace}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space,
     $U \subset X$ a closed subspace and $x \in X \setminus U$.
-    Then we have $\exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0$.
+    Then we have
+    \[ \exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0 \]
 \end{revision}
 \begin{proof}
-    TODO
+    Let $Y = X / U$ be the (canonical) quotient space.
+    Then $Y$ is a normed \thefield\ vector space. (todo: why?)
+    Set $y = x \in Y$.
+    We can apply the theorem of Hahn-Banach\ \ref{theorem:hahn-banach-op-norm}
+    to obtain $y' \in Y'$ with $y'(y) \neq 0$ and $y'|_U = 0$.
 \end{proof}
 
 \begin{theorem}
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space, $U \subset X$ and $V \subset X'$.
     Then we have
-    \[ \anihu \subset X' \text{ is a closed linear subspace } \logicaland \anihv \subset X \text{ is a closed linear subspace} \]
+    \[ \anihv \subset X \text{ is a closed linear subspace} \]
 \end{theorem}
 \begin{proof}
-    We will focus on $\anihu \subset X'$. The other statement works analogously. \\
-    We first prove $\anihu$ is not empty:
+    We will focus on $\anihv \subset X'$. The other statement works analogously. \\
+    We first prove $\anihv$ is not empty:
     TODO.
 
     \noindent Let $x'_1, x'_2 \in X'$ and $\lambda \in \thefield$.
-    We first prove $\anihu \subset X'$ is a linear subspace:
+    We first prove $\anihv \subset X'$ is a linear subspace:
     \begin{align*}
         (x'_1 + \lambda x'_2)(x)
         &= x'_1(x) + \lambda x'_2(x)    \explainstep{substitute $x$ in} \\
         &= 0 + \lambda 0 = 0            \explainstep{use $x'_1, x'_2 \in X'$}
     \end{align*}
 
-    \noindent Let $\sequence{k}{x'_k} \subset \anihu$ be a converging sequence. \\
-    We now prove that $x'$ converges in $\anihu$:
+    \noindent Let $\sequence{k}{x'_k} \subset \anihv$ be a converging sequence. \\
+    We now prove that $x'$ converges in $\anihv$:
     \begin{align*}
         todo
     \end{align*}
@@ -86,7 +88,7 @@ of the theorem of Hahn-Banach:
     we get \[ y \in Y \setminus \kerdualperp \]
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{corollary:operator-solutions}
     Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed. Then we have 
     \[ y \in \im T \text{ if and only if } T'y' = 0 \implies y'(y) = 0 \]
 \end{corollary}
@@ -102,5 +104,24 @@ of the theorem of Hahn-Banach:
 \end{proof}
 
 \begin{example}
-    % TODO: Example as to how it relates to Lagrange Multiplicators in Optimisation
+    In nonlinear optimisation theory, the lemma of Farkas states\ \cite{harks_lecture_2026}: \\
+    Let $A \in \reals^{k \times n}$ and $d \in \reals^k$.
+    Then exactly one of the following statements is true:
+    \begin{itemize}
+        \item $\exists x \ge 0 : Ax = d$
+        \item $\exists \lambda \in \reals^k : \lambda A \ge 0 \logicaland \lambda d < 0$
+    \end{itemize}
+    The lemma is equivalent to the ability to separate two convex sets using a hyperplane.
+    It is used to prove the KKT-theorem which allows for nonlinear optimisation with constraints.
+
+    We can write down an equivalent version of Farkas lemma: \\
+    Let $A \in \reals^{k \times n}$ and $d \in \reals^k$.
+    Then the following statements are equivalent:
+    \begin{itemize}
+        \item $\exists x \ge 0 : Ax = d$
+        \item $\forall \lambda \in \reals^k : A^T \lambda^T < 0 \logicalor \lambda d \ge 0$
+    \end{itemize}
+
+    \noindent Let $T = A$ and $T' = A^T$.
+    This makes the lemma match the statement of corollary\ \ref{corollary:operator-solutions}.
 \end{example}
