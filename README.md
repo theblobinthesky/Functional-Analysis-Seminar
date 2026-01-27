@@ -12,6 +12,8 @@ Hours:
 9) 23-24: Away.
 10) 24-01: Good.
 11) 01-02: Good.
+12) 02-03: Good.
+13) 03-04: Good.
 
 Chapters checks:
 titlepage: -
