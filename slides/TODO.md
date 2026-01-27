@@ -22,3 +22,4 @@ Constraints:
 - The abstract is not in the presentation.
 - If two revision theorems are on consequtive slides, pack them into one slide if not overflow occurs.
 - When you split an example or similar blocks across pages, the number cannot increase e.g. *no* Example 6, Example 7, Example 8.
+- Remove the university of passau logo from the bottom right and just keep it in the first slide.
