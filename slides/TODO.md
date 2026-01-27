@@ -24,3 +24,8 @@ Constraints:
 - When you split an example or similar blocks across pages, the number cannot increase e.g. *no* Example 6, Example 7, Example 8.
 - Remove the university of passau logo from the bottom right and just keep it in the first slide.
 - Itemize lists "dots" have to show up.
+
+TODO (for me):
+- Revision: Canonical Embedding Properties – Proof Idea isomorphism stuff is questionable.
+-
+-

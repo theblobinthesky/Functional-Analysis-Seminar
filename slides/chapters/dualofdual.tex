@@ -38,7 +38,7 @@
 \end{frame}
 
 \begin{frame}{Theorem: Bidual Adjoint Embedding -- Proof Setup}
-    \begin{proof}
+    \begin{block}{Proof}
         Before the proof, we can avoid confusion by typing out what $T'$ and $T''$ evaluate to:
         \begin{itemize}
             \item $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is the adjoint operator.
@@ -50,7 +50,7 @@
             \item $J_Y: Y \rightarrow Y''$   and $T: X \rightarrow Y$     means $(J_Y \chain T): X \rightarrow Y''$.
             \item $T'': X'' \rightarrow Y''$ and $J_X: X \rightarrow X''$ means $(T'' \chain J_X): X \rightarrow Y''$.
         \end{itemize}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Bidual Adjoint Embedding -- Proof Calculation}
@@ -81,6 +81,28 @@
     \end{block}
 \end{frame}
 
+\begin{frame}{Revision: Canonical Embedding Properties -- Proof}
+    \begin{block}{Proof}
+        \begin{itemize}
+            \item[i)] \refertolecture
+            \item[ii)] Follows by definition of $J$ and from ''i)''.
+            \item[iii)]
+                Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
+                \begin{itemize}
+                    \item $J_X$ is linear since the $x' \in X'$ are linear.
+                    \item $\norm{}{J_X} = 1$.  This means $J_X$ is bounded.
+                \end{itemize}
+            \item[iv)]
+                Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
+                \begin{itemize}
+                    \item \canonicalembinv{X} inherits linearity from $J$.
+                    \item $\norm{}{J_X} = 1$ and therefore $\norm{}{\canonicalembinv{X}} = 1$.
+                        This means \canonicalembinv{X} is bounded.
+                \end{itemize}
+        \end{itemize}
+    \end{block}
+\end{frame}
+
 \begin{frame}{Corollary: Strengthened Bidual Adjoint Embedding}
     \begin{corollary}
         We can strengthen the theorem using the isomorphism: \\
@@ -89,7 +111,7 @@
         Then we have
         \begin{enumeratetheorem}
             \item $J_Y \chain T = T'' \chain J_X$.
-            \item $T''|_{X \to J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$
+            \item $T''|_{J_X(X)} = J_Y \chain T \chain \canonicalembinv{X}$
             \item $T = \canonicalembinv{Y} \chain T'' \chain J_X$.
         \end{enumeratetheorem}
     \end{corollary}
@@ -102,6 +124,19 @@
     \end{proof}
 \end{frame}
 
+\begin{frame}{Figure: Strengthened Bidual Adjoint Embedding}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{../figures/dual_of_dual.pdf}
+        \caption{
+            An illustration of the main concepts in the dual of duals chapter.
+            The operator and bidual operator are in \textcolor{red}{\textbf{red}}.
+            The canonical embeddings are in \textcolor{blue}{\textbf{blue}}.
+            Isomorphisms are in \textcolor{teal}{\textbf{green}}.
+        }
+    \end{figure}
+\end{frame}
+
 \begin{frame}{Theorem: Characterization of Adjoint Operators}
     \begin{theorem}
         Let $S \in \contoperators{Y'}{X'}$ be a continuous, linear operator. Then we have
@@ -110,7 +145,7 @@
 \end{frame}
 
 \begin{frame}{Theorem: Characterization of Adjoint Operators -- Proof ($\Rightarrow$)}
-    \begin{proof}
+    \begin{block}{Proof}
         \leftrightproof We have
         \begin{align*}
             S'(J_X(X))
@@ -118,11 +153,11 @@
             &= J_Y(T(X))        \explainstep{use the theorem} \\
             &\subset J_Y(Y)     \explainstep{use $T(X) \subset Y$}
         \end{align*}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Characterization of Adjoint Operators -- Proof ($\Leftarrow$) Setup}
-    \begin{proof}
+    \begin{block}{Proof (cont.)}
         \rightleftproof
         We have $S'(J_X(X)) \subset J_Y(Y)$ and the revision gives us $J_Y(Y) \isomorphto Y$. \\
         So for $x \in X$ and $y''_x = S'(J_X(x))$ there is a (unique) $y_x \in Y$ with $y''_x = J_Y(y_x)$. \\
@@ -132,7 +167,7 @@
         We know $T$ is linear and continuous, as
         $ T = y_\cdot = \canonicalembinv{Y} \chain S' \chain J_X $
         and all elements in the chain are bounded, linear operators.
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Characterization of Adjoint Operators -- Proof ($\Leftarrow$) $S = T'$}

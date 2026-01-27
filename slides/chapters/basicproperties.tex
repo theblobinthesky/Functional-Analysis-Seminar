@@ -26,7 +26,7 @@
 \end{frame}
 
 \begin{frame}{Theorem: Properties of Adjoint Operator -- Proof (i)}
-    \begin{proof}
+    \begin{block}{Proof}
         "i)": Let $y' \in Y'$.  Plugging it into the adjoint operator, we get
         $T' y' = y' \chain T$ with signature $X \rightarrow Y \rightarrow \thefield$.
         We can now see that $\im T' \subset X'$.
@@ -46,11 +46,11 @@
             &\le \norm{Y'}{y'}\norm{\contoperators{X}{Y}}{T}    \explainstep{apply def. of op. norm} \\
             &\defeq C \norm{Y'}{y'}                             \explainstep{def. the constant}
         \end{align*}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Properties of Adjoint Operator -- Proof (ii) Linearity}
-    \begin{proof}
+    \begin{block}{Proof}
         "ii)": Let $T_1, T_2 \in \contoperators{X}{Y}, y' \in Y', x \in X, \alpha \in \thefield$. We first prove linearity:
         \begin{align*}
             (\alpha T_1 + T_2)'(y')(x)
@@ -58,7 +58,7 @@
             &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear} \\
             &= (\alpha T_1' y' + T_2' y')(x)
         \end{align*}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Properties of Adjoint Operator -- Proof (ii) Isometry}
@@ -96,18 +96,18 @@
 \end{frame}
 
 \begin{frame}{Example: Shift Operator (2/3)}
-    \begin{example}
+    \begin{block}{Example (cont.)}
         To illustrate the adjoint operator, we now work through an example.
         Consider the \highlight{left shift} operator $T: \lp \rightarrow \lp, \sequence{k}{x_k} \mapsto \sequence{k}{x_{k+1}}$
         It is well-defined since $\sum_{k \in \naturals}\abs{x_{k+1}}^p \le \sum_{k \in \naturals}\abs{x_{k}}^p < \infty$
 
         We can now compute the adjoint operator $T'$:
         The adjoint $T'$ must have the signature $\lp' \isomorphto \lpconj \rightarrow \lp' \isomorphto \lpconj$.
-    \end{example}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Example: Shift Operator (3/3)}
-    \begin{example}
+    \begin{block}{Example (cont.)}
         Let $y' \in \lp' \isomorphto \lpconj$.
         Then we can write $y': \lp \rightarrow \thefield, x \mapsto \sum_{k \in \naturals}{x_k s_k}$ with $s \in \lpconj$. \\
         Now for $x \in \lp$ we have
@@ -121,7 +121,7 @@
 
         This tells us that the adjoint operator $T'$ acts as a \highlight{right shift} (up to isomorphism):
         $T': \lpconj \rightarrow \lpconj, \sequence{k}{s_k} \mapsto (0, s_1, s_2, \dots)$
-    \end{example}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Adjoint Reverses Composition}

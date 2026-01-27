@@ -42,7 +42,7 @@
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Setup}
-    \begin{proof}
+    \begin{block}{Proof}
         \leftrightproof
         Let $(y'_n)_{n \in \naturals} \subset Y' = \dualspace{Y} \subset C(Y)$ be bounded. \\
         Our goal is to show that there is a convergent subsequence in \sequence{n}{T' y'_n}
@@ -57,11 +57,11 @@
             &= \sup_{\norm{X}{x} \le 1}\abs{((f_n \chain T) - (f_m \chain T))(x)}       \explainstep{subst. in $f_n$ and $f_m$} \\
             &= \sup_{d \in T\parens{\closedunitball{X}}}\abs{f_n(d) - f_m(d)}           \explainstep{subst. in $f_n$ and $f_m$} \\
         \end{align*}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Setup for Arzel\`{a}-Ascoli}
-    \begin{proof}
+    \begin{block}{Proof (cont.)}
         We know \sequence{n}{T' y'_n} converges if and only if it is a Cauchy sequence $(\dualspace{X}, \norm{}{\cdot})$.
         Therefore the convergence of \sequence{n}{T' y'_n} in the operator norm is only dependent on the behaviour
         of \sequence{n}{f_n} on $\overline{T\parens{\closedunitball{X}}}$.
@@ -69,11 +69,11 @@
         We now set $ D = \overline{T\parens{\closedunitball{X}}} $
         and pack the sequence into $ M \defeq \braces{f_n \mid n \in \naturals} $
         and examine them for the conditions of Arzel\`{a}-Ascoli.
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) $D$ is compact, $M$ is pointwise bounded}
-    \begin{proof}
+    \begin{block}{Proof (cont.)}
         \begin{itemize}
             \item $D$ is compact:
                 We have \closedunitball{X} is bounded and $T$ is a compact operator.
@@ -86,14 +86,14 @@
                     &\le C_1 \norm{Y}{d} \le C_1 C_2            \explainstep{apply op. norm ineq. and D bounded means $\norm{Y}{d} \le: C_2$}
                 \end{align*}
                 For $d \in D$ we can choose $\sequence{k}{x_k} \subset \closedunitball{X}$ with
-                $T x_k \convergesto d$ and $f_n(T x_k) \le C_1 C_2$. \\
+                $T x_k \convergesto d$ and $\abs{f_n(T x_k)} \le C_1 C_2$. \\
                 Using continuity we get $\abs{f_n(d)} \le C_1 C_2$.
         \end{itemize}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) $M$ is uniformly equicontinuous}
-    \begin{proof}
+    \begin{block}{Proof (cont.)}
         \begin{itemize}
             \item $M$ is uniformly equicontinuous:
                 For $n \in \naturals, \epsilon > 0, \delta = \epsilon / C_1, \forall d_1, d_2 \in D, \norm{Y}{d_1 - d_2} < \delta$ we have
@@ -104,11 +104,11 @@
                     &< C_1 \delta = \epsilon                            \explainstep{substitute in $\delta$}
                 \end{align*}
         \end{itemize}
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Conclusion}
-    \begin{proof}
+    \begin{block}{Proof (cont.)}
         The theorem of Arzel\`{a}-Ascoli now tells us that $M$ is relatively compact.
         So every sequence in $M$ has a convergent subsequence.
         In particular for the convergent subsequence \sequence{k}{f_{n(k)}} we have
@@ -119,7 +119,7 @@
         \end{align*}
 
         So finally, \sequence{k}{T' y'_{n(k)}} is a convergent subsequence of \sequence{k}{T' y'_k}.
-    \end{proof}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Theorem: Schauder -- Proof ($\Leftarrow$)}
