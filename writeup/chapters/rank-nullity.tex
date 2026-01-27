@@ -5,10 +5,11 @@
     Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space and $V \subset X'$.
     Then we define the annihilator of $V$ in $X$ as
     \[ \anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0} \]
-    % \note{
-    %     In case of $X = \reals^2$ and $V$ 1-dimensional subspace (common in linear algebra), 
-    %     the annihilator is the set of straight lines through $0$ in $\reals^2$.
-    % }
+    \note{
+        The annihilator is the set of linear, bounded functionals
+        that "see" exactly the opposite of $V$
+        and are "blind" to $V$.
+    }
 \end{definition}
 
 \noindent To prove properties about this set, we need another corollary of the theorem of Hahn-Banach:
@@ -87,13 +88,32 @@
     \end{align*}
 \end{proof}
 
-\begin{example}
-    We can refer back to the example\ \ref{example:shift-operator} with the left shift operator. \\
-    The left shift operator $T$ has $\im T = \lp$, which is (trivially) closed. \\
-    Since we already know the adjoint operator
-    we can verify that the last theorem\ \ref{theorem:rank-nullity-generalized} works. \\
-    Everything is up to isometry:
-    Let $\sequence{k}{x_k} \in \lp$ such that $T\parens{\sequence{k}{x_k}} = (x_2, \dots) \in \lp$.
-    Then \[ T'y' = 0 \implies y'(y) = 0 \]
-    amounts to "if the right shifted version of a sequence is 0 then 
+\begin{example}[Left Shift]
+    Consider the left shift operator $T: \lp \to \lp$ from Example \ref{example:shift-operator}. 
+    As shown previously, its adjoint $T': \lpconj \to \lpconj$ is the right shift operator: 
+    \[ T'(s_1, s_2, \dots) = (0, s_1, s_2, \dots) \]
+    
+    To apply Theorem \ref{theorem:rank-nullity-generalized}, we first find $\ker T'$. 
+    If $T's = 0$, then $(0, s_1, s_2, \dots) = (0, 0, 0, \dots)$, which implies $s = 0$. 
+    Thus, $\ker T' = \{0\}$.
+    
+    The theorem states that $\overline{\im T} = (\ker T')_\perp = \{0\}_\perp = \lp$. 
+    This is consistent with the fact that the left shift is surjective ($\im T = \lp$), so its range is already the entire space and is closed.
+\end{example}
+
+\begin{example}[Right Shift]
+    Now consider the right shift operator $T: \lp \to \lp, T(x_1, x_2, \dots) = (0, x_1, x_2, \dots)$.
+    Its image is the closed subspace of sequences with a vanishing first term:
+    \[ \im T = \{ y \in \lp \mid y_1 = 0 \} \]
+    
+    The adjoint $T': \lpconj \to \lpconj$ is the left shift operator, $T'(s_1, s_2, s_3, \dots) = (s_2, s_3, \dots)$.
+    An element $s \in \lpconj$ is in $\ker T'$ if and only if $s_2 = s_3 = \dots = 0$. 
+    Thus, the kernel consists of sequences where only the first term may be non-zero:
+    \[ \ker T' = \{ (s_1, 0, 0, \dots) \mid s_1 \in \thefield \} = \text{span}\{e_1'\} \]
+    
+    According to Corollary \ref{corollary:operator-solutions}, a vector $y \in \lp$ lies in $\im T$ if and only if it is annihilated by every functional in $\ker T'$. 
+    For any $s \in \ker T'$, the condition $s(y) = 0$ becomes:
+    \[ \sum_{k=1}^\infty y_k s_k = y_1 s_1 + y_2 \cdot 0 + y_3 \cdot 0 + \dots = y_1 s_1 = 0 \]
+    Since this must hold for all $s_1 \in \thefield$, we must have $y_1 = 0$. 
+    This perfectly matches our initial description of $\im T$, verifying the theorem.
 \end{example}

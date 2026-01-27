@@ -9,6 +9,11 @@
         Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space and $V \subset X'$.
         Then we define the annihilator of $V$ in $X$ as
         \[ \anihv = \braces{x \in X \mid \forall x' \in V: x'(x) = 0} \]
+        \sidenote{
+            The annihilator is the set of linear, bounded functionals
+            that "see" exactly the opposite of $V$
+            and are "blind" to $V$.
+        }
     \end{definition}
 \end{frame}
 
@@ -94,15 +99,34 @@
     \end{proof}
 \end{frame}
 
-\begin{frame}{Example: Shift Operator Revisited}
+\begin{frame}{Example: Left Shift}
     \begin{example}
-        We can refer back to the example with the left shift operator. \\
-        The left shift operator $T$ has $\im T = \lp$, which is (trivially) closed. \\
-        Since we already know the adjoint operator
-        we can verify that the last theorem works. \\
-        Everything is up to isometry:
-        Let $\sequence{k}{x_k} \in \lp$ such that $T\parens{\sequence{k}{x_k}} = (x_2, \dots) \in \lp$.
-        Then $ T'y' = 0 \implies y'(y) = 0 $
-        amounts to "if the right shifted version of a sequence is 0 then
+        Consider the left shift operator $T: \lp \to \lp$ from earlier.
+        Its adjoint $T': \lpconj \to \lpconj$ is the right shift operator:
+        $ T'(s_1, s_2, \dots) = (0, s_1, s_2, \dots) $
+
+        To apply the theorem, we first find $\ker T'$.
+        If $T's = 0$, then $(0, s_1, s_2, \dots) = (0, 0, 0, \dots)$, which implies $s = 0$.
+        Thus, $\ker T' = \{0\}$.
+
+        The theorem states that $\overline{\im T} = (\ker T')_\perp = \{0\}_\perp = \lp$.
+        This is consistent with the fact that the left shift is surjective ($\im T = \lp$).
+    \end{example}
+\end{frame}
+
+\begin{frame}{Example: Right Shift}
+    \begin{example}
+        Consider the right shift operator $T: \lp \to \lp, T(x_1, x_2, \dots) = (0, x_1, x_2, \dots)$.
+        Its image is the closed subspace $ \im T = \{ y \in \lp \mid y_1 = 0 \} $.
+
+        The adjoint $T': \lpconj \to \lpconj$ is the left shift, $T'(s_1, s_2, s_3, \dots) = (s_2, s_3, \dots)$.
+        Thus $\ker T' = \{ (s_1, 0, 0, \dots) \mid s_1 \in \thefield \} = \text{span}\{e_1'\}$.
+
+        By the corollary, $y \in \im T$ iff it is annihilated by every functional in $\ker T'$.
+        For any $s \in \ker T'$, the condition $s(y) = 0$ becomes:
+        $ \sum_{k=1}^\infty y_k s_k = y_1 s_1 = 0 $
+
+        Since this must hold for all $s_1 \in \thefield$, we must have $y_1 = 0$.
+        This matches $\im T$, verifying the theorem.
     \end{example}
 \end{frame}

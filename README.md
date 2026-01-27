@@ -16,10 +16,10 @@ Hours:
 13) 03-04: Good.
 
 Chapters checks:
-titlepage: -
+titlepage: good
 motivation: -
 definitionsandconventions: good
 basicproperties: good
 dualofdual: good
 compact: good
-rank-nullity: -
+rank-nullity: todo in there
