@@ -9,6 +9,14 @@ Hours:
 6) 20-21: Ok.
 7) 21-22: Ok.
 8) 22-23: Meh.
-9) 23-24: 
-10) 24-01:
-11) 01-02:
+9) 23-24: Away.
+10) 24-01: Good.
+11) 01-02: Good.
+
+Chapters checks:
+motivation.tex: -
+definitionsandconventions.tex: good
+basicproperties: good
+dualofdual: -
+compact: good
+rank-nullity: -

@@ -1,11 +1,11 @@
 \subsection{The basic definitions and conventions}
 
 \noindent The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
-We will standardize on \highlight{adjoint}, to avoid unnecessary confusion.
+We will standardize to \highlight{adjoint}, to avoid unnecessary confusion.
 Following\ \cite{werner_funktionalanalysis_2018}, we write $\thefield \in \{\reals, \complexes\}$ when the field is unspecified.
 
 \begin{definition}
-    We remind outselves of the following concepts from the lecture \cite{krieg_functional_2025}:
+    We remind ourselves of the following concepts from the lecture \cite{krieg_functional_2025}:
     Let \normedspace{X}, \normedspace{Y} and \normedspace{Z} be normed \thefield-vector spaces
     \begin{enumeratetheorem}
         \item
@@ -56,5 +56,32 @@ Following\ \cite{werner_funktionalanalysis_2018}, we write $\thefield \in \{\rea
 \end{remark}
 
 \begin{example}
-    % TODO: Add simple integral operator example.
+    Let $n \in \naturals$. Then we have
+    \begin{align*}
+        (\reals^n)' 
+        &= \braces{g: \reals^n \to \reals \text{ linear, continuous}}   \explainstep{apply def. of dual space} \\
+        &= \braces{g: \reals^n \to \reals \text{ linear}}               \explainstep{result from linear algebra} \\
+        &\isomorphto \reals^n                                           \explainstep{result from linear algebra see \cite{fischer_bilinearformen_2025}}
+    \end{align*}
+    
+    \noindent Let $m \in \naturals$ and let $A \in \reals^{m \times n}$. \\
+    Consider the function $f: \reals^n \to \reals^m, x \mapsto Ax$.
+    The signature of the adjoint is $f': (\reals^m)' \to (\reals^n)'$.
+    With $e_i$ we denote the standard basis vectors 
+    and with $e_i'$ we denote the dual standard basis vectors.
+
+    \noindent Let $i = 1, \dots, m$ and $j = 1, \dots, n$. We have
+    \begin{align*}
+        (f' e_i')(e_j)
+        &= (e_i' \chain f)(e_j)         \explainstep{apply def. of adjoint op.} \\
+        &= f(e_j)_i = a_{ij}            \explainstep{apply def. of $e_i'$ and $f$}
+    \end{align*}
+
+    \noindent So if we set $i = 1$ for instance,
+    we get \[(f' e_1')(e_j) = a_{1j} \]
+    The first "column" of $f'$ (up to isomorphism)
+    must be $(a_{1j})_{j = 1,\dots,n}$.
+
+    \noindent In conclusion, we have (up to isomorphism):
+    \[ f': \reals^m \to \reals^n, x \mapsto A^T x \]
 \end{example}
