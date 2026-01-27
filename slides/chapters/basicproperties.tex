@@ -4,8 +4,8 @@
 
 \begin{frame}{Revision: Hahn-Banach and Dual Unit Ball}
     \begin{block}{Revision (Hahn-Banach)}
-        Let $(X, \norm{}{\cdot})$ be a normed space and $0 \neq x \in X$. \\
-        Then we have $\exists f \in X': \norm{}{f} = 1 \logicaland f(x) = \norm{}{x}$
+        Let $(X, \norm{X}{\cdot})$ be a normed space and $0 \neq x \in X$. \\
+        Then we have $\exists f \in X': \norm{X'}{f} = 1 \logicaland f(x) = \norm{X}{x}$
     \end{block}
     \begin{block}{Revision}
         The dual unit ball retains information about the norm of primal vectors: \\
@@ -55,7 +55,6 @@
         \begin{align*}
             (\alpha T_1 + T_2)'(y')(x)
             &= y'(\alpha T_1x + T_2x)                           \explainstep{apply def. of adjoint operator} \\
-            &= y'\parens{\alpha T_1x + T_2x}                    \explainstep{pull $x$ into the eq.} \\
             &= \alpha y'(T_1x) + y'(T_2x)                       \explainstep{y' is linear} \\
             &= (\alpha T_1' y' + T_2' y')(x)
         \end{align*}
@@ -68,7 +67,7 @@
         \begin{align*}
             \norm{}{T}
             &= \sup_{\norm{X}{x} \le 1}\norm{Y}{Tx}                                 \explainstep{use supremum char. of op. norm} \\
-            &= \sup_{\norm{X}{x} \le 1}\sup_{\norm{}{y'} \le 1}{\abs{y'(Tx)}}       \explainstep{apply theorem of Hahn-Banach} \\
+            &= \sup_{\norm{X}{x} \le 1}\sup_{\norm{}{y'} \le 1}{\abs{y'(Tx)}}       \explainstep{apply Hahn-Banach corollary} \\
             &= \sup_{\norm{}{y'} \le 1}\sup_{\norm{X}{x} \le 1}{\abs{y'(Tx)}}       \explainstep{supremum order can be switched} \\
             &= \sup_{\norm{}{y'} \le 1}{\norm{}{T' y'}}                             \explainstep{apply def. of adjoint operator and op. norm} \\
             &= \norm{}{T'}                                                          \explainstep{apply def. of op. norm}
@@ -78,7 +77,7 @@
 
 \newcommand{\lp}{\ensuremath{l_p}\xspace}
 \newcommand{\pconj}{\ensuremath{p^*}\xspace}
-\newcommand{\lpconj}{\ensuremath{l_\pconj}\xspace}
+\newcommand{\lpconj}{\ensuremath{l_{\pconj}}\xspace}
 
 \begin{frame}{Example: Shift Operator (1/3)}
     \begin{example}
