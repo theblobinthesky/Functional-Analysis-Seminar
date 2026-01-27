@@ -15,7 +15,7 @@
 \definecolor{unipassaugray}{RGB}{88,88,90}
 \setbeamercolor{structure}{fg=unipassaublue}
 \setbeamercolor{frametitle}{bg=unipassaublue,fg=white}
-\setbeamercolor{title}{fg=unipassaublue}
+\setbeamercolor{title}{fg=white,bg=unipassaublue}
 \setbeamercolor{block title}{bg=unipassaublue,fg=white}
 \setbeamercolor{block body}{bg=unipassaublue!10}
 \setbeamercolor{item}{fg=unipassaublue}
@@ -108,29 +108,7 @@
 \institute{University of Passau}
 \date{January 2026}
 
-% Section title slides - no text, just visual separator
-\setbeamercolor{section title}{fg=white}
-\AtBeginSection[]{
-    \begin{frame}
-        \vfill
-        \centering
-        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-            \usebeamerfont{title}\insertsectionhead\par
-        \end{beamercolorbox}
-        \vfill
-    \end{frame}
-}
-
-\AtBeginSubsection[]{
-    \begin{frame}
-        \vfill
-        \centering
-        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
-            \usebeamerfont{title}\insertsubsectionhead\par
-        \end{beamercolorbox}
-        \vfill
-    \end{frame}
-}
+% No section/subsection title slides - section shown in footer via infolines theme
 
 \begin{document}
 

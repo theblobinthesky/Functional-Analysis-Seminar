@@ -2,84 +2,29 @@
 \subsection{Compact (adjoint) operators}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Introduction}
-    For starters, we need to recall and review some concepts from the lecture.
-\end{frame}
-
-\begin{frame}{Definition: Relatively Compact}
+\begin{frame}{Definition: Relatively Compact, Compact Operator, Rank}
     \begin{definition}
         The following definitions are revisions from the lecture: \\
         Let $X, Y$ be normed \thefield\ vector spaces.
         \begin{enumeratetheorem}
-            \item $M \subset X$ is relatively compact, if \[\forall (x_n)_{n \in \naturals} \subset M: (x_n)_{n \in \naturals} \text{ has a converging subsequence in } X\]
+            \item $M \subset X$ is relatively compact, if $\forall (x_n)_{n \in \naturals} \subset M: (x_n)_{n \in \naturals}$ has a converging subsequence in $X$
+            \item $T \in \contoperators{X}{Y}$ is compact, if $T\parens{\closedunitball{X}}$ is relatively compact.
+            \item The rank of T is $\rk T = \dim{T(X)}$.
         \end{enumeratetheorem}
     \end{definition}
 \end{frame}
 
-\begin{frame}{Definition: Compact Operator and Rank}
-    \begin{definition}
-        Let $X, Y$ be normed \thefield\ vector spaces.
-        \begin{itemize}
-            \item[ii)] $T \in \contoperators{X}{Y}$ is compact, if $T\parens{\closedunitball{X}}$ is relatively compact.
-            \item[iii)] The rank of T is $\rk T = \dim{T(X)}$.
-        \end{itemize}
-    \end{definition}
-\end{frame}
-
-\begin{frame}{Context: Relatively Compact}
-    As a reminder, in metric spaces a subset is compact if and only if all sequences contain a converging subsequence in that set.
-    So relatively compact relaxes the requirement that the set must be closed.
-    An important property of the closed unit ball in $\reals^n$ or $\complexes$ is that it is compact.
-    Therefore, a linear operator between $\thefield^n \rightarrow \thefield^m$ always maps the closed unit ball to a compact set.
-    But the domain might not be a finite-dimensional normed space and the unit ball of the domain might not be compact either.
-\end{frame}
-
-\begin{frame}{Context: Finite Rank Operators}
-    Even when we only know that a bounded operator has finite rank, we can see that it is always compact:
-    In finite dimensions, all norms are equivalent. So $(X, \norm{}{\cdot})$ and $(X, \norm{1}{\cdot})$ have the same open sets.
-    In finite dimensions, linear algebra tells us that $(X, \norm{1}{\cdot})$ and $(\reals^{\dim{X}}, \norm{1}{\cdot})$ have the same open sets.
-    So all finite-dimensional normed spaces are topologically equivalent to some space $\reals^n$.
-    In $\reals^n$, the theorem of Heine-Borel tells us that all bounded subsets are relatively compact.
-\end{frame}
-
-\begin{frame}{Context: Finite Rank Operators (cont.)}
-    Since relatively compact is a topological property, the theorem transfers to $(X, \norm{}{\cdot})$.
-    Finally, a finite rank causes the bounded image of the operator to be finite-dimensional, which then causes it to be relatively compact.
-    This is a very strong statement, considering that the domain unit ball might not be compact at all.
-\end{frame}
-
-\begin{frame}{Context: Infinite Rank}
-    This finally breaks down when the rank is infinite.
-    So a compact operator simply ensures that we still can enjoy this finite-dimensional behavior between general Banach spaces.
-\end{frame}
-
-\begin{frame}{Definition: Uniformly Equicontinuous}
+\begin{frame}{Definition: Uniformly Equicontinuous and Pointwise Bounded}
     \begin{definition}
         The following definitions are critical for the theorem of \highlight{Arzel\`{a}-Ascoli}: \\
         Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
         \begin{enumeratetheorem}
             \item $M$ is uniformly equicontinuous, if
                 \[ \forall \epsilon > 0, \exists \delta > 0, \forall T \in M, \forall x, y \in X: d_X(x, y) < \delta \implies d_Y(Tx, Ty) < \epsilon \]
+            \item $M$ is pointwise bounded, if
+                $ \forall x \in X: \braces{f(x) \mid f \in M} $ is bounded
         \end{enumeratetheorem}
     \end{definition}
-\end{frame}
-
-\begin{frame}{Definition: Pointwise Bounded}
-    \begin{definition}
-        Let $X, Y$ be metric spaces and $M \subset \braces{f: X \rightarrow Y}$.
-        \begin{itemize}
-            \item[ii)] $M$ is pointwise bounded, if
-                \[ \forall x \in X: \braces{f(x) \mid f \in M} \text{ is bounded} \]
-        \end{itemize}
-    \end{definition}
-\end{frame}
-
-\begin{frame}{Context: Arzel\`{a}-Ascoli}
-    The theorem of \highlight{Arzel\`{a}-Ascoli} from the lecture gives us a characterisation of relative compactness
-    for the set of continuous functions on a compact metric space using the two previous concepts.
-    This is interesting, because uniform equicontinuity and pointwise boundedness are (relatively) simple properties
-    of the functions \highlight{evaluations} rather than the functions themselves. They can be easily verified to be true.
-    Note that $C(D) = \braces{f: D \rightarrow \thefield \text{ continuous}}$.
 \end{frame}
 
 \begin{frame}{Revision: Arzel\`{a}-Ascoli}
@@ -89,31 +34,20 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{Revision: Arzel\`{a}-Ascoli -- Proof Idea (1)}
+\begin{frame}{Revision: Arzel\`{a}-Ascoli -- Proof Idea}
     \begin{block}{Proof Idea}
         \begin{itemize}
             \item $D$ is separable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
             \item For all $x \in D$ we can use the pointwise boundedness to invoke Bolzano-Weierstrass to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
-            \item Specifically, we have $\forall x \in D_0: (f_{n(x, k)}(x))_{k \in \naturals} \text{ converges}$.
-        \end{itemize}
-    \end{block}
-\end{frame}
-
-\begin{frame}{Revision: Arzel\`{a}-Ascoli -- Proof Idea (2)}
-    \begin{block}{Proof Idea}
-        \begin{itemize}
+            \item Specifically, we have $\forall x \in D_0: (f_{n(x, k)}(x))_{k \in \naturals}$ converges.
             \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
-                $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals} \text{ converges}$.
+                $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals}$ converges.
             \item We already have $f_{n(k)}|_{D_0} \convergesto: f|_{D_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
                 But how can you extend this to the entire set $D$?
             \item For each $x \in D$, we can choose an arbitrarily close $x_0 \in D_0$. Using two triangle inequalities, uniform equicontinuity allows us to extend the result to $D$. \\
                 As $C(D)$ is complete, the Cauchy sequence converges.
         \end{itemize}
     \end{block}
-\end{frame}
-
-\begin{frame}{Context: Schauder}
-    Using the revision, we can now prove the theorem of Schauder and then trace the arguments through both proofs to get a better understanding of the ideas.
 \end{frame}
 
 \begin{frame}{Theorem: Schauder}
@@ -130,11 +64,7 @@
         Our goal is to show that there is a convergent subsequence in \sequence{n}{T' y'_n}
         with respect to $(X', \norm{}{\cdot})$ where $\norm{}{\cdot}$ is the operator norm.
         For all $n \in \naturals$ set $f_n = y'_n|_{T\parens{\closedunitball{X}}}$.
-    \end{proof}
-\end{frame}
 
-\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Key Calculation}
-    \begin{proof}
         We have
         \begin{align*}
             \norm{}{T' y'_n - T' y'_m}
@@ -146,39 +76,25 @@
     \end{proof}
 \end{frame}
 
-\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Observation}
+\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Setup for Arzel\`{a}-Ascoli}
     \begin{proof}
         We know \sequence{n}{T' y'_n} converges if and only if it is a Cauchy sequence $(\dualspace{X}, \norm{}{\cdot})$.
         Therefore the convergence of \sequence{n}{T' y'_n} in the operator norm is only dependent on the behaviour
         of \sequence{n}{f_n} on $\overline{T\parens{\closedunitball{X}}}$.
-    \end{proof}
-\end{frame}
 
-\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) Setup for Arzel\`{a}-Ascoli}
-    \begin{proof}
-        We now set \[ D = \overline{T\parens{\closedunitball{X}}} \]
-        and pack the sequence into \[ M \defeq \braces{f_n \mid n \in \naturals} \]
+        We now set $ D = \overline{T\parens{\closedunitball{X}}} $
+        and pack the sequence into $ M \defeq \braces{f_n \mid n \in \naturals} $
         and examine them for the conditions of Arzel\`{a}-Ascoli.
     \end{proof}
 \end{frame}
 
-\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) $D$ is compact}
+\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) $D$ is compact, $M$ is pointwise bounded}
     \begin{proof}
         \begin{itemize}
             \item $D$ is compact:
-                We have
-                \begin{itemize}
-                    \item \closedunitball{X} is bounded.
-                    \item $T$ is a compact operator.
-                \end{itemize}
+                We have \closedunitball{X} is bounded and $T$ is a compact operator.
                 So $T\parens{\closedunitball{X}}$ is relatively compact and $D$ is compact.
-        \end{itemize}
-    \end{proof}
-\end{frame}
 
-\begin{frame}{Theorem: Schauder -- Proof ($\Rightarrow$) $M$ is pointwise bounded}
-    \begin{proof}
-        \begin{itemize}
             \item $M$ is pointwise bounded: For $x \in \closedunitball{X}$ and $n \in \naturals$ we have
                 \begin{align*}
                     \abs{f_n(Tx)}
@@ -225,9 +141,9 @@
 \begin{frame}{Theorem: Schauder -- Proof ($\Leftarrow$)}
     \begin{proof}
         \rightleftproof
-        The other proof direction tells us that \[ T \text{ compact } \implies T' \text{ compact} \]
-        So in extension this also yields \[ T' \text{ compact } \implies T'' \text{ compact} \]
-        The corollary tells us that \[ T = \canonicalembinv{Y} \chain T'' \chain J_X \]
+        The other proof direction tells us that $ T \text{ compact } \implies T' \text{ compact} $
+        So in extension this also yields $ T' \text{ compact } \implies T'' \text{ compact} $
+        The corollary tells us that $ T = \canonicalembinv{Y} \chain T'' \chain J_X $
         Lastly, the operator $T''$ is compact,
         the revision tells us $J_X$ and \canonicalembinv{Y} are bounded, linear operators
         and therefore $T$ is a composition of bounded, linear operators. \\

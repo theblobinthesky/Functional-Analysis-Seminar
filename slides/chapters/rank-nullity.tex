@@ -12,10 +12,6 @@
     \end{definition}
 \end{frame}
 
-\begin{frame}{Context}
-    To prove properties about this set, we need another corollary of the theorem of Hahn-Banach.
-\end{frame}
-
 \begin{frame}{Revision: Hahn-Banach Corollary}
     \begin{block}{Revision}
         Let $(X, \norm{}{\cdot})$ be a normed \thefield\ vector space,
@@ -23,9 +19,6 @@
         Then we have
         \[ \exists x' \in X': x'|_U = 0 \logicaland x'(x) \neq 0 \]
     \end{block}
-\end{frame}
-
-\begin{frame}{Revision: Hahn-Banach Corollary -- Proof}
     \begin{proof}
         Let $Y = X / U$ be the (canonical) quotient space.
         Then $Y$ is a normed \thefield\ vector space. (todo: why?)
@@ -41,12 +34,9 @@
         Then we have
         \[ \anihv \subset X \text{ is a closed linear subspace} \]
     \end{theorem}
-\end{frame}
-
-\begin{frame}{Theorem: Annihilator is Closed Linear Subspace -- Proof}
     \begin{proof}
         We have
-        \[ \anihv = \bigcap_{x' \in V}{\inv{(x')}(0)} \]
+        $ \anihv = \bigcap_{x' \in V}{\inv{(x')}(0)} $
         As an intersection of closed sets, \anihv must be closed.
     \end{proof}
 \end{frame}
@@ -74,8 +64,8 @@
             &= (T' y')(x)               \explainstep{apply adjoint op. definition} \\
             &= 0(x) = 0                 \explainstep{apply $y' \in \ker T'$}
         \end{align*}
-        Since this holds for all choices of $Tx$ we get \[ \im T \subset \kerdualperp \]
-        Since \kerdualperp is closed, we also get \[ \overline{\im T} \subset \kerdualperp \]
+        Since this holds for all choices of $Tx$ we get $ \im T \subset \kerdualperp $
+        Since \kerdualperp is closed, we also get $ \overline{\im T} \subset \kerdualperp $
     \end{proof}
 \end{frame}
 
@@ -83,14 +73,14 @@
     \begin{proof}
         \rightleftinclusion
         We can prove the contraposition
-        \[ \parens{Y \setminus \overline{\im T}} \subset \parens{Y \setminus \kerdualperp} \]
+        $ \parens{Y \setminus \overline{\im T}} \subset \parens{Y \setminus \kerdualperp} $
         Set $U = \overline{\im T}$ and let $y \in Y \setminus U$.
         We know $U$ that a closed linear subspace.
         The corollary of the theorem of Hahn-Banach tells us that
-        \[ \exists y' \in Y' : y'|_U = 0 \logicaland y'(y) \neq 0 \]
+        $ \exists y' \in Y' : y'|_U = 0 \logicaland y'(y) \neq 0 $
         Since $\ker T' \subset Y'$
-        and \[\forall y' \in \ker T' : y'(y) \neq 0 \]
-        we get \[ y \in Y \setminus \kerdualperp \]
+        and $\forall y' \in \ker T' : y'(y) \neq 0$
+        we get $ y \in Y \setminus \kerdualperp $
     \end{proof}
 \end{frame}
 
@@ -99,9 +89,6 @@
         Let $T \in \contoperators{X}{Y}$ be a linear, continuous operator with $\im T$ closed. Then we have
         \[ y \in \im T \text{ if and only if } \forall y' \in Y': T'y' = 0 \implies y'(y) = 0 \]
     \end{corollary}
-\end{frame}
-
-\begin{frame}{Corollary: Operator Solutions -- Proof}
     \begin{proof}
         We have
         \begin{align*}
@@ -122,7 +109,7 @@
         we can verify that the last theorem works. \\
         Everything is up to isometry:
         Let $\sequence{k}{x_k} \in \lp$ such that $T\parens{\sequence{k}{x_k}} = (x_2, \dots) \in \lp$.
-        Then \[ T'y' = 0 \implies y'(y) = 0 \]
+        Then $ T'y' = 0 \implies y'(y) = 0 $
         amounts to "if the right shifted version of a sequence is 0 then
     \end{example}
 \end{frame}
