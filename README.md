@@ -14,9 +14,10 @@ Hours:
 11) 01-02: Good.
 
 Chapters checks:
-motivation.tex: -
-definitionsandconventions.tex: good
+titlepage: -
+motivation: -
+definitionsandconventions: good
 basicproperties: good
-dualofdual: -
+dualofdual: good
 compact: good
 rank-nullity: -

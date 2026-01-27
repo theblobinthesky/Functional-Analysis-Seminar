@@ -77,9 +77,8 @@ We need to revise an important corollary from the lecture first.
         \item
             Since $J: X \rightarrow J_X(X), x \mapsto J_X(x)$ is an isometric isomorphism, we have
             \begin{itemize}
-                \item $J_X$ is linear.
+                \item $J_X$ is linear since the $x' \in X'$ are linear.
                 \item $\norm{}{J_X} = 1$.  This means $J_X$ is bounded.
-                    % TODO: Explain this better!
             \end{itemize}
 
         \item
@@ -88,7 +87,6 @@ We need to revise an important corollary from the lecture first.
                 \item \canonicalembinv{X} inherits linearity from $J$.
                 \item $\norm{}{J_X} = 1$ and therefore $\norm{}{\canonicalembinv{X}} = 1$.
                     This means \canonicalembinv{X} is bounded.
-                    % TODO: Explain this better!
             \end{itemize}
 
     \end{enumerateproof}
@@ -146,25 +144,25 @@ We need to revise an important corollary from the lecture first.
         &= y'(Tx) = (y' \chain T)(x)                                \explainstep{subst. in $T = J_Y^{-1} \chain S' \chain J_X$} \\
         &= (T' y')(x)                                               \explainstep{apply def. of adjoint op.}
     \end{align*}
-
 \end{proof}
 
-\begin{theorem}
-    Lastly, we get one more property of the adjoint:
-    $T \mapsto T'$ is not always surjective. \\
-    \note{This is not the case with $\cdot^H$ e.g.\ between $\reals^n \rightarrow \reals^n$.} % TODO: Note wrong?
-\end{theorem}
-\begin{proof}
-    The operator and the adjoint operator have the following signatures:
-    \begin{itemize}
-        \item $T: X \rightarrow Y$
-        \item $T': Y' = \dualspace{Y} \rightarrow X' = \dualspace{X}$
-    \end{itemize}
-    So the "not always" refers to a particular choice of $X$ and $Y$ we need to find.
+% TODO: Maybe i'll add this tomorrow?
+% \begin{theorem}
+%     Lastly, we get one more property of the adjoint:
+%     $T \mapsto T'$ is not always surjective. \\
+%     \note{This is not the case with the transpose between $\reals^n \rightarrow \reals^n$.}
+% \end{theorem}
+% \begin{proof}
+%     The operator and the adjoint operator have the following signatures:
+%     \begin{itemize}
+%         \item $T: X \rightarrow Y$
+%         \item $T': Y' = \dualspace{Y} \rightarrow X' = \dualspace{X}$
+%     \end{itemize}
+%     So the "not always" refers to a particular choice of $X$ and $Y$ we need to find.
 
-    Using the last theorem, we can find an example for an operator 
-    $S \in \contoperators{Y'}{X'}$ that is not an adjoint operator \\
-    (i.e.\ with $\nexists T \in \contoperators{X}{Y}: T' = S$).
+%     Using the last theorem, we can find an example for an operator 
+%     $S \in \contoperators{Y'}{X'}$ that is not an adjoint operator \\
+%     (i.e.\ with $\nexists T \in \contoperators{X}{Y}: T' = S$).
 
-    % TODO: A not-adjunct operator :) we can use later!
-\end{proof}
+%     % TODO: A not-adjunct operator :) we can use later!
+% \end{proof}
