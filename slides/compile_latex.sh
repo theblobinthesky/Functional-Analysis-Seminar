@@ -4,7 +4,7 @@ set -euo pipefail
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$script_dir"
 
-output_dir="../output-presentation"
+output_dir="../output-slides"
 slides="slides"
 
 mkdir -p "$output_dir"

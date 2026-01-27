@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{The basic definitions and conventions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Terminology}
+    The terms \highlight{adjoint} and \highlight{dual} are often used interchangeably.
+    We will standardize to \highlight{adjoint}, to avoid unnecessary confusion.
+    Following\ \cite{werner_funktionalanalysis_2018}, we write $\thefield \in \{\reals, \complexes\}$ when the field is unspecified.
+\end{frame}
+
+\begin{frame}{Definition: Linear Operator}
+    \begin{definition}
+        We remind ourselves of the following concepts from the lecture \cite{krieg_functional_2025}:
+        Let \normedspace{X}, \normedspace{Y} and \normedspace{Z} be normed \thefield-vector spaces
+        \begin{enumeratetheorem}
+            \item
+                Let \[ T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot}) \] be a linear mapping.
+                Then we call $T$ a \highlight{linear operator}.
+                We call $T$ \highlight{bounded}, if \[\exists C > 0, \forall x \in X: \norm{Y}{Tx} \le C \norm{X}{x}\]
+                For brevity, we will use the notation $T: X \rightarrow Y$ for linear operators rather than \\
+                $T: (X, \norm{X}{\cdot}) \rightarrow (Y, \norm{Y}{\cdot})$.
+        \end{enumeratetheorem}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Definition: Dual Space and Closed Unit Ball}
+    \begin{definition}
+        Let \normedspace{X}, \normedspace{Y} and \normedspace{Z} be normed \thefield-vector spaces
+        \begin{itemize}
+            \item[ii)] The (topological) dual space is defined as \[ X' \defeq \dualspace{X} \]
+            \item[iii)] The closed unit ball in \normedspace{X} is abbreviated with \closedunitball{X}.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Revision: Foundational Statements (i)}
+    \begin{block}{Revision}
+        The following statements are foundational for this topic: \\
+        Let \twonormedspaces.
+        \begin{enumeratetheorem}
+            \item The set of continuous, linear operators \contoperators{X}{Y} is a Banach space if and only if $Y$ is a Banach space.
+                In particular, the topological dual space \dualspace{X} is a Banach space.
+            \item Let $T: X \to Y$ be a linear operator.
+                Then $T$ is bounded if and only if $T$ is continous.
+        \end{enumeratetheorem}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Revision: Foundational Statements (ii)}
+    \begin{block}{Revision}
+        Let \twonormedspaces.
+        \begin{itemize}
+            \item[iii)] Let \normedspace{Z} be a normed \thefield-vector space,
+                let $T: X \to Y$ be a linear, bounded operator and
+                let $S: Y \to Z$ be a linear, bounded operator.
+                Then $S \chain T$ is a linear, bounded operator.
+            \item[iv)] Let \normedspace{Z} be a normed \thefield-vector space,
+                let $T: X \to Y$ be a linear operator and
+                let $S: Y \to Z$ be a linear operator.
+                If $T$ or $S$ is compact, $S \chain T$ is compact.
+        \end{itemize}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Revision: Foundational Statements -- Proof}
+    \begin{proof}
+        \refertolecture
+    \end{proof}
+\end{frame}
+
+\begin{frame}{Definition: Adjoint Operator}
+    \begin{definition}
+        Let \twonormedspaces\ and $T \in \contoperators{X}{Y}$. \\
+        Then $T': Y' \rightarrow X', y' \mapsto y' \chain T$ is called the adjoint operator.
+        From now on, we will implicitly refer to the normed \thefield\ vector spaces $X, Y$ and the topological dual spaces $X', Y'$ when talking about the dual operator $T'$.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Remark: Adjoint Operator}
+    \begin{block}{Remark}
+        In comparison to the operators we have previously worked with, the adjoint operator takes and outputs linear, bounded operators.
+        It's one more level of abstraction removed from \thefield. \\
+        For $y' \in Y' = \dualspace{Y}$, the adjoint operator evaluates to $T' y' \in \dualspace{X} = X'$.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Example: Dual Space of $\reals^n$}
+    \begin{example}
+        Let $n \in \naturals$. Then we have
+        \begin{align*}
+            (\reals^n)'
+            &= \braces{g: \reals^n \to \reals \text{ linear, continuous}}   \explainstep{apply def. of dual space} \\
+            &= \braces{g: \reals^n \to \reals \text{ linear}}               \explainstep{result from linear algebra} \\
+            &\isomorphto \reals^n                                           \explainstep{result from linear algebra see \cite{fischer_bilinearformen_2025}}
+        \end{align*}
+    \end{example}
+\end{frame}
+
+\begin{frame}{Example: Adjoint of Matrix Operator -- Setup}
+    \begin{example}
+        Let $m \in \naturals$ and let $A \in \reals^{m \times n}$. \\
+        Consider the function $f: \reals^n \to \reals^m, x \mapsto Ax$.
+        The signature of the adjoint is $f': (\reals^m)' \to (\reals^n)'$.
+        With $e_i$ we denote the standard basis vectors
+        and with $e_i'$ we denote the dual standard basis vectors.
+    \end{example}
+\end{frame}
+
+\begin{frame}{Example: Adjoint of Matrix Operator -- Calculation}
+    \begin{example}
+        Let $i = 1, \dots, m$ and $j = 1, \dots, n$. We have
+        \begin{align*}
+            (f' e_i')(e_j)
+            &= (e_i' \chain f)(e_j)         \explainstep{apply def. of adjoint op.} \\
+            &= f(e_j)_i = a_{ij}            \explainstep{apply def. of $e_i'$ and $f$}
+        \end{align*}
+
+        So if we set $i = 1$ for instance,
+        we get \[(f' e_1')(e_j) = a_{1j} \]
+        The first "column" of $f'$ (up to isomorphism)
+        must be $(a_{1j})_{j = 1,\dots,n}$.
+    \end{example}
+\end{frame}
+
+\begin{frame}{Example: Adjoint of Matrix Operator -- Conclusion}
+    \begin{example}
+        In conclusion, we have (up to isomorphism):
+        \[ f': \reals^m \to \reals^n, x \mapsto A^T x \]
+    \end{example}
+\end{frame}

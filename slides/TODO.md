@@ -1,4 +1,4 @@
-Task: Transfer the writeup into this presentation. For starters, keep everything.
+Task: Transfer the writeup in writeup/writeup.tex into the slides in slides/slides.tex. For starters, keep all the definitions, corollaries, theorems, revisions, prosa text etc. - everything.
 
 Constraints:
 - Do not use any animations. Static slides. They can look nice, but don't make them reveal slowly.

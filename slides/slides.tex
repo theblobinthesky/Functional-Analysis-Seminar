@@ -1,0 +1,176 @@
+\documentclass[aspectratio=169]{beamer}
+
+% Theme configuration - cleaner academic look
+\usetheme{Madrid}
+\usecolortheme{whale}
+\useinnertheme{rectangles}
+\useoutertheme{infolines}
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+% Custom colors based on University of Passau branding
+\definecolor{unipassaublue}{RGB}{0,62,107}
+\definecolor{unipassaugray}{RGB}{88,88,90}
+\setbeamercolor{structure}{fg=unipassaublue}
+\setbeamercolor{frametitle}{bg=unipassaublue,fg=white}
+\setbeamercolor{title}{fg=unipassaublue}
+\setbeamercolor{block title}{bg=unipassaublue,fg=white}
+\setbeamercolor{block body}{bg=unipassaublue!10}
+\setbeamercolor{item}{fg=unipassaublue}
+
+% Logo in footer
+\logo{\includegraphics[height=0.8cm]{../uni-passau-logo.png}}
+
+% Packages
+\usepackage[english]{babel}
+\usepackage{amsmath, amsfonts, amsthm, mathtools}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[
+    backend=bibtex,
+    style=alphabetic,
+]{biblatex}
+\addbibresource{../bibliography.bib}
+
+% Macros from writeup/writeup.tex
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\eqdef}{=\vcentcolon}
+\newcommand{\isomorphto}{\cong}
+\renewcommand{\implies}{\Rightarrow}
+\newcommand{\convergesto}{\longrightarrow}
+
+\newcommand{\normedspace}[1]{\ensuremath{(#1, \|\cdot\|_{#1})}}
+\newcommand{\twonormedspaces}{\normedspace{X} and \normedspace{Y} be normed \thefield-vector spaces}
+
+\newcommand{\sequence}[2]{\ensuremath{(#2)_{#1 \in \naturals}}}
+\newcommand{\highlight}[1]{\textcolor{blue}{#1}}
+\newcommand{\norm}[2]{\|#2\|_{#1}}
+\newcommand{\abs}[1]{|#1|}
+\newcommand{\contoperators}[2]{\ensuremath{\mathcal{L}\left(#1, #2\right)}}
+\newcommand{\dualspace}[1]{\contoperators{#1}{\thefield}}
+\newcommand{\closedunitball}[1]{\ensuremath{\overline{B}_#1}}
+\newcommand{\thefield}{\ensuremath{\mathbb{F}}}
+\newcommand{\chain}{\ensuremath{\circ}}
+\newcommand{\explainstep}[1]{&& \textcolor{darkgray}{\text{(#1)}}}
+\newcommand{\logicaland}{\ensuremath{\wedge\;}}
+\newcommand{\logicalor}{\ensuremath{\lor}}
+\newcommand{\inv}[1]{\ensuremath{#1^{-1}}}
+
+% ===== COMMUNICATION ======
+\newcommand{\sidenote}[1]{\textup{\textcolor{blue}{$\triangleright$ #1}}}
+
+% ===== PROOF DIRECTIONS =====
+\newcommand{\leftrightproof}{"\ensuremath{\Rightarrow}":\space}
+\newcommand{\rightleftproof}{"\ensuremath{\Leftarrow}":\space}
+\newcommand{\leftrightinclusion}{"\ensuremath{\subset}":\space}
+\newcommand{\rightleftinclusion}{"\ensuremath{\supset}":\space}
+
+% ===== BRACKETS =====
+\newcommand{\parens}[1]{\left(#1\right)}
+\newcommand{\braces}[1]{\left\{#1\right\}}
+
+% ===== SETS ======
+\newcommand{\reals}{\ensuremath{\mathbb{R}}\xspace}
+\newcommand{\complexes}{\ensuremath{\mathbb{C}}\xspace}
+\newcommand{\naturals}{\ensuremath{\mathbb{N}}\xspace}
+
+% ===== SPECIAL OPERATORS =====
+\DeclareMathOperator{\rk}{rk}
+\let\ker\relax
+\DeclareMathOperator{\ker}{Ker}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\id}{Id}
+
+% ===== ENUMERATIONS =====
+\newlist{enumeratetheorem}{enumerate}{1}
+\setlist[enumeratetheorem]{label=\roman*), leftmargin=*, labelsep=0.2em, align=left}
+
+\newlist{enumerateproof}{enumerate}{1}
+\setlist[enumerateproof]{label="\roman*)":\space, leftmargin=0em, labelwidth=*, align=left}
+
+% ===== MISC =====
+\newcommand{\refertolecture}{\text{Please refer to the functional analysis lecture notes\ \cite{krieg_functional_2025} from SS/2025.}}
+
+% Theorem environments for beamer
+\setbeamertemplate{theorems}[numbered]
+
+\title{Dual Operators}
+\subtitle{Seminar Functional Analysis}
+\author{Erik Stern}
+\institute{University of Passau}
+\date{January 2026}
+
+% Section title slides - no text, just visual separator
+\setbeamercolor{section title}{fg=white}
+\AtBeginSection[]{
+    \begin{frame}
+        \vfill
+        \centering
+        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+            \usebeamerfont{title}\insertsectionhead\par
+        \end{beamercolorbox}
+        \vfill
+    \end{frame}
+}
+
+\AtBeginSubsection[]{
+    \begin{frame}
+        \vfill
+        \centering
+        \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+            \usebeamerfont{title}\insertsubsectionhead\par
+        \end{beamercolorbox}
+        \vfill
+    \end{frame}
+}
+
+\begin{document}
+
+% Title frame
+\input{chapters/titlepage.tex}
+
+% Table of contents
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Motivation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapters/motivation.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The adjoint operator}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/definitionsandconventions.tex}
+\input{chapters/basicproperties.tex}
+\input{chapters/dualofdual.tex}
+\input{chapters/compact.tex}
+\input{chapters/rank-nullity.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{References}
+    \printbibliography
+\end{frame}
+
+\begin{frame}
+    \centering
+    \Huge Thank you!
+
+    \vspace{1em}
+    \Large Questions?
+\end{frame}
+
+\end{document}
