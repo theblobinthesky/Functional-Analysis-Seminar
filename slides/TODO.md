@@ -17,3 +17,8 @@ Constraints:
 - Even if statement and proof cannot fit on a page, don't break up the statement or the proof unnecessarily across pages. Only split up if something actually overflows.
 - Title texts such as "Dual Operators" need to have white foreground color as their text color is otherwise the same as the background card color.
 - The section and subsections should not have a title. Indicate the section in the footer.
+- Any *pure* revision theorems are not presented with a proof or proof idea!
+- The last page of the presentation must show a "Summary" page rather than a stupid meaningless "Any questions?" page.
+- The abstract is not in the presentation.
+- If two revision theorems are on consequtive slides, pack them into one slide if not overflow occurs.
+- When you split an example or similar blocks across pages, the number cannot increase e.g. *no* Example 6, Example 7, Example 8.

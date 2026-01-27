@@ -2,11 +2,17 @@
 set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-cd "$script_dir"
-
-output_dir="../output-slides"
-slides="slides"
+output_dir="$script_dir/../output-slides"
+root_file="slides"
 
 mkdir -p "$output_dir"
-pdflatex -halt-on-error -output-directory="$output_dir" "$slides"
-pdflatex -halt-on-error -output-directory="$output_dir" "$slides"
+
+cd "$script_dir"
+pdflatex -halt-on-error -output-directory="$output_dir" "$root_file"
+
+# cd "$output_dir"
+# bibtex "$root_file"
+
+# cd "$script_dir"
+# pdflatex -halt-on-error -output-directory="$output_dir" "$root_file"
+# pdflatex -halt-on-error -output-directory="$output_dir" "$root_file"

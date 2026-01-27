@@ -34,22 +34,6 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{Revision: Arzel\`{a}-Ascoli -- Proof Idea}
-    \begin{block}{Proof Idea}
-        \begin{itemize}
-            \item $D$ is separable, i.e. $\exists D_0 \subset D: \overline{D_0} = D$. Simply set $D_0 = \bigcup_{n \in \naturals}{D_n}$ where $D_n$ is a finite $\frac{1}{n}$-covers of $D$.
-            \item For all $x \in D$ we can use the pointwise boundedness to invoke Bolzano-Weierstrass to find converging subsequences $(f_{n(x, k)}(x))_{k \in \naturals} \subset \thefield$.
-            \item Specifically, we have $\forall x \in D_0: (f_{n(x, k)}(x))_{k \in \naturals}$ converges.
-            \item Using the commonly used diagonal argument from the lecture, we can find a unified subsequence with no dependence on $x$:
-                $\forall x \in D_0: (f_{n(k)}(x))_{k \in \naturals}$ converges.
-            \item We already have $f_{n(k)}|_{D_0} \convergesto: f|_{D_0}$.  And it seems sensible to assume that $(f_{n(k)})_{k \in \naturals}$ is a convergent subsequence.
-                But how can you extend this to the entire set $D$?
-            \item For each $x \in D$, we can choose an arbitrarily close $x_0 \in D_0$. Using two triangle inequalities, uniform equicontinuity allows us to extend the result to $D$. \\
-                As $C(D)$ is complete, the Cauchy sequence converges.
-        \end{itemize}
-    \end{block}
-\end{frame}
-
 \begin{frame}{Theorem: Schauder}
     \begin{theorem}[Schauder]
         Let $X, Y$ be Banach spaces and $T: X \rightarrow Y$ be a bounded, linear operator.
